@@ -22,7 +22,7 @@ public class ObjectLoader : MonoBehaviour
         globalResources = gameObject.GetComponent<GlobalResources>();
 
         List<string> directories = new List<string>();
-        directories.Add(globalResources.workingDirectory + "/art/3d/");
+        directories.Add(globalResources.workingDirectory + "\\art\\3d\\");
         //load from workingDir/art/3d/... folder
         while (directories.Count != 0) {
             //gets directoey and removes from the direcotes list

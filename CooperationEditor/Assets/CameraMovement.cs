@@ -24,6 +24,7 @@ public class CameraMovement : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
+        //setup to get corret forward and right transforms for panning
         forward = transform.forward; //camera is already rotated -45 deg
         transform.eulerAngles = new Vector3(transform.eulerAngles.x + xangle, transform.eulerAngles.y, transform.eulerAngles.z);//turn camera down
         right = transform.right;//get reight transform
