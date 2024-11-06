@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using Siccity.GLTFUtility;
 using TMPro;
 
 public class GlobalResources : MonoBehaviour
 {
+    GameObject ImportGLTF(string filepath) {
+        return Importer.LoadFromFile(filepath);
+    }
+
 
     public string workingDirectory = ".\\workingDir";
 
@@ -18,6 +22,34 @@ public class GlobalResources : MonoBehaviour
     [SerializeField]
     GameObject _ObjectDropDown;//object holdering dropdown
     TMP_Dropdown ObjectDropDown;//actual dropdown
+
+    public GameObject CurrentObjectSelect;
+    public bool pickedup = false;
+
+    //gets called onchange of dropdown selection
+    public void objectChange() {
+        GameObject.Destroy(CurrentObjectSelect);
+        CurrentObjectSelect = ImportGLTF(gameObjectList[ObjectDropDown.value]);
+    }
+
+    public void objectPlace()
+    {
+        GameObject newCurrentObjectSelect = ImportGLTF(gameObjectList[ObjectDropDown.value]);
+        newCurrentObjectSelect.transform.position = CurrentObjectSelect.transform.position;
+        newCurrentObjectSelect.transform.rotation = CurrentObjectSelect.transform.rotation;
+        CurrentObjectSelect = newCurrentObjectSelect;
+        pickedup = false;
+    }
+
+    public void objectSet(GameObject obj) {
+        GameObject.Destroy(CurrentObjectSelect);
+        CurrentObjectSelect = obj;
+        pickedup = true;
+    }
+
+    [SerializeField]
+    GameObject _LuaDropDown;//object holdering dropdown
+    TMP_Dropdown LuaDropDown;//actual dropdown
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +71,9 @@ public class GlobalResources : MonoBehaviour
             }
             ObjectDropDown.AddOptions(temp);
             oldSizeOBJList = gameObjectList.Count;
+            if (CurrentObjectSelect == null) {//if no object is selected then use the first object in new list
+                objectChange();
+            }
         }
     }
 }

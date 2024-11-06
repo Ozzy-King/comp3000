@@ -12,10 +12,6 @@ public class ObjectLoader : MonoBehaviour
     [SerializeField]
     GlobalResources globalResources;
 
-    GameObject ImportGLTF(string filepath) {
-        return Importer.LoadFromFile(filepath);
-    }
-
     // Start is called before the first frame update
     void Start() {
         //load global resouces to get working directory
