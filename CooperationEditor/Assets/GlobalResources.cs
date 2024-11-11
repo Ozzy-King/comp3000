@@ -37,6 +37,21 @@ public class GlobalResources : MonoBehaviour
         GameObject newCurrentObjectSelect = ImportGLTF(gameObjectList[ObjectDropDown.value]);
         newCurrentObjectSelect.transform.position = CurrentObjectSelect.transform.position;
         newCurrentObjectSelect.transform.rotation = CurrentObjectSelect.transform.rotation;
+
+        Mesh newColliderMesh = new Mesh();
+        MeshFilter [] meshFilterSubObjects = CurrentObjectSelect.GetComponentsInChildren<MeshFilter>();
+        CombineInstance[] combineMeshs = new CombineInstance[meshFilterSubObjects.Length];
+        for (int i = 0; i < meshFilterSubObjects.Length; i++) {
+            combineMeshs[i].mesh = meshFilterSubObjects[i].sharedMesh;
+            combineMeshs[i].transform = meshFilterSubObjects[i].transform.localToWorldMatrix;
+        }
+        newColliderMesh.CombineMeshes(combineMeshs, true);
+
+        MeshCollider collideTemp = CurrentObjectSelect.AddComponent<MeshCollider>();
+        collideTemp.convex = true;
+        collideTemp.isTrigger = true;
+        collideTemp.sharedMesh = newColliderMesh;
+
         CurrentObjectSelect = newCurrentObjectSelect;
         pickedup = false;
     }
