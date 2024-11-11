@@ -38,23 +38,36 @@ public class GlobalResources : MonoBehaviour
         newCurrentObjectSelect.transform.position = CurrentObjectSelect.transform.position;
         newCurrentObjectSelect.transform.rotation = CurrentObjectSelect.transform.rotation;
 
+
         Mesh newColliderMesh = new Mesh();
-        MeshFilter [] meshFilterSubObjects = CurrentObjectSelect.GetComponentsInChildren<MeshFilter>();
+        MeshFilter[] meshFilterSubObjects = CurrentObjectSelect.GetComponentsInChildren<MeshFilter>();
         CombineInstance[] combineMeshs = new CombineInstance[meshFilterSubObjects.Length];
-        for (int i = 0; i < meshFilterSubObjects.Length; i++) {
+        for (int i = 0; i < meshFilterSubObjects.Length; i++)
+        {
+            combineMeshs[i] = new CombineInstance();
             combineMeshs[i].mesh = meshFilterSubObjects[i].sharedMesh;
-            combineMeshs[i].transform = meshFilterSubObjects[i].transform.localToWorldMatrix;
+            combineMeshs[i].transform = meshFilterSubObjects[i].gameObject.transform.localToWorldMatrix;
+            //combineMeshs[i].transform = meshFilterSubObjects[i].transform.localToWorldMatrix;
         }
-        newColliderMesh.CombineMeshes(combineMeshs, true);
+
+        newColliderMesh.CombineMeshes(combineMeshs, true, true);
 
         MeshCollider collideTemp = CurrentObjectSelect.AddComponent<MeshCollider>();
+        collideTemp.sharedMesh = null;
         collideTemp.convex = true;
         collideTemp.isTrigger = true;
         collideTemp.sharedMesh = newColliderMesh;
 
+        Bounds combinedBounds = newColliderMesh.bounds;
+        CurrentObjectSelect.transform.position = combinedBounds.center;  // Align to center of the combined mesh
+
+
+        CurrentObjectSelect.AddComponent<drawMesh>();
+
         CurrentObjectSelect = newCurrentObjectSelect;
         pickedup = false;
     }
+
 
     public void objectSet(GameObject obj) {
         GameObject.Destroy(CurrentObjectSelect);

@@ -42,7 +42,6 @@ public class MouseControls : MonoBehaviour
             //Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             Ray ray = cam.ViewportPointToRay(cam.ScreenToViewportPoint(Input.mousePosition));
 
-
             //find point at which ray hits y = 0
             float objToYzero = Mathf.Abs(gameObject.transform.position.y / ray.direction.y); //how many sets to get from objects position to y = 0 (camera is always looging down)
             Vector3 temp = (ray.direction * objToYzero);//could move objs position down to y= 0 with right transofrm on x and z
