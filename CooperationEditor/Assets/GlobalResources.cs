@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Siccity.GLTFUtility;
 using TMPro;
+using System;
 
 public class GlobalResources : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class GlobalResources : MonoBehaviour
     public void objectChange() {
         GameObject.Destroy(CurrentObjectSelect);
         CurrentObjectSelect = ImportGLTF(gameObjectList[ObjectDropDown.value]);
+        Renderer[] ChildrenObjects = CurrentObjectSelect.GetComponentsInChildren<Renderer>();
+
     }
 
     public void objectPlace()
@@ -38,32 +41,18 @@ public class GlobalResources : MonoBehaviour
         newCurrentObjectSelect.transform.position = CurrentObjectSelect.transform.position;
         newCurrentObjectSelect.transform.rotation = CurrentObjectSelect.transform.rotation;
 
-
-        Mesh newColliderMesh = new Mesh();
-        MeshFilter[] meshFilterSubObjects = CurrentObjectSelect.GetComponentsInChildren<MeshFilter>();
-        CombineInstance[] combineMeshs = new CombineInstance[meshFilterSubObjects.Length];
-        for (int i = 0; i < meshFilterSubObjects.Length; i++)
+        if (!pickedup)
         {
-            combineMeshs[i] = new CombineInstance();
-            combineMeshs[i].mesh = meshFilterSubObjects[i].sharedMesh;
-            combineMeshs[i].transform = meshFilterSubObjects[i].gameObject.transform.localToWorldMatrix;
-            //combineMeshs[i].transform = meshFilterSubObjects[i].transform.localToWorldMatrix;
+            //give all children a mesh collider tha will be used to detaect which object is hit
+            Transform[] ChildrenObjects = CurrentObjectSelect.GetComponentsInChildren<Transform>();
+            foreach (Transform childObject in ChildrenObjects) {
+                if (childObject != gameObject.GetComponent<Transform>()) { //makes sure it doesnt attach one to paerant object
+                    MeshCollider temp = childObject.gameObject.AddComponent<MeshCollider>();
+                    temp.convex = true;
+                    temp.isTrigger = true;
+                }
+            }
         }
-
-        newColliderMesh.CombineMeshes(combineMeshs, true, true);
-
-        MeshCollider collideTemp = CurrentObjectSelect.AddComponent<MeshCollider>();
-        collideTemp.sharedMesh = null;
-        collideTemp.convex = true;
-        collideTemp.isTrigger = true;
-        collideTemp.sharedMesh = newColliderMesh;
-
-        Bounds combinedBounds = newColliderMesh.bounds;
-        CurrentObjectSelect.transform.position = combinedBounds.center;  // Align to center of the combined mesh
-
-
-        CurrentObjectSelect.AddComponent<drawMesh>();
-
         CurrentObjectSelect = newCurrentObjectSelect;
         pickedup = false;
     }
