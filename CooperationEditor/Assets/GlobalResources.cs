@@ -27,9 +27,14 @@ public class GlobalResources : MonoBehaviour
     public GameObject CurrentObjectSelect;
     public bool pickedup = false;
 
+    public Material _hoverObj;
+    public Material _selectrObj;
+
     //gets called onchange of dropdown selection
     public void objectChange() {
-        GameObject.Destroy(CurrentObjectSelect);
+        if (CurrentObjectSelect != null) {
+            GameObject.Destroy(CurrentObjectSelect);
+        }
         CurrentObjectSelect = ImportGLTF(gameObjectList[ObjectDropDown.value]);
         Renderer[] ChildrenObjects = CurrentObjectSelect.GetComponentsInChildren<Renderer>();
 

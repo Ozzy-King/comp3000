@@ -16,10 +16,12 @@ public class CameraMovement : MonoBehaviour
     const float xangle = 35.264f;
     [SerializeField]
     int maxPanningSpeed = 200;
+    [SerializeField]
     int panningSpeed = 0;
 
     int scrollDistMax = 30;
     int scrollDistMin = 0;
+    [SerializeField]
     int currentScrollDist = 0;
 
     // Start is called before the first frame update
@@ -49,11 +51,11 @@ public class CameraMovement : MonoBehaviour
             if (Input.mouseScrollDelta.y != 0)//1=in -1=out
             {
                 bool valid = false;
-                if (Input.mouseScrollDelta.y > 0 && currentScrollDist - 1 >= scrollDistMin) {
+                if (Input.mouseScrollDelta.y > 0 && currentScrollDist - 2 >= scrollDistMin) {
                     currentScrollDist -= 1;
                     valid = true;
                 }
-                if (Input.mouseScrollDelta.y < 0 && currentScrollDist + 1 <= scrollDistMax)
+                if (Input.mouseScrollDelta.y < 0 && currentScrollDist + 2 <= scrollDistMax)
                 {
                     currentScrollDist += 1;
                     valid = true;

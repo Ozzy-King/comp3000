@@ -726,6 +726,8 @@ MonoBehaviour:
   _ObjectDropDown: {fileID: 1216567527}
   CurrentObjectSelect: {fileID: 0}
   pickedup: 0
+  _hoverObj: {fileID: 2100000, guid: be81710b530e209469b1955976731f86, type: 2}
+  _selectrObj: {fileID: 2100000, guid: ffb57723a33b6214999e1c128476f978, type: 2}
   _LuaDropDown: {fileID: 0}
 --- !u!114 &720214061
 MonoBehaviour:
@@ -1157,6 +1159,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPanningSpeed: 200
+  panningSpeed: 0
+  currentScrollDist: 0
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
