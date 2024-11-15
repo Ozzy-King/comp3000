@@ -11,7 +11,6 @@ public class GlobalResources : MonoBehaviour
         return Importer.LoadFromFile(filepath);
     }
 
-
     public string workingDirectory = ".\\workingDir";
 
     int oldSizeOBJList = 0;
@@ -20,15 +19,25 @@ public class GlobalResources : MonoBehaviour
     int oldSizeLUAList = 0;
     public List<string> luaScriptList = new List<string>();
 
+    //glbObject loaded by ObjectLoader
     [SerializeField]
     GameObject _ObjectDropDown;//object holdering dropdown
     TMP_Dropdown ObjectDropDown;//actual dropdown
 
-    public GameObject CurrentObjectSelect;
-    public bool pickedup = false;
+    //lua scripts loaded by luaScriptLoader
+    [SerializeField]
+    GameObject _LuaDropDown;//object holdering dropdown
+    TMP_Dropdown LuaDropDown;//actual dropdown
 
+    //outlines used for visual feed back to user
     public Material _hoverObj;
     public Material _selectrObj;
+
+
+    //-------------------------------------used for current object manipulation
+    //current object selected and if its being picked up or i sa new place
+    public GameObject CurrentObjectSelect;
+    public bool pickedup = false;
 
     //gets called onchange of dropdown selection
     public void objectChange() {
@@ -57,7 +66,11 @@ public class GlobalResources : MonoBehaviour
                     temp.isTrigger = true;
                 }
             }
+            //gives the perant object its own attribute script
+            ObjectAttributes newObjectAttributes = CurrentObjectSelect.AddComponent<ObjectAttributes>();
+            newObjectAttributes.PosChange();
         }
+
         CurrentObjectSelect = newCurrentObjectSelect;
         pickedup = false;
     }
@@ -68,10 +81,11 @@ public class GlobalResources : MonoBehaviour
         CurrentObjectSelect = obj;
         pickedup = true;
     }
+    //------------------------------------------
 
-    [SerializeField]
-    GameObject _LuaDropDown;//object holdering dropdown
-    TMP_Dropdown LuaDropDown;//actual dropdown
+    //------------------------------------attribute manipulation
+    public GameObject attributeTable;
+    public 
 
     // Start is called before the first frame update
     void Start()

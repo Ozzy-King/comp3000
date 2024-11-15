@@ -13,7 +13,57 @@ public class MouseControls : MonoBehaviour
     Camera cam;
     Vector3 oldMouse;
 
-    GameObject oldHitObj;
+    GameObject lastHoverObj;
+    void setLastHoverObj(GameObject obj) {
+        if (obj == null) { lastHoverObj = null; return; }
+        lastHoverObj = findParent(obj);
+    }
+
+
+    bool mouseButtonClicked = false;
+
+    //add material to children of object
+    public void addMaterial(GameObject obj, Material mat)
+    {
+        if (obj == null || mat == null) { return; }
+        MeshRenderer[] childrenMeshRendere = obj.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer ch in childrenMeshRendere)
+        {
+            List<Material> materials = new List<Material>(ch.materials);
+            if (!materials.Exists(x => x.shader == mat.shader))
+            {
+                materials.Add(new Material(mat));
+                ch.materials = materials.ToArray();
+            }
+        }
+    }
+    //remove a material from material list of object children
+    public void removeMaterial(GameObject obj, Material mat)
+    {
+        if (obj == null || mat == null) { return; }
+        MeshRenderer[] childrenMeshRendere = obj.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer ch in childrenMeshRendere)
+        {
+            List<Material> newMat = new List<Material>(ch.materials);
+            if (newMat.Exists(x => x.shader == mat.shader))
+            {
+                newMat.RemoveAll(x => x.shader == mat.shader);
+                ch.SetMaterials(newMat);
+            }
+        }
+    }
+    //get the top perant of object
+    public GameObject findParent(GameObject obj)
+    {
+        GameObject parent = obj;
+        while (parent.transform.parent != null)
+        {
+            parent = parent.transform.parent.gameObject;
+        }
+        return parent;
+    }
+
+
 
     // Start is called before the first frame update
     void Start() {
@@ -21,46 +71,56 @@ public class MouseControls : MonoBehaviour
         oldMouse = Input.mousePosition;
     }
 
-    //add material to children of object
-    void addMaterial(GameObject obj, Material mat) {
-        if (obj == null) { return; }
-        MeshRenderer[] childrenMeshRendere = obj.GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer ch in childrenMeshRendere) {
-            List<Material> materials = new List<Material>(ch.materials);
-            if (materials.Exists(x => x.Equals(mat) )) {
-                continue;
-            }
-            materials.Add(mat);
-            ch.materials = materials.ToArray();
-        }
-    }
-    //remove a material from material list of object children
-    void removeMaterial(GameObject obj, Material mat)
-    {
-        if (obj == null || mat == null) { return; }
-        MeshRenderer[] childrenMeshRendere = obj.GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer ch in childrenMeshRendere)
-        {
-            List<Material> materials = new List<Material>(ch.materials);
-            List<Material> newMat = new List<Material>();
-            foreach (Material m in materials) {
-                if (m.Equals(mat)) {
-                    continue;
-                }
-                newMat.Add(m);
-            }
-            ch.materials = newMat.ToArray();
-        }
-    }
-
-
-
-
     // Update is called once per frame
     void Update()
     {
         Vector3 newMouse = Input.mousePosition;
 
+        //calculations and ray traceing to hit and object and find where the mouse positions intersects with y = 0
+        RaycastHit rayHit;
+        //Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = cam.ViewportPointToRay(cam.ScreenToViewportPoint(Input.mousePosition));
+
+        //find point at which ray hits y = 0
+        float objToYzero = Mathf.Abs(gameObject.transform.position.y / ray.direction.y); //how many steps to get from objects position to y = 0 (camera is always looging down)
+        Vector3 temp = (ray.direction * objToYzero);//could move objs position down to y= 0 with right transofrm on x and z
+        float distance = Mathf.Sqrt(Mathf.Pow(temp.x, 2) + Mathf.Pow(ray.origin.y, 2) + Mathf.Pow(temp.z, 2));
+
+        Vector3 HitWorldPosition = ray.origin + (ray.direction * objToYzero);
+        HitWorldPosition = new Vector3((Mathf.FloorToInt(HitWorldPosition.x) / 2) * 2, 0, (Mathf.FloorToInt(HitWorldPosition.z) / 2) * 2);
+
+        //cast ray to y = 0
+        bool didHit = Physics.Raycast(ray, out rayHit, distance);
+
+        //add appropiate out line to objects(prioritise pickup)
+        if (globalResources.pickedup)
+        {
+            removeMaterial(lastHoverObj, globalResources._hoverObj);
+            removeMaterial(lastHoverObj, globalResources._selectrObj);
+            setLastHoverObj(globalResources.CurrentObjectSelect);
+            addMaterial(lastHoverObj, globalResources._selectrObj);
+        }
+        else if (didHit)
+        {
+            removeMaterial(lastHoverObj, globalResources._hoverObj);
+            removeMaterial(lastHoverObj, globalResources._selectrObj);
+            setLastHoverObj(rayHit.transform.gameObject);
+            addMaterial(lastHoverObj, globalResources._hoverObj);
+        }
+        else {
+            removeMaterial(lastHoverObj, globalResources._hoverObj);
+            removeMaterial(lastHoverObj, globalResources._selectrObj);
+            setLastHoverObj(null);
+        }
+
+        //move slsected object wither pickedup or new to cursor position
+        if (globalResources.CurrentObjectSelect != null) {
+            //sets positon of current object
+            globalResources.CurrentObjectSelect.transform.position = HitWorldPosition;
+        }
+
+
+        //controlls ------ R ROTATE E PLACE nothing select
         //rotate the object currently being selected with R
         if (Input.GetKey(KeyCode.R))
         {
@@ -68,28 +128,11 @@ public class MouseControls : MonoBehaviour
 
             globalResources.CurrentObjectSelect.transform.eulerAngles = globalResources.CurrentObjectSelect.transform.eulerAngles + new Vector3(0, oldMouse.x - newMouse.x, 0);
         }
-        //this is deafult to placeing new object
-        //shoot ray form mouse position to later itneract witht he object
-        //holding e will go into new placeing mode
+        //if holding E a new object will be placed
         else if (Input.GetKey(KeyCode.E)) {
             if (globalResources.CurrentObjectSelect == null) {
                 globalResources.objectChange(); //<-- sets objects back to current object if it is null(null hwen is comes from sleect mode)
             }
-            removeMaterial(oldHitObj, globalResources._hoverObj);
-            removeMaterial(oldHitObj, globalResources._selectrObj);
-
-            //almost doen this -->//TODO need to have mouse world pos bound to grid
-            Ray ray = cam.ViewportPointToRay(cam.ScreenToViewportPoint(Input.mousePosition));
-
-            //find point at which ray hits y = 0
-            float objToYzero = Mathf.Abs(gameObject.transform.position.y / ray.direction.y); //how many steps to get from objects position to y = 0 (camera is always looging down)
-            Vector3 temp = (ray.direction * objToYzero);//could move objs position down to y= 0 with right transofrm on x and z
-            float distance = Mathf.Sqrt(Mathf.Pow(temp.x, 2) + Mathf.Pow(ray.origin.y, 2) + Mathf.Pow(temp.z, 2));
-
-            Vector3 HitWorldPosition = ray.origin + (ray.direction * objToYzero);
-            HitWorldPosition = new Vector3((Mathf.FloorToInt(HitWorldPosition.x) / 2) * 2, 0, (Mathf.FloorToInt(HitWorldPosition.z) / 2) * 2);
-            //sets positon of current object
-            globalResources.CurrentObjectSelect.transform.position = HitWorldPosition;
 
 
             //debuging
@@ -102,78 +145,42 @@ public class MouseControls : MonoBehaviour
             }
 
         }
-
-        //holding e will go into pickup mode
+        //by default use is in select mode (no object will be by the mouse) 
         else {
+            //if an object that not ment to exist is appearing get rid of it
             if (!globalResources.pickedup && globalResources.CurrentObjectSelect != null) {
                 Destroy(globalResources.CurrentObjectSelect);
             }
 
-            RaycastHit rayHit;
-            //Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            Ray ray = cam.ViewportPointToRay(cam.ScreenToViewportPoint(Input.mousePosition));
-
-            //find point at which ray hits y = 0
-            float objToYzero = Mathf.Abs(gameObject.transform.position.y / ray.direction.y); //how many steps to get from objects position to y = 0 (camera is always looging down)
-            Vector3 temp = (ray.direction * objToYzero);//could move objs position down to y= 0 with right transofrm on x and z
-            float distance = Mathf.Sqrt(Mathf.Pow(temp.x, 2) + Mathf.Pow(ray.origin.y, 2) + Mathf.Pow(temp.z, 2));
-
-            Vector3 HitWorldPosition = ray.origin + (ray.direction * objToYzero);
-            HitWorldPosition = new Vector3((Mathf.FloorToInt(HitWorldPosition.x) / 2) * 2, 0, (Mathf.FloorToInt(HitWorldPosition.z) / 2) * 2);
-
-            //cast ray to y = 0
-            bool didHit = Physics.Raycast(ray, out rayHit, distance);
-
-            //if hit a game object then add material
-            if (didHit && !globalResources.pickedup)
+            if (Input.GetMouseButtonDown(0) && !mouseButtonClicked)
             {
-                if (rayHit.transform.gameObject != oldHitObj)
-                {
-                    removeMaterial(oldHitObj, globalResources._hoverObj);
-                    removeMaterial(oldHitObj, globalResources._selectrObj);
-                    oldHitObj = rayHit.transform.gameObject;
-                    addMaterial(oldHitObj, globalResources._hoverObj);
-                }
-            }
-            //else remove the material(reset to previosu material)
-            else
-            {
-                //resert old gha,m eobjects materials
-                removeMaterial(oldHitObj, globalResources._hoverObj);
-                removeMaterial(oldHitObj, globalResources._selectrObj);
-                oldHitObj = null;
-            }
-
-            if (globalResources.pickedup) {
-                globalResources.CurrentObjectSelect.transform.position = HitWorldPosition;
-                if (globalResources.CurrentObjectSelect != oldHitObj)
-                {
-                    removeMaterial(oldHitObj, globalResources._hoverObj);
-                    removeMaterial(oldHitObj, globalResources._selectrObj);
-
-                    oldHitObj = globalResources.CurrentObjectSelect;
-                    addMaterial(oldHitObj, globalResources._selectrObj);
-                    
-                }
-            }
-
-            if (Input.GetMouseButtonDown(0))
-            {
+                mouseButtonClicked = true;
                 //if it hit an object and not currenly picked anything up, pickup object
                 if (didHit && !globalResources.pickedup)
                 {
                     //gets the top perant of the hit obejct
-                    GameObject parent = rayHit.transform.gameObject;
-                    while (parent.transform.parent != null)
-                    {
-                        parent = parent.transform.parent.gameObject;
-                    }
+                    GameObject parent = findParent(rayHit.transform.gameObject);
                     globalResources.objectSet(parent);
                 }
-                else if(globalResources.pickedup) {
+            }
+            else if (Input.GetMouseButton(0)) {
+                Debug.Log("loggin held");
+                if (didHit && !globalResources.pickedup)
+                {
+                    //gets the top perant of the hit obejct
+                    GameObject parent = findParent(rayHit.transform.gameObject);
+                    globalResources.objectSet(parent);
+                }
+                globalResources.CurrentObjectSelect.transform.position = HitWorldPosition;
+
+            }
+            else {
+                mouseButtonClicked = false;
+                if (globalResources.pickedup){
                     globalResources.objectPlace();
                 }
             }
+
 
 
         }
