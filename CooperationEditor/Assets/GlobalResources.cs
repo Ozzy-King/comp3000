@@ -7,7 +7,7 @@ using System;
 
 public class GlobalResources : MonoBehaviour
 {
-    GameObject ImportGLTF(string filepath) {
+    public GameObject ImportGLTF(string filepath) {
         return Importer.LoadFromFile(filepath);
     }
 
@@ -18,11 +18,6 @@ public class GlobalResources : MonoBehaviour
 
     int oldSizeLUAList = 0;
     public List<string> luaScriptList = new List<string>();
-
-    //glbObject loaded by ObjectLoader
-    [SerializeField]
-    GameObject _ObjectDropDown;//object holdering dropdown
-    TMP_Dropdown ObjectDropDown;//actual dropdown
 
     //lua scripts loaded by luaScriptLoader
     [SerializeField]
@@ -37,6 +32,7 @@ public class GlobalResources : MonoBehaviour
     //-------------------------------------used for current object manipulation
     //current object selected and if its being picked up or i sa new place
     public GameObject CurrentObjectSelect;
+    public int CurrentObjectSelectID;
     public bool pickedup = false;
 
     //gets called onchange of dropdown selection
@@ -44,14 +40,14 @@ public class GlobalResources : MonoBehaviour
         if (CurrentObjectSelect != null) {
             GameObject.Destroy(CurrentObjectSelect);
         }
-        CurrentObjectSelect = ImportGLTF(gameObjectList[ObjectDropDown.value]);
+        CurrentObjectSelect = ImportGLTF(gameObjectList[CurrentObjectSelectID]);
         Renderer[] ChildrenObjects = CurrentObjectSelect.GetComponentsInChildren<Renderer>();
 
     }
 
     public void objectPlace()
     {
-        GameObject newCurrentObjectSelect = ImportGLTF(gameObjectList[ObjectDropDown.value]);
+        GameObject newCurrentObjectSelect = ImportGLTF(gameObjectList[CurrentObjectSelectID]);
         newCurrentObjectSelect.transform.position = CurrentObjectSelect.transform.position;
         newCurrentObjectSelect.transform.rotation = CurrentObjectSelect.transform.rotation;
 
@@ -90,26 +86,10 @@ public class GlobalResources : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ObjectDropDown = _ObjectDropDown.GetComponent<TMP_Dropdown>();
-        ObjectDropDown.ClearOptions();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //checks if object list has be added to or removed from and updates
-        if (oldSizeOBJList != gameObjectList.Count) {
-            List<string> temp = new List<string>();
-            ObjectDropDown.ClearOptions();
-            foreach (string objStr in gameObjectList) {
-                //string[] temp2 = objStr.Split("/")[^1];
-                temp.Add(objStr.Split("\\")[^1]);
-            }
-            ObjectDropDown.AddOptions(temp);
-            oldSizeOBJList = gameObjectList.Count;
-            if (CurrentObjectSelect == null) {//if no object is selected then use the first object in new list
-                objectChange();
-            }
-        }
     }
 }
