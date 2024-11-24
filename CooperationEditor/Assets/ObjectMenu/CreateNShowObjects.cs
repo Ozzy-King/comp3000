@@ -21,7 +21,7 @@ public class CreateNShowObjects : MonoBehaviour
     [SerializeField]
     RenderTexture globTexture;//holds the rendered image to copy to new texture
     [SerializeField]
-    Texture2D[] objectsImages;
+
 
     static float tPosx = 70f;
     static float tPosy = 90f;
@@ -32,16 +32,25 @@ public class CreateNShowObjects : MonoBehaviour
     bool temp = false;
     bool inRoutine = false;
 
+    Vector2 contentDelta;
+
     // Start is called before the first frame update
     IEnumerator StartFunc()
     {
         if (inRoutine) { yield break; }
         inRoutine = true;
-        //setup render texture for camera to use
-        if (globTexture != null) {
-            globTexture.Release();
+
+        //remove all carsd in context 
+        foreach (MeshRenderer m in contentObj.GetComponents<MeshRenderer>()) {
+            GameObject.Destroy(m);
         }
-        globTexture = new RenderTexture((int)CardPrefab.GetComponent<RectTransform>().rect.width, (int)CardPrefab.GetComponent<RectTransform>().rect.height, 24);
+        Texture2D[] objectsImages;
+        Sprite[] objectsImageSprites;
+        
+        //setup render texture for camera to use
+        if (globTexture == null) {
+            globTexture = new RenderTexture((int)CardPrefab.GetComponent<RectTransform>().rect.width, (int)CardPrefab.GetComponent<RectTransform>().rect.height, 24);
+        }
         globTexture.useMipMap = true;
         PhotoGetter.targetTexture = globTexture;
 
@@ -51,6 +60,7 @@ public class CreateNShowObjects : MonoBehaviour
 
         //create textures for each object
         objectsImages = new Texture2D[globalResources.gameObjectList.Count];
+        objectsImageSprites = new Sprite[globalResources.gameObjectList.Count];
 
         int c = 0;
         foreach (string file in globalResources.gameObjectList) {
@@ -69,6 +79,8 @@ public class CreateNShowObjects : MonoBehaviour
 
             objectsImages[c] = new Texture2D(globTexture.width, globTexture.height);
             Graphics.CopyTexture(globTexture, objectsImages[c]);
+            objectsImageSprites[c] = Sprite.Create(objectsImages[c],new Rect(0, 0, objectsImages[c].width, objectsImages[c].height), Vector2.zero);
+
 
             c++;
         }
@@ -83,28 +95,35 @@ public class CreateNShowObjects : MonoBehaviour
         {
             for (int x = 0; x < numx; x++, c++)
             {
+                //if (x == 0) { }
                 GameObject temp = Instantiate(CardPrefab, contentObj.transform);
                 RectTransform tempRect = GetComponent<RectTransform>();
                 temp.transform.position = new Vector3(tPosx + (130 * x), -((163 * y))+ tPosy, 0);
-                temp.GetComponent<RawImage>().texture = objectsImages[c];
-                if (c == objectsImages.Length-1) { break;}
+                temp.GetComponent<Image>().sprite = objectsImageSprites[c];
+                temp.GetComponent<CardClick>().ID = c;
+                if (c == objectsImages.Length-1) { break; }
             }
         }
         float lastPos = tPosy + ((CardPrefab.GetComponent<RectTransform>().rect.height * CardPrefab.transform.localScale.y) * (objectsImages.Length / numx)) + padding;//height of the last card
 
         float contentRectheight = lastPos + ((CardPrefab.GetComponent<RectTransform>().rect.height * CardPrefab.transform.localScale.y)/2) + padding; //set to last pos and add half card increase with 13 padding
-        Vector2 contentDelta = contentObj.GetComponent<RectTransform>().sizeDelta;
-        contentDelta.y = contentRectheight - contentDelta.y;
-        contentObj.GetComponent<RectTransform>().sizeDelta = contentDelta;
+        Vector2 newContentDelta = contentObj.GetComponent<RectTransform>().sizeDelta;
+        newContentDelta.y = contentRectheight - contentDelta.y;
+        contentObj.GetComponent<RectTransform>().sizeDelta = newContentDelta;
 
 
         temp = true;
         inRoutine = false;
     }
+
+    public void reLoadButtonClick() {
+        StartCoroutine(StartFunc());
+    }
+
     void Start()
     {
+        contentDelta = contentObj.GetComponent<RectTransform>().sizeDelta;
 
-        
 
     }
 
