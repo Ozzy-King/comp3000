@@ -1,0 +1,18 @@
+include: [ ] 
+
+fileProperties:
+  creatorName: Group 23
+
+sceneName: World1Dev
+
+grid:
+
+gridObjects:
+
+objectDefinitions:
+  OBJ1: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/bucketOfPower.glb", pos: {x: 1.5, y: 0, z: 0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 135} } ], mods: [ test1 ], tags: [ "throwable", "blocksMove", "part", "larm" ] }
+  OBJ2: { mapObject: Custom,  dir: east, art3d: [ { model: "Art/3D/bucketOfPower.glb", pos: {x: 1.5, y: 0, z: -0.3}, scale: {x: 1, y: 1, z: 1}, rot: {y: 45} } ], mods: [ test2 ], tags: [ "throwable", "blocksMove", "part", "rarm" ] }
+  OBJ3: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT80.glb", pos: {x: 0.3, y: 1.1, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 90, x: -90} } ], mods: [ test2 ], tags: [ "throwable", "blocksMove", "part", "tableTorso" ] }
+  OBJ4: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT80.glb", pos: {x: 0.3, y: 1.1, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 90, x: -90} } ], mods: [ test2 ], tags: [ "throwable", "blocksMove", "part", "tableHead" ] }
+  OBJ5: { mapObject: Custom,  dir: east, art3d: [ { model: "Art/3D/bucketOfPower.glb", pos: {x: 0.3, y: 1.1, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 90, x: -90} } ], mods: [ test1 ], tags: [ "throwable", "blocksMove", "part", "lleg" ] }
+  OBJ6: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/bucketOfPower.glb", pos: {x: 0.3, y: 1.1, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 90, x: -90} } ], mods: [ test2 ], tags: [ "throwable", "blocksMove", "part", "rleg" ] }

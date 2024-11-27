@@ -12,11 +12,12 @@ public class GlobalResources : MonoBehaviour
     }
 
     public string workingDirectory = ".\\workingDir";
+    public string LevelName = ".\\workingDir";
 
-    int oldSizeOBJList = 0;
-    public List<string> gameObjectList = new List<string>();
+    public int levelWidth;
+    public List<List<ObjectClass>> level;
 
-    int oldSizeLUAList = 0;
+    public List<ObjectClass> gameObjectList = new List<ObjectClass>();
     public List<string> luaScriptList = new List<string>();
 
     //lua scripts loaded by luaScriptLoader
@@ -40,14 +41,14 @@ public class GlobalResources : MonoBehaviour
         if (CurrentObjectSelect != null) {
             GameObject.Destroy(CurrentObjectSelect);
         }
-        CurrentObjectSelect = ImportGLTF(gameObjectList[CurrentObjectSelectID]);
+        CurrentObjectSelect = ImportGLTF(gameObjectList[CurrentObjectSelectID].art3d.model);
         Renderer[] ChildrenObjects = CurrentObjectSelect.GetComponentsInChildren<Renderer>();
 
     }
 
     public void objectPlace()
     {
-        GameObject newCurrentObjectSelect = ImportGLTF(gameObjectList[CurrentObjectSelectID]);
+        GameObject newCurrentObjectSelect = ImportGLTF(gameObjectList[CurrentObjectSelectID].art3d.model);
         newCurrentObjectSelect.transform.position = CurrentObjectSelect.transform.position;
         newCurrentObjectSelect.transform.rotation = CurrentObjectSelect.transform.rotation;
 
