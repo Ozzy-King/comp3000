@@ -12,17 +12,17 @@ grid: |
 
 gridObjects:
 
-  AA: [ camera_focus ]
-  AB: [  brick_wall_corner_se ]
-  AC: [ brick_wall_s ]
+  AA: [ floor ]
+  AB: [ brick_wall_e ]
+  AC: [ brick_wall_e ]
   
-  BA: [ camera_focus ]
-  BB: [  brick_wall_corner_se ]
-  BC: [ brick_wall_s ]
+  BA: [ brick_wall_s ]
+  BB: [ floor ]
+  BC: [ floor ]
   
-  CA: [ camera_focus ]
-  CB: [  brick_wall_corner_se ]
-  CC: [ brick_wall_s ]
+  CA: [ brick_wall_s ]
+  CB: [ floor ]
+  CC: [ floor, OBJ1 ]
   
 objectDefinitions:
 sounds:

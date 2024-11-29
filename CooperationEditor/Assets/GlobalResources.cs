@@ -12,7 +12,7 @@ public class GlobalResources : MonoBehaviour
     }
 
     public string workingDirectory = ".\\workingDir";
-    public string LevelName = ".\\workingDir";
+    public string LevelName = "ozzy_1_players_2.yaml";
 
     public int levelWidth;
     public List<List<ObjectClass>> level;
