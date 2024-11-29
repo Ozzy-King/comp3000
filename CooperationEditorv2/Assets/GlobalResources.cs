@@ -16,12 +16,12 @@ public class GlobalResources : MonoBehaviour
         return Importer.LoadFromFile(filepath);
     }
 
-    public string workingDirectory = ".\\workingDir";
+    public string workingDirectory = ".\\testing";
     public const string levelDir = "/levels/";
     public const string codeDir = "/code/";
     public const string artDir = "/art/";
     public const string art3dDir = "/art3d/";
-    public string LevelName = "ozzy_1_players_2.yaml";
+    public string LevelName = "Level_1_players_2.yaml";
 
     public LevelFile levelFile;
     public Dictionary<string, ObjectClass> allObjects = new Dictionary<string, ObjectClass>();
@@ -79,7 +79,7 @@ public class GlobalResources : MonoBehaviour
 
         for (int y = 0, c = 0; y < level.Count/ levelWidth; y++) { //loop throuhg the y
             for (int x = 0; x < levelWidth; x++, c++) { //loop throuhg the c
-                Vector2 newPos = new Vector2(-(x * 2), -(y * 2));
+                Vector2 newPos = new Vector2((x * 2), (y * 2));
                 GameObject EmptyGridSpace = new GameObject();
                 EmptyGridSpace.transform.position = new Vector3(newPos.x, 0, newPos.y);
                 EmptyGridSpace.name = "" + (char)(x+'A') + (char)(y+'A');
@@ -87,11 +87,16 @@ public class GlobalResources : MonoBehaviour
                     if (obj.art3d.Count <= 0) { continue; } //skip object with no model //TODO have default object so object with no art can still be used
                     Art3d objsArt = obj.art3d[^1];
                     GameObject Temp = ImportGLTF(workingDirectory+"/"+objsArt.model);
-                    CenterPivotAtBottomMiddle(Temp);
-                    Temp.transform.position = new Vector3(newPos.x, 0, newPos.y);
+                    Temp.name = obj.dir;
 
+                    //CenterPivotAtBottomMiddle(Temp);
                     
-                    Temp.transform.position += new Vector3(objsArt.pos.z, objsArt.pos.y, objsArt.pos.x);
+                    Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
+
+                    Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+                    Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+                    Temp.transform.Rotate(new Vector3(0,obj.DirToAngle(),0));//rotate around y to get it into north east south west
+                    Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
 
                     Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
                     Debug.Log(obj.dir);

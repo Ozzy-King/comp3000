@@ -17,7 +17,7 @@ public class LevelLoader : MonoBehaviour
 
         //read yaml file in
         string yml =File.ReadAllText(globalResources.workingDirectory + GlobalResources.levelDir + globalResources.LevelName);
-
+        Debug.Log(yml);
         //create desirializer and store result in global resoources
         IDeserializer deserializer = new DeserializerBuilder()
             .WithNamingConvention(CamelCaseNamingConvention.Instance)
@@ -60,6 +60,7 @@ public class LevelLoader : MonoBehaviour
         {
             //get full path and deerilize new file
             string fullPath = globalResources.workingDirectory + GlobalResources.levelDir + includeFile;
+            Debug.Log(fullPath);
             LevelFile newIncludeFile = deserializer.Deserialize<LevelFile>(File.ReadAllText(fullPath));
             //add includes files to current list
             foreach (string t in newIncludeFile.include)

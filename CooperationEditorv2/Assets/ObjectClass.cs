@@ -22,12 +22,19 @@ public class Art3d
 }
 public class ObjectClass
 {
-    enum _dir { 
-        north, east, south, west
+    enum _dir {
+        east = 3, north = 2, west = 1, south = 0
     }
+    public float DirToAngle() {
+        if (dir == "north") { return (float)_dir.north * 90; }
+        else if (dir == "east") { return (float)_dir.east * 90; }
+        else if (dir == "south") { return (float)_dir.south * 90; }
+        else{ return (float)_dir.west * 90; }
+    }
+
     public List<string> tags = new List<string>();
     public List<string> mods = new List<string>();
-    public string dir = "";
+    public string dir = "south";
     public string mapObject = "";
 
     [YamlMember(Alias = "art3d")]
@@ -61,6 +68,11 @@ public class Sounds
     public List<string> fileNames = new List<string>();
 }
 
+public class GlobalData {
+    public int Health { get; set; }
+    public string Need { get; set; }
+}
+
 public class LevelFile
 {
     [YamlMember(Alias = "include")]
@@ -89,5 +101,5 @@ public class LevelFile
 
     //not sure on this feild so change when needed
     [YamlMember(Alias = "global_data")]
-    public string globalData { get; set; } = "";
+    public Dictionary<string, GlobalData> globalData { get; set; } = new Dictionary<string, GlobalData>();
 }

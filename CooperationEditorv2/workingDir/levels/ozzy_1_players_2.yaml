@@ -17,11 +17,11 @@ gridObjects:
   AC: [ brick_wall_e ]
   
   BA: [ brick_wall_s ]
-  BB: [ floor ]
-  BC: [ floor ]
+  BB: [ floor]
+  BC: [ floor,OBJ6 ]
   
   CA: [ brick_wall_s ]
-  CB: [ floor ]
+  CB: [ floor, OBJ6 ]
   CC: [ floor, OBJ1 ]
   
 objectDefinitions:
