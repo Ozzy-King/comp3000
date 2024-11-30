@@ -10,12 +10,12 @@ grid:
 gridObjects:
 
 objectDefinitions:
-  OBJ1: { mapObject: Custom, art3d: [ { model: "Art/3D/2003/bucketOfPower.glb", scale: {x: 0.4, y: 0.4, z: 0.4} } ], tags: [ "powerBucket", "blocksMove", "throwable", "carryable" ], mods: [ frankHead ] }
+  OBJ1: { mapObject: Custom, testerror: olookNotReal, tags: [ "powerBucket", "blocksMove", "throwable", "carryable" ], mods: [ frankHead ] }
   OBJ2: { mapObject: Custom,  dir: east, art3d: [ { model: "Art/3D/2003/Head.glb", pos: {x: 1.5, y: 0, z: -0.3}, scale: {x: 1, y: 1, z: 1}, rot: {y: 45} } ], mods: [ test2 ], tags: [ "throwable", "blocksMove", "part", "rarm" ] }
   OBJ3: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT80.glb", pos: {x: 0.3, y: 1.1, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 90, x: -90} } ], mods: [ test2 ], tags: [ "throwable", "blocksMove", "part", "tableTorso" ] }
   OBJ4: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT80.glb", pos: {x: 0.3, y: 1.1, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 90, x: -90} } ], mods: [ test2 ], tags: [ "throwable", "blocksMove", "part", "tableHead" ] }
   OBJ5: { mapObject: Custom,  dir: east, art3d: [ { model: "Art/3D/2003/newHead.glb", pos: {x: 0.3, y: 1.1, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 90, x: -90} } ], mods: [ test1 ], tags: [ "throwable", "blocksMove", "part", "lleg" ] }
-  OBJ6: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/2003/bucketOfPower.glb", pos: {x: 0, y: 1.1, z: 0.0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 90, x: -90} } ], mods: [ test2 ], tags: [ "throwable", "blocksMove", "part", "rleg" ] }
+  OBJ6: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/2003/bucketOfPower.glb", pos: {x: 0, y: 1.1, z: 0.0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 90, x: -90} } ], art2d: [ { texture: "test.png", pos: {x: 0, y: 0.52, z: -0.82}, scale: {x: 1.3, y: 1.3, z: 1}, rot: {x: -12.0} } ], mods: [ test2 ], tags: [ "throwable", "blocksMove", "part", "rleg" ] }
 
   brick_wall_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/2003/BrickWall.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
   brick_wall_s: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/2003/BrickWall.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
@@ -23,3 +23,5 @@ objectDefinitions:
   floor: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/2003/Floor.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "floor"] }
   floorEndL: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/2003/FloorEndL.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "floor"] }
   floorEndR: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/2003/FloorEndR.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "floor"] }
+
+  imageTest: { mapObject: Custom, dir: east, art2d: [ { texture: "test.png", pos: {x: 0, y: 0.52, z: -0.82}, scale: {x: 1.3, y: 1.3, z: 1}, rot: {x: -12.0} } ] }

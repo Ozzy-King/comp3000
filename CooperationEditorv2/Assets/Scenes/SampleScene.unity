@@ -463,6 +463,7 @@ MonoBehaviour:
   workingDirectory: .\workingDir
   LevelName: ozzy_1_players_2.yaml
   levelWidth: 0
+  placeHolder: {fileID: 4718759678689770175, guid: f34c0523351899c44953c3df2750da5f, type: 3}
   LoadedEverything: 0
   _LuaDropDown: {fileID: 0}
   _hoverObj: {fileID: 0}

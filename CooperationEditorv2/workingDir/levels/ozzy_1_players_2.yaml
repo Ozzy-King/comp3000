@@ -21,7 +21,7 @@ gridObjects:
   BC: [ floor,OBJ6 ]
   
   CA: [ brick_wall_s ]
-  CB: [ floor, OBJ6 ]
+  CB: [ floor, imageTest ]
   CC: [ floor, OBJ1 ]
   
 objectDefinitions:

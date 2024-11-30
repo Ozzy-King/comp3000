@@ -11,17 +11,27 @@ public class LevelLoader : MonoBehaviour
     [SerializeField]
     GlobalResources globalResources;
 
+    IDeserializer deserializer;
+    ISerializer serializer;
+
+    public void INIT() {
+        deserializer = new DeserializerBuilder().IgnoreUnmatchedProperties()
+                .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                .Build();
+        serializer = new SerializerBuilder()
+        .WithNamingConvention(CamelCaseNamingConvention.Instance)
+        .Build();
+    }
+
     public void loadLevel() {
+        string filepath = globalResources.workingDirectory + GlobalResources.levelDir + "/" + globalResources.LevelName;
         //currently assuming existing levels are getting edited
-        if (!File.Exists(globalResources.workingDirectory + GlobalResources.levelDir + globalResources.LevelName)) { return; }
+        if (!File.Exists(filepath)) { return; }
 
         //read yaml file in
-        string yml =File.ReadAllText(globalResources.workingDirectory + GlobalResources.levelDir + globalResources.LevelName);
+        string yml =File.ReadAllText(filepath);
         Debug.Log(yml);
         //create desirializer and store result in global resoources
-        IDeserializer deserializer = new DeserializerBuilder()
-            .WithNamingConvention(CamelCaseNamingConvention.Instance).IgnoreUnmatchedProperties()
-            .Build();
 
         //yaml contains a string containing your YAML
         LevelFile p = deserializer.Deserialize<LevelFile>(yml);
@@ -50,16 +60,11 @@ public class LevelLoader : MonoBehaviour
             }
         }
 
-        //be caeful circular definitions will cause this to infintly loop
-        IDeserializer deserializer = new DeserializerBuilder()
-     .WithNamingConvention(CamelCaseNamingConvention.Instance)
-     .Build();
-
         List<string> includeFiles = globalResources.levelFile.include;
         foreach (string includeFile in includeFiles)
         {
             //get full path and deerilize new file
-            string fullPath = globalResources.workingDirectory + GlobalResources.levelDir + includeFile;
+            string fullPath = globalResources.workingDirectory + GlobalResources.levelDir + "/" + includeFile;
             Debug.Log(fullPath);
             LevelFile newIncludeFile = deserializer.Deserialize<LevelFile>(File.ReadAllText(fullPath));
             //add includes files to current list
@@ -87,10 +92,10 @@ public class LevelLoader : MonoBehaviour
             //loop though each cell(component) in the row
             for (int i = 0; i < comps.Length; i++) { 
                 comps[i] = comps[i].Trim(' ');
-                List<ObjectClass> ObjList = new List<ObjectClass>();//list to hold objects for the cell
+                List<(string, ObjectClass)> ObjList = new List<(string, ObjectClass)>();//list to hold objects for the cell
                 List<string> GridPosList = globalResources.levelFile.gridObjects[comps[i]];//get the list of object used in the cell
                 foreach (string gridObjName in GridPosList) { //loop thouhgh the object in cell
-                    ObjList.Add(globalResources.allObjects[gridObjName]);//find the object class which hass all attributes and add to list
+                    ObjList.Add((gridObjName, globalResources.allObjects[gridObjName]));//find the object class which hass all attributes and add to list
                 }
                 globalResources.level.Add(ObjList);//add cells object list to 
             } //get rid of leading and trailing space

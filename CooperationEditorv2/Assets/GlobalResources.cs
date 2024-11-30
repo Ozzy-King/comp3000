@@ -1,3 +1,4 @@
+//#define DEBUG // Define the DEBUG symbol
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,22 +33,24 @@ public class GlobalResources : MonoBehaviour
         SpriteRenderer render = BillboardObject.AddComponent<SpriteRenderer>();
         render.sprite = sprite2D;
 
-        BillboardObject.AddComponent<BillboardScript>();
-
+        //BillboardObject.AddComponent<BillboardScript>();
+        
         return BillboardObject;
     }
 
     public string workingDirectory = ".\\testing";
-    public const string levelDir = "/levels/";
-    public const string codeDir = "/code/";
-    public const string artDir = "/art/";
-    public const string art3dDir = "/art3d/";
+    public const string levelDir = "/levels";
+    public const string codeDir = "/code";
+    public const string artDir = "/art";
+    public const string art3dDir = "/3d";
+    public const string art2dDir = "/2d";
     public string LevelName = "Level_1_players_2.yaml";
 
     public LevelFile levelFile;
     public Dictionary<string, ObjectClass> allObjects = new Dictionary<string, ObjectClass>();
     public int levelWidth;
-    public List<List<ObjectClass>> level = new List<List<ObjectClass>>();
+    public List<List<(string, ObjectClass)>> level = new List<List<(string, ObjectClass)>>();
+    public GameObject placeHolder; //<----- set in editor
 
     public bool LoadedEverything = false;
 
@@ -91,6 +94,7 @@ public class GlobalResources : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        levelLoader.INIT();
         levelLoader.loadLevel();
         levelLoader.LoadObjects();
         levelLoader.parseLevel();
@@ -101,35 +105,103 @@ public class GlobalResources : MonoBehaviour
         for (int y = 0, c = 0; y < level.Count/ levelWidth; y++) { //loop throuhg the y
             for (int x = 0; x < levelWidth; x++, c++) { //loop throuhg the c
                 Vector2 newPos = new Vector2((x * 2), (y * 2));
+ #if _DEBUG_
                 GameObject EmptyGridSpace = new GameObject();
                 EmptyGridSpace.transform.position = new Vector3(newPos.x, 0, newPos.y);
                 EmptyGridSpace.name = "" + (char)(x+'A') + (char)(y+'A');
+#endif
                 //TODO if a defintion has no object or image then replace with billboard spite of definition name
-                foreach (ObjectClass obj in level[c]) {  //loop each object in each cell
-                    if (obj.art3d.Count <= 0) { continue; } //skip object with no model //TODO have default object so object with no art can still be used
-                    Art3d objsArt = obj.art3d[^1];
-                    GameObject Temp = ImportGLTF(workingDirectory+"/"+objsArt.model);
-                    Temp.name = obj.dir;
+                foreach ((string name, ObjectClass obj) in level[c]) {  //loop each object in each cell
+                    GameObject HolderObj = new GameObject();//holds al the models for object
+                    HolderObj.name = name;
+                    HolderObj.transform.position = new Vector3(newPos.y, 0, newPos.x);
 
-                    //CenterPivotAtBottomMiddle(Temp);
-                    
-                    Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
+                    //display obejcst and images, if nothing renders then redner text with the objects name
+                    bool visible = false;
+                    //import each object used
+                    foreach (Art3d objsArt in obj.art3d)
+                    {
+                        visible = true;
+                        GameObject Temp = ImportGLTF(workingDirectory + "/" + objsArt.model);
+                        Temp.name = obj.dir;
 
-                    Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
-                    Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
-                    Temp.transform.Rotate(new Vector3(0,obj.DirToAngle(),0));//rotate around y to get it into north east south west
-                    Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+                        //CenterPivotAtBottomMiddle(Temp);
 
-                    Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
-                    Debug.Log(obj.dir);
-                    Temp.transform.parent = EmptyGridSpace.transform;
-                    
+                        Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
+
+                        Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+                        Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+                        Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
+                        Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+
+                        Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+                        Debug.Log(obj.dir);
+                        Temp.transform.parent = HolderObj.transform;
+                    }
+                    foreach (Art2d objsArt in obj.art2d)
+                    {
+                        visible = true;
+                        // Create a Quad mesh
+                        Mesh mesh = new Mesh();
+
+                        // Set the vertices of the Quad (2D plane)
+                        mesh.vertices = new Vector3[]
+                        {
+                            new Vector3(-0.5f, -0.5f, 0),  // Bottom-left
+                            new Vector3( 0.5f, -0.5f, 0),  // Bottom-right
+                            new Vector3( 0.5f,  0.5f, 0),  // Top-right
+                            new Vector3(-0.5f,  0.5f, 0)   // Top-left
+                        };
+
+                        // Set the triangles (indices of the vertices that form each triangle)
+                        mesh.triangles = new int[]
+                        {
+                             0, 2, 1,  // First triangle
+                             0, 3, 2   // Second triangle
+                        };
+
+                        // Set the UVs to map the texture onto the Quad
+                        mesh.uv = new Vector2[]
+                        {
+                            new Vector2(0, 0),  // Bottom-left
+                            new Vector2(1, 0),  // Bottom-right
+                            new Vector2(1, 1),  // Top-right
+                            new Vector2(0, 1)   // Top-left
+                        };
+                        GameObject Temp = ImportImage(workingDirectory + artDir + art2dDir + "/" + objsArt.texture);
+
+                        MeshCollider collider = Temp.AddComponent<MeshCollider>();
+                        collider.sharedMesh = mesh;
+                        collider.convex = true;
+                        collider.isTrigger = true;
+
+                        Temp.name = obj.dir;
+
+                        //CenterPivotAtBottomMiddle(Temp);
+
+                        Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
+
+                        Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+                        Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+                        Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
+                        Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+
+                        Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+                        Debug.Log(obj.dir);
+                        Temp.transform.parent = HolderObj.transform;
+                    }
+                    if (!visible) {
+                        GameObject Temp = Instantiate(placeHolder);
+                        Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
+                        Temp.transform.parent = HolderObj.transform;
+                    }
+#if _DEBUG_
+                    HolderObj.transform.parent = EmptyGridSpace.transform; //,,---- add for debugging
+#endif
                 }
             }
         }
-
-        ImportImage(".\\workingDir\\art\\2d\\walldeco5.png");
-
+   
         Debug.Log(levelFile.grid);
         LoadedEverything = true;
     }
