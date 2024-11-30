@@ -104,6 +104,7 @@ public class GlobalResources : MonoBehaviour
                 GameObject EmptyGridSpace = new GameObject();
                 EmptyGridSpace.transform.position = new Vector3(newPos.x, 0, newPos.y);
                 EmptyGridSpace.name = "" + (char)(x+'A') + (char)(y+'A');
+                //TODO if a defintion has no object or image then replace with billboard spite of definition name
                 foreach (ObjectClass obj in level[c]) {  //loop each object in each cell
                     if (obj.art3d.Count <= 0) { continue; } //skip object with no model //TODO have default object so object with no art can still be used
                     Art3d objsArt = obj.art3d[^1];
