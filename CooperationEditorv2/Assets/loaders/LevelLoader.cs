@@ -20,7 +20,7 @@ public class LevelLoader : MonoBehaviour
         Debug.Log(yml);
         //create desirializer and store result in global resoources
         IDeserializer deserializer = new DeserializerBuilder()
-            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .WithNamingConvention(CamelCaseNamingConvention.Instance).IgnoreUnmatchedProperties()
             .Build();
 
         //yaml contains a string containing your YAML

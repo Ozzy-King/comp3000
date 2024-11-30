@@ -20,6 +20,15 @@ public class Art3d
     public vec3Scale scale = new vec3Scale();
     public string model = "";
 }
+
+public class Art2d
+{
+    public vec3 pos = new vec3();
+    public vec3 rot = new vec3();
+    public vec3Scale scale = new vec3Scale();
+    public string texture = "";
+}
+
 public class ObjectClass
 {
     enum _dir {
@@ -39,6 +48,8 @@ public class ObjectClass
 
     [YamlMember(Alias = "art3d")]
     public List<Art3d> art3d { get; set; } = new List<Art3d>();
+    [YamlMember(Alias = "art2d")]
+    public List<Art2d> art2d { get; set; } = new List<Art2d>();
 }
 
 public class FileProperties

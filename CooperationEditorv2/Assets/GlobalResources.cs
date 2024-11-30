@@ -6,6 +6,7 @@ using TMPro;
 using System;
 using Unity.VisualScripting;
 using System.Linq;
+using System.IO;
 
 public class GlobalResources : MonoBehaviour
 {
@@ -14,6 +15,26 @@ public class GlobalResources : MonoBehaviour
 
     public GameObject ImportGLTF(string filepath) {
         return Importer.LoadFromFile(filepath);
+    }
+    public GameObject ImportImage(string filepath) {
+        GameObject BillboardObject = new GameObject();
+        Texture2D Tex2D;
+        Sprite sprite2D;
+        if (!File.Exists(filepath)) { return BillboardObject; }
+        
+        //create sprite
+        byte[] FileData = File.ReadAllBytes(filepath);
+        Tex2D = new Texture2D(2, 2);
+        Tex2D.LoadImage(FileData);
+        sprite2D = Sprite.Create(Tex2D, new Rect(0, 0, Tex2D.width, Tex2D.height), new Vector2(0, 0));
+
+        //set sprite to render
+        SpriteRenderer render = BillboardObject.AddComponent<SpriteRenderer>();
+        render.sprite = sprite2D;
+
+        BillboardObject.AddComponent<BillboardScript>();
+
+        return BillboardObject;
     }
 
     public string workingDirectory = ".\\testing";
@@ -105,8 +126,8 @@ public class GlobalResources : MonoBehaviour
                 }
             }
         }
-        
 
+        ImportImage(".\\workingDir\\art\\2d\\walldeco5.png");
 
         Debug.Log(levelFile.grid);
         LoadedEverything = true;
