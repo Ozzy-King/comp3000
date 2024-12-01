@@ -113,7 +113,7 @@ public class GlobalResources : MonoBehaviour
                     HolderObj.name = name;
                     HolderObj.transform.position = new Vector3(newPos.y, 0, newPos.x);
 
-                    //display obejcst and images, if nothing renders then redner text with the objects name
+                    //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
                     bool visible = false;
                     //import each object used
                     foreach (Art3d objsArt in obj.art3d)
