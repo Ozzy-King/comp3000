@@ -27,7 +27,17 @@ public class MouseControls : MonoBehaviour
     {
         if (obj == null || mat == null) { return; }
         MeshRenderer[] childrenMeshRendere = obj.GetComponentsInChildren<MeshRenderer>();
+        SpriteRenderer[] childrenSpriteRendere = obj.GetComponentsInChildren<SpriteRenderer>();
         foreach (MeshRenderer ch in childrenMeshRendere)
+        {
+            List<Material> materials = new List<Material>(ch.materials);
+            if (!materials.Exists(x => x.shader == mat.shader))
+            {
+                materials.Add(new Material(mat));
+                ch.materials = materials.ToArray();
+            }
+        }
+        foreach (SpriteRenderer ch in childrenSpriteRendere)
         {
             List<Material> materials = new List<Material>(ch.materials);
             if (!materials.Exists(x => x.shader == mat.shader))
@@ -42,7 +52,17 @@ public class MouseControls : MonoBehaviour
     {
         if (obj == null || mat == null) { return; }
         MeshRenderer[] childrenMeshRendere = obj.GetComponentsInChildren<MeshRenderer>();
+        SpriteRenderer[] childrenSpriteRendere = obj.GetComponentsInChildren<SpriteRenderer>();
         foreach (MeshRenderer ch in childrenMeshRendere)
+        {
+            List<Material> newMat = new List<Material>(ch.materials);
+            if (newMat.Exists(x => x.shader == mat.shader))
+            {
+                newMat.RemoveAll(x => x.shader == mat.shader);
+                ch.SetMaterials(newMat);
+            }
+        }
+        foreach (SpriteRenderer ch in childrenSpriteRendere)
         {
             List<Material> newMat = new List<Material>(ch.materials);
             if (newMat.Exists(x => x.shader == mat.shader))
@@ -92,13 +112,11 @@ public class MouseControls : MonoBehaviour
         //cast ray to y = 0
         bool didHit = Physics.Raycast(ray, out rayHit, distance);
 
-        //add appropiate out line to objects(prioritise pickup)
-        if (globalResources.pickedup)
-        {
+        if (Input.GetMouseButton(0)) {
             removeMaterial(lastHoverObj, globalResources._hoverObj);
             removeMaterial(lastHoverObj, globalResources._selectrObj);
-            setLastHoverObj(globalResources.CurrentObjectSelect);
             addMaterial(lastHoverObj, globalResources._selectrObj);
+            lastHoverObj.transform.position = HitWorldPosition;
         }
         else if (didHit)
         {

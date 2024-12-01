@@ -100,19 +100,16 @@ public class GlobalResources : MonoBehaviour
         levelLoader.parseLevel();
 
 
-        //place objects in scene
+        //place objects in scene from level
 
         for (int y = 0, c = 0; y < level.Count/ levelWidth; y++) { //loop throuhg the y
             for (int x = 0; x < levelWidth; x++, c++) { //loop throuhg the c
                 Vector2 newPos = new Vector2((x * 2), (y * 2));
- #if _DEBUG_
-                GameObject EmptyGridSpace = new GameObject();
-                EmptyGridSpace.transform.position = new Vector3(newPos.x, 0, newPos.y);
-                EmptyGridSpace.name = "" + (char)(x+'A') + (char)(y+'A');
-#endif
+
                 //TODO if a defintion has no object or image then replace with billboard spite of definition name
                 foreach ((string name, ObjectClass obj) in level[c]) {  //loop each object in each cell
                     GameObject HolderObj = new GameObject();//holds al the models for object
+                    HolderObj.AddComponent<ObjectAttributes>().objectName = name;
                     HolderObj.name = name;
                     HolderObj.transform.position = new Vector3(newPos.y, 0, newPos.x);
 
@@ -123,6 +120,13 @@ public class GlobalResources : MonoBehaviour
                     {
                         visible = true;
                         GameObject Temp = ImportGLTF(workingDirectory + "/" + objsArt.model);
+                        Temp.AddComponent<ObjectAttributes>().attributes3d = objsArt;
+                        foreach (Renderer rend in Temp.GetComponentsInChildren<Renderer>()) {
+                            MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
+                            col.convex = true;
+                            col.isTrigger = true;
+                        }
+
                         Temp.name = obj.dir;
 
                         //CenterPivotAtBottomMiddle(Temp);
@@ -141,38 +145,9 @@ public class GlobalResources : MonoBehaviour
                     foreach (Art2d objsArt in obj.art2d)
                     {
                         visible = true;
-                        // Create a Quad mesh
-                        Mesh mesh = new Mesh();
-
-                        // Set the vertices of the Quad (2D plane)
-                        mesh.vertices = new Vector3[]
-                        {
-                            new Vector3(-0.5f, -0.5f, 0),  // Bottom-left
-                            new Vector3( 0.5f, -0.5f, 0),  // Bottom-right
-                            new Vector3( 0.5f,  0.5f, 0),  // Top-right
-                            new Vector3(-0.5f,  0.5f, 0)   // Top-left
-                        };
-
-                        // Set the triangles (indices of the vertices that form each triangle)
-                        mesh.triangles = new int[]
-                        {
-                             0, 2, 1,  // First triangle
-                             0, 3, 2   // Second triangle
-                        };
-
-                        // Set the UVs to map the texture onto the Quad
-                        mesh.uv = new Vector2[]
-                        {
-                            new Vector2(0, 0),  // Bottom-left
-                            new Vector2(1, 0),  // Bottom-right
-                            new Vector2(1, 1),  // Top-right
-                            new Vector2(0, 1)   // Top-left
-                        };
                         GameObject Temp = ImportImage(workingDirectory + artDir + art2dDir + "/" + objsArt.texture);
-
-                        MeshCollider collider = Temp.AddComponent<MeshCollider>();
-                        collider.sharedMesh = mesh;
-                        collider.convex = true;
+                        Temp.AddComponent<ObjectAttributes>().attributes2d = objsArt;
+                        BoxCollider collider = Temp.AddComponent<BoxCollider>();
                         collider.isTrigger = true;
 
                         Temp.name = obj.dir;
@@ -195,9 +170,6 @@ public class GlobalResources : MonoBehaviour
                         Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
                         Temp.transform.parent = HolderObj.transform;
                     }
-#if _DEBUG_
-                    HolderObj.transform.parent = EmptyGridSpace.transform; //,,---- add for debugging
-#endif
                 }
             }
         }
