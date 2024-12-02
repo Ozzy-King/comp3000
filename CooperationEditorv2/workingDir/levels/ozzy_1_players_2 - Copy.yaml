@@ -1,0 +1,24 @@
+#EDITORPROG:
+include: [frankShare.yaml]
+fileProperties:
+  creatorName: osbourne
+  sceneName: EmptyWorld
+postProcessing:
+  depthOfField: { enabled: false, focusDistance: 58, focalLength: 0.0, aperture: 1.0 }
+grid: |
+  AA,BA,CA
+  AB,BB,CB
+  AC,BC,CC
+gridObjects:
+  AA: [ floor ]
+  AB: [ brick_wall_e ]
+  AC: [ brick_wall_e ]
+  BA: [ brick_wall_s ]
+  BB: [ floor ]
+  BC: [ floor, OBJ6 ]
+  CA: [ brick_wall_s ]
+  CB: [ floor, imageTest ]
+  CC: [ floor, OBJ1 ]
+objectDefinitions:
+sounds:
+globalData:

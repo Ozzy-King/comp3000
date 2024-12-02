@@ -49,7 +49,8 @@ public class GlobalResources : MonoBehaviour
     public LevelFile levelFile;
     public Dictionary<string, ObjectClass> allObjects = new Dictionary<string, ObjectClass>();
     public int levelWidth;
-    public List<List<(string, ObjectClass)>> level = new List<List<(string, ObjectClass)>>();
+    public List<List<(string, ObjectClass)>> level = new List<List<(string, ObjectClass)>>(); //<<--used to set the level up in the world
+    public List<GameObject> CurrentLevel;//<<-- all game objects that are in the current map 
     public GameObject placeHolder; //<----- set in editor
 
     public bool LoadedEverything = false;
@@ -170,6 +171,7 @@ public class GlobalResources : MonoBehaviour
                         Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
                         Temp.transform.parent = HolderObj.transform;
                     }
+                    CurrentLevel.Add(HolderObj);
                 }
             }
         }
