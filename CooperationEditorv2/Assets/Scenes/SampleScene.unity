@@ -545,7 +545,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1050346392}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.999999
+  m_Size: 0.9999984
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -990,7 +990,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -258.08386, y: 0.00002941564}
+  m_AnchoredPosition: {x: -258.08386, y: -0.000022394297}
   m_SizeDelta: {x: 258, y: 1063}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1406837073
@@ -1175,7 +1175,7 @@ MonoBehaviour:
   _hoverObj: {fileID: 2100000, guid: 9bf043228e483c6468cb6afe5100be7e, type: 2}
   _selectrObj: {fileID: 2100000, guid: 2e463b536d4798b40b787895cdd190b8, type: 2}
   CurrentObjectSelect: {fileID: 0}
-  CurrentObjectSelectID: 0
+  CurrentObjectSelectID: 
   pickedup: 0
   attributeTable: {fileID: 0}
 --- !u!114 &1798005717
