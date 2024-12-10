@@ -113,21 +113,26 @@ public class MouseControls : MonoBehaviour
         bool didHit = Physics.Raycast(ray, out rayHit, distance);
 
         //need to add object create function that sets up the object and return the top perant object
-       // if (Input.GetKey(KeyCode.E)) {
-       //     if (Input.GetKeyDown(KeyCode.E))
-       //     {
-       //         removeMaterial(lastHoverObj, globalResources._hoverObj);
-       //         removeMaterial(lastHoverObj, globalResources._selectrObj);
-       //         
-       //         setLastHoverObj(rayHit.transform.gameObject);
-       //     }
-       // }
+        // if (Input.GetKey(KeyCode.E)) {
+        //     if (Input.GetKeyDown(KeyCode.E))
+        //     {
+        //         removeMaterial(lastHoverObj, globalResources._hoverObj);
+        //         removeMaterial(lastHoverObj, globalResources._selectrObj);
+        //         
+        //         setLastHoverObj(rayHit.transform.gameObject);
+        //     }
+        // }
 
-        if (Input.GetMouseButton(0)) {
-            removeMaterial(lastHoverObj, globalResources._hoverObj);
-            removeMaterial(lastHoverObj, globalResources._selectrObj);
-            addMaterial(lastHoverObj, globalResources._selectrObj);
-            lastHoverObj.transform.position = HitWorldPosition;
+        if (Input.GetMouseButton(0))
+        {
+            if (lastHoverObj != null)
+            {
+                removeMaterial(lastHoverObj, globalResources._hoverObj);
+                removeMaterial(lastHoverObj, globalResources._selectrObj);
+                addMaterial(lastHoverObj, globalResources._selectrObj);
+
+                lastHoverObj.transform.position = HitWorldPosition;
+            }
         }
         else if (didHit)
         {
@@ -136,7 +141,8 @@ public class MouseControls : MonoBehaviour
             setLastHoverObj(rayHit.transform.gameObject);
             addMaterial(lastHoverObj, globalResources._hoverObj);
         }
-        else {
+        else
+        {
             removeMaterial(lastHoverObj, globalResources._hoverObj);
             removeMaterial(lastHoverObj, globalResources._selectrObj);
             setLastHoverObj(null);
