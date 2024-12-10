@@ -10,13 +10,11 @@ postProcessing:
     focalLength: 0
     aperture: 1
 grid: >
-  AA,BA,CA,DA
+  AA,BA,CA
 
-  AB,BB,CB,DB
+  AB,BB,CB
 
-  AC,BC,CC,DC
-
-  AD,BD,CD,DD
+  AC,BC,CC
 gridObjects:
   AA:
   - floor
@@ -24,7 +22,6 @@ gridObjects:
   - brick_wall_s
   CA:
   - brick_wall_s
-  DA: []
   AB:
   - brick_wall_e
   BB:
@@ -32,20 +29,14 @@ gridObjects:
   CB:
   - floor
   - imageTest
-  DB: []
   AC:
   - brick_wall_e
   BC:
   - OBJ6
+  - floor
   CC:
   - OBJ1
-  DC:
   - floor
-  AD: []
-  BD:
-  - floor
-  CD: []
-  DD: []
 objectDefinitions: 
 sounds: 
 globalData: 

@@ -112,6 +112,17 @@ public class MouseControls : MonoBehaviour
         //cast ray to y = 0
         bool didHit = Physics.Raycast(ray, out rayHit, distance);
 
+        //need to add object create function that sets up the object and return the top perant object
+       // if (Input.GetKey(KeyCode.E)) {
+       //     if (Input.GetKeyDown(KeyCode.E))
+       //     {
+       //         removeMaterial(lastHoverObj, globalResources._hoverObj);
+       //         removeMaterial(lastHoverObj, globalResources._selectrObj);
+       //         
+       //         setLastHoverObj(rayHit.transform.gameObject);
+       //     }
+       // }
+
         if (Input.GetMouseButton(0)) {
             removeMaterial(lastHoverObj, globalResources._hoverObj);
             removeMaterial(lastHoverObj, globalResources._selectrObj);

@@ -13,6 +13,8 @@ public class GlobalResources : MonoBehaviour
 {
     [SerializeField]
     LevelLoader levelLoader;
+    [SerializeField]
+    ItemPopulater populater;
 
     public GameObject ImportGLTF(string filepath) {
         return Importer.LoadFromFile(filepath);
@@ -69,7 +71,7 @@ public class GlobalResources : MonoBehaviour
     //-------------------------------------used for current object manipulation
     //current object selected and if its being picked up or i sa new place
     public GameObject CurrentObjectSelect;
-    public int CurrentObjectSelectID;
+    public string CurrentObjectSelectID;
     public bool pickedup = false;
 
     //gets called onchange of dropdown selection
@@ -99,7 +101,7 @@ public class GlobalResources : MonoBehaviour
         levelLoader.loadLevel();
         levelLoader.LoadObjects();
         levelLoader.parseLevel();
-
+        StartCoroutine(populater.populateScrollView());
 
         //place objects in scene from level
 
