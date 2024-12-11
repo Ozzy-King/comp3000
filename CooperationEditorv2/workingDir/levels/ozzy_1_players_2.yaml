@@ -15,6 +15,8 @@ grid: >
   AB,BB,CB
 
   AC,BC,CC
+
+  AD,BD,CD
 gridObjects:
   AA:
   - floor
@@ -37,6 +39,10 @@ gridObjects:
   CC:
   - OBJ1
   - floor
+  AD: []
+  BD:
+  - floorEndL
+  CD: []
 objectDefinitions: 
 sounds: 
 globalData: 

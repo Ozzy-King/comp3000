@@ -13,7 +13,9 @@ public class MouseControls : MonoBehaviour
     Camera cam;
     Vector3 oldMouse;
 
-    GameObject lastHoverObj;
+    bool placeing = false;
+
+    GameObject lastHoverObj = null;
     void setLastHoverObj(GameObject obj) {
         if (obj == null) { lastHoverObj = null; return; }
         lastHoverObj = findParent(obj);
@@ -113,41 +115,66 @@ public class MouseControls : MonoBehaviour
         bool didHit = Physics.Raycast(ray, out rayHit, distance);
 
         //need to add object create function that sets up the object and return the top perant object
-        // if (Input.GetKey(KeyCode.E)) {
-        //     if (Input.GetKeyDown(KeyCode.E))
-        //     {
-        //         removeMaterial(lastHoverObj, globalResources._hoverObj);
-        //         removeMaterial(lastHoverObj, globalResources._selectrObj);
-        //         
-        //         setLastHoverObj(rayHit.transform.gameObject);
-        //     }
-        // }
-
-        if (Input.GetMouseButton(0))
+        if (Input.GetKey(KeyCode.E))
         {
-            if (lastHoverObj != null)
+            placeing = true;
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 removeMaterial(lastHoverObj, globalResources._hoverObj);
                 removeMaterial(lastHoverObj, globalResources._selectrObj);
-                addMaterial(lastHoverObj, globalResources._selectrObj);
 
-                lastHoverObj.transform.position = HitWorldPosition;
+                setLastHoverObj(globalResources.createObject(globalResources.CurrentObjectSelectID));
+                addMaterial(lastHoverObj, globalResources._hoverObj);
             }
-        }
-        else if (didHit)
-        {
-            removeMaterial(lastHoverObj, globalResources._hoverObj);
-            removeMaterial(lastHoverObj, globalResources._selectrObj);
-            setLastHoverObj(rayHit.transform.gameObject);
-            addMaterial(lastHoverObj, globalResources._hoverObj);
+            lastHoverObj.transform.position = HitWorldPosition;
+            if (Input.GetMouseButtonDown(0)) {
+                removeMaterial(lastHoverObj, globalResources._hoverObj);
+                removeMaterial(lastHoverObj, globalResources._selectrObj);
+                globalResources.CurrentLevel.Add(lastHoverObj);
+
+                setLastHoverObj(globalResources.createObject(globalResources.CurrentObjectSelectID));
+                addMaterial(lastHoverObj, globalResources._hoverObj);
+            }
         }
         else
         {
-            removeMaterial(lastHoverObj, globalResources._hoverObj);
-            removeMaterial(lastHoverObj, globalResources._selectrObj);
-            setLastHoverObj(null);
-        }
+            if (placeing == true) {
+                removeMaterial(lastHoverObj, globalResources._hoverObj);
+                removeMaterial(lastHoverObj, globalResources._selectrObj);
+                Destroy(lastHoverObj);
+                lastHoverObj = null;
+            }
+            placeing=false;
+            if (Input.GetMouseButton(0))
+            {
+                if (lastHoverObj != null)
+                {
+                    removeMaterial(lastHoverObj, globalResources._hoverObj);
+                    removeMaterial(lastHoverObj, globalResources._selectrObj);
+                    addMaterial(lastHoverObj, globalResources._selectrObj);
 
+                    lastHoverObj.transform.position = HitWorldPosition;
+                }
+                if (Input.GetKeyDown(KeyCode.Q)) {
+                    globalResources.CurrentLevel.Remove(lastHoverObj);
+                    Destroy(lastHoverObj);
+                    lastHoverObj=null;
+                }
+            }
+            else if (didHit)
+            {
+                removeMaterial(lastHoverObj, globalResources._hoverObj);
+                removeMaterial(lastHoverObj, globalResources._selectrObj);
+                setLastHoverObj(rayHit.transform.gameObject);
+                addMaterial(lastHoverObj, globalResources._hoverObj);
+            }
+            else
+            {
+                removeMaterial(lastHoverObj, globalResources._hoverObj);
+                removeMaterial(lastHoverObj, globalResources._selectrObj);
+                setLastHoverObj(null);
+            }
+        }
         //used for when it hits
 
         oldMouse = newMouse;
