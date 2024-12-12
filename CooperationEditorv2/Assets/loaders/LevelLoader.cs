@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -64,20 +65,32 @@ public class LevelLoader : MonoBehaviour
         foreach (string includeFile in includeFiles)
         {
             //get full path and deerilize new file
-            string fullPath = globalResources.workingDirectory + GlobalResources.levelDir + "/" + includeFile;
-            Debug.Log(fullPath);
-            LevelFile newIncludeFile = deserializer.Deserialize<LevelFile>(File.ReadAllText(fullPath));
-            //add includes files to current list
-            foreach (string t in newIncludeFile.include)
-            {
-                includeFiles.Add(t);
-            }
-            //add each object to the global List
-            foreach ((string objName, ObjectClass obj) in newIncludeFile.objectDefinitions) {
-                if (!globalResources.allObjects.ContainsKey(objName)) {
-                    globalResources.allObjects.Add(objName, obj);
+            
+            try
+            { 
+                string fullPath = globalResources.workingDirectory + GlobalResources.levelDir + "/" + includeFile;
+                Debug.Log(fullPath);
+                LevelFile newIncludeFile = deserializer.Deserialize<LevelFile>(File.ReadAllText(fullPath));
+                //add includes files to current list
+                foreach (string t in newIncludeFile.include)
+                {
+                    includeFiles.Add(t);
+                }
+                //add each object to the global List
+                foreach ((string objName, ObjectClass obj) in newIncludeFile.objectDefinitions) {
+                    if (!globalResources.allObjects.ContainsKey(objName)) {
+                        globalResources.allObjects.Add(objName, obj);
+                    }
                 }
             }
+            catch (YamlException ex)
+            {
+                Debug.LogError($"Error parsing YAML at line {ex.Start.Line}, column {ex.Start.Column}.");
+                Debug.LogError($"Error message: {ex.Message}");
+            }
+
+                
+
         }
     
     }

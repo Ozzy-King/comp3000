@@ -46,11 +46,11 @@ public class GlobalResources : MonoBehaviour
     }
 
     public string workingDirectory = ".\\testing";
-    public const string levelDir = "/levels";
-    public const string codeDir = "/code";
-    public const string artDir = "/art";
-    public const string art3dDir = "/3d";
-    public const string art2dDir = "/2d";
+    public const string levelDir = "/Levels";
+    public const string codeDir = "/Code";
+    public const string artDir = "/Art";
+    public const string art3dDir = "/3D";
+    public const string art2dDir = "/2D";
     public string LevelName = "Level_1_players_2.yaml";
 
     public LevelFile levelFile;
