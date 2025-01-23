@@ -8,6 +8,7 @@ using System;
 using Unity.VisualScripting;
 using System.Linq;
 using System.IO;
+using UnityEngine.UI;
 
 //hold E and click to placeObject
 //click and hold on Object and press Q to delete object
@@ -53,6 +54,8 @@ public class GlobalResources : MonoBehaviour
     public const string art2dDir = "/2D";
     public string LevelName = "Level_1_players_2.yaml";
 
+
+
     public LevelFile levelFile;
     public Dictionary<string, ObjectClass> allObjects = new Dictionary<string, ObjectClass>();
     public int levelWidth;
@@ -60,7 +63,11 @@ public class GlobalResources : MonoBehaviour
     public List<GameObject> CurrentLevel;//<<-- all game objects that are in the current map 
     public GameObject placeHolder; //<----- set in editor
 
+
     public bool LoadedEverything = false;
+
+    //the input for the path and file being loaded and saved to
+    public GameObject inputFilePath;
 
 
     //lua scripts loaded by luaScriptLoader
@@ -100,12 +107,16 @@ public class GlobalResources : MonoBehaviour
     public 
 
     // Start is called before the first frame update
-    void Start()
+    void start()
     {
-        levelLoader.INIT();
-        levelLoader.loadLevel();
-        levelLoader.LoadObjects();
-        levelLoader.parseLevel();
+        string path_FileName = inputFilePath.GetComponent<TMP_InputField>().text;
+        LevelName = path_FileName.Split("/")[^1];
+        workingDirectory = path_FileName.Replace("/"+LevelName, "") ;
+
+        if (levelLoader.INIT() == 1) { return; }
+        if (levelLoader.loadLevel() == 1){ return; }
+        if (levelLoader.LoadObjects()==1) { return; }
+        if (levelLoader.parseLevel()==1) { return; }
         StartCoroutine(populater.populateScrollView());
         CurrentObjectSelectID = allObjects.Keys.First();
 
@@ -190,6 +201,7 @@ public class GlobalResources : MonoBehaviour
 
 
     public GameObject createObject(string name) {
+
         ObjectClass obj = allObjects[name];
 
         GameObject HolderObj = new GameObject();//holds al the models for object

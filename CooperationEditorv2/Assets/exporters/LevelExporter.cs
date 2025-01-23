@@ -75,7 +75,10 @@ public class LevelExporter : MonoBehaviour
         Debug.Log(yaml);
     }
 
-
+    public void saveLevel() {
+        RecreateLevelLayout();
+        createOutputYaml();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -86,9 +89,9 @@ public class LevelExporter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S)) {
-            RecreateLevelLayout();
-            createOutputYaml();
-        }
+       //if (Input.GetKeyDown(KeyCode.S)) {
+       //    RecreateLevelLayout();
+       //    createOutputYaml();
+       //}
     }
 }

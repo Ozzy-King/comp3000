@@ -15,10 +15,6 @@ grid: >
   AB,BB,CB,DB,EB
 
   AC,BC,CC,DC,EC
-
-  AD,BD,CD,DD,ED
-
-  AE,BE,CE,DE,EE
 gridObjects:
   AA:
   - floor
@@ -37,30 +33,20 @@ gridObjects:
   CB:
   - floor
   - imageTest
-  DB: []
+  DB:
+  - floor
   EB: []
   AC:
   - brick_wall_e
   BC:
   - OBJ6
-  - floor
+  - floorEndL
   CC:
   - OBJ1
-  - floor
-  DC: []
-  EC: []
-  AD: []
-  BD: []
-  CD: []
-  DD:
-  - floor
-  ED: []
-  AE: []
-  BE:
   - floorEndL
-  CE: []
-  DE: []
-  EE: []
+  DC:
+  - floorEndL
+  EC: []
 objectDefinitions: 
 sounds: 
 globalData: 

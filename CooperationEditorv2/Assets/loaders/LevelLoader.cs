@@ -15,19 +15,20 @@ public class LevelLoader : MonoBehaviour
     IDeserializer deserializer;
     ISerializer serializer;
 
-    public void INIT() {
+    public int INIT() {
         deserializer = new DeserializerBuilder().IgnoreUnmatchedProperties()
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
         serializer = new SerializerBuilder()
         .WithNamingConvention(CamelCaseNamingConvention.Instance)
         .Build();
+        return 0;
     }
 
-    public void loadLevel() {
+    public int loadLevel() {
         string filepath = globalResources.workingDirectory + GlobalResources.levelDir + "/" + globalResources.LevelName;
         //currently assuming existing levels are getting edited
-        if (!File.Exists(filepath)) { return; }
+        if (!File.Exists(filepath)) { return 1; }
 
         //read yaml file in
         string yml =File.ReadAllText(filepath);
@@ -45,12 +46,13 @@ public class LevelLoader : MonoBehaviour
             .Build();
         var yaml = serializer.Serialize(p);
         Debug.Log(yaml);
+        return 0;
     }
 
     /// <summary>
     /// go though the inluced
     /// </summary>
-    public void LoadObjects()
+    public int LoadObjects()
     {
         //first add object definitonas from level file
         if (globalResources.levelFile.objectDefinitions != null)
@@ -89,13 +91,12 @@ public class LevelLoader : MonoBehaviour
                 Debug.LogError($"Error message: {ex.Message}");
             }
 
-                
-
         }
+        return 0;
     
     }
 
-    public void parseLevel() {
+    public int parseLevel() {
 
         string[] levelRows = globalResources.levelFile.grid.Split('\n', System.StringSplitOptions.RemoveEmptyEntries);
         foreach (string row in levelRows) {
@@ -113,6 +114,7 @@ public class LevelLoader : MonoBehaviour
                 globalResources.level.Add(ObjList);//add cells object list to 
             } //get rid of leading and trailing space
         }
+        return 0;
     }
 
     // Start is called before the first frame update

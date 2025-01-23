@@ -96,6 +96,8 @@ public class MouseControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (globalResources.LoadedEverything == false) { return; }
+
         Vector3 newMouse = Input.mousePosition;
 
         //calculations and ray traceing to hit and object and find where the mouse positions intersects with y = 0
