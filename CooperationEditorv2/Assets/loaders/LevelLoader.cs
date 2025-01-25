@@ -64,7 +64,12 @@ public class LevelLoader : MonoBehaviour
         }
 
         //get the list of inlcude files in the levelfiles
-        List<string> includeFiles = globalResources.levelFile.include;
+        List<string> includeFiles =new List<string>();
+        //copy the list over to not add external yamls with saveing
+        foreach (string a in globalResources.levelFile.include) {
+            includeFiles.Add(a);
+        }
+
         for (int i = 0; i < includeFiles.Count; i++) { 
 
             string includeFile = includeFiles[i];

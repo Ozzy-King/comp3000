@@ -130,4 +130,3 @@ sounds:
   WrongMedicine: { fileNames: [ PlayerCollide.wav ] }
   InvalidAction: { fileNames: [ PlayerCollide.wav ] }
   Walk: { fileNames: [ Walk1_1.ogg, Walk1_2.ogg, Walk1_3.ogg, Walk1_4.ogg ] }
-  ShrinkProdZap: { fileNames: [ ShrinkProdZap1.ogg, ShrinkProdZap2.ogg ] }
