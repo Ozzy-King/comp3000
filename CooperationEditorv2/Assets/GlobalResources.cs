@@ -133,6 +133,13 @@ public class GlobalResources : MonoBehaviour
                     HolderObj.name = name;
                     HolderObj.transform.position = new Vector3(newPos.y, 0, newPos.x);
 
+                    //take account of base obejcts, id and mapObject wont work as both can get resolved to in game objects uavaliable for viewing
+                    if (obj._base.Count > 0) {
+                        foreach (string baseObj in obj._base) {
+                            instintateObj(baseObj, allObjects[baseObj], newPos, HolderObj);
+                        }
+                    }
+
                     //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
                     bool visible = false;
                     //import each object used
@@ -145,6 +152,17 @@ public class GlobalResources : MonoBehaviour
                             MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
                             col.convex = true;
                             col.isTrigger = true;
+                            SkinnedMeshRenderer skinnedRenderer = rend as SkinnedMeshRenderer;
+                            if (skinnedRenderer != null)
+                            {
+                                // Create a new mesh and bake the skinned mesh into it
+                                Mesh bakedMesh = new Mesh();
+                                skinnedRenderer.BakeMesh(bakedMesh);
+                                Debug.LogError(bakedMesh.vertexCount);
+                                // Assign the baked mesh to the Mesh Collider
+                                col.sharedMesh = null; // Clear old mesh reference
+                                col.sharedMesh = bakedMesh;
+                            }
                         }
 
                         Temp.name = obj.dir;
@@ -199,6 +217,97 @@ public class GlobalResources : MonoBehaviour
         LoadedEverything = true;
     }
 
+    public Bounds instintateObj(string name, ObjectClass obj, Vector3 newPos, GameObject HolderObj) {
+
+        //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
+        bool visible = false;
+        Bounds bounds = new Bounds();
+        //take account of base obejcts, id and mapObject wont work as both can get resolved to in game objects uavaliable for viewing
+        if (obj._base.Count > 0)
+        {
+            foreach (string baseObj in obj._base)
+            {
+                bounds.Encapsulate(instintateObj(baseObj, allObjects[baseObj], newPos, HolderObj));
+            }
+        }
+
+        //import each object used
+        foreach (Art3d objsArt in obj.art3d)
+        {
+            visible = true;
+            GameObject Temp = ImportGLTF(workingDirectory + "/" + objsArt.model);
+            Temp.AddComponent<ObjectAttributes>().attributes3d = objsArt;
+            foreach (Renderer rend in Temp.GetComponentsInChildren<Renderer>())
+            {
+                MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
+                col.convex = true;
+                col.isTrigger = true;
+                SkinnedMeshRenderer skinnedRenderer = rend as SkinnedMeshRenderer;
+                if (skinnedRenderer != null)
+                {
+                    // Create a new mesh and bake the skinned mesh into it
+                    Mesh bakedMesh = new Mesh();
+                    skinnedRenderer.BakeMesh(bakedMesh);
+                    Debug.LogError(bakedMesh.vertexCount);
+                    // Assign the baked mesh to the Mesh Collider
+                    col.sharedMesh = null; // Clear old mesh reference
+                    col.sharedMesh = bakedMesh;
+                }
+                bounds.Encapsulate(rend.bounds);
+            }
+
+            Temp.name = obj.dir;
+
+            //CenterPivotAtBottomMiddle(Temp);
+
+            Temp.transform.position = new Vector3(newPos.y, newPos.z, newPos.x);
+
+            Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+            Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+
+            Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+            Debug.Log(obj.dir);
+            Temp.transform.parent = HolderObj.transform;
+        }
+        foreach (Art2d objsArt in obj.art2d)
+        {
+            visible = true;
+            GameObject Temp = ImportImage(workingDirectory + artDir + art2dDir + "/" + objsArt.texture);
+            Temp.AddComponent<ObjectAttributes>().attributes2d = objsArt;
+            
+            BoxCollider collider = Temp.AddComponent<BoxCollider>();
+            bounds.Encapsulate(collider.bounds);
+
+            collider.isTrigger = true;
+
+            Temp.name = obj.dir;
+
+            //CenterPivotAtBottomMiddle(Temp);
+
+            Temp.transform.position = new Vector3(newPos.y, newPos.z, newPos.x);
+
+            Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+            Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+
+            Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+            Debug.Log(obj.dir);
+            Temp.transform.parent = HolderObj.transform;
+        }
+        if (!visible)
+        {
+            GameObject Temp = Instantiate(placeHolder);
+            Temp.transform.position = new Vector3(newPos.y, newPos.z, newPos.x);
+            Temp.transform.parent = HolderObj.transform;
+            bounds.Encapsulate(Temp.GetComponent<Renderer>().bounds);
+        }
+        return bounds;
+    }
+
+
 
     public GameObject createObject(string name) {
 
@@ -211,6 +320,16 @@ public class GlobalResources : MonoBehaviour
 
         //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
         bool visible = false;
+
+        //take account of base obejcts, id and mapObject wont work as both can get resolved to in game objects uavaliable for viewing
+        if (obj._base.Count > 0)
+        {
+            foreach (string baseObj in obj._base)
+            {
+                instintateObj(baseObj, allObjects[baseObj], new Vector2(0, 0), HolderObj);
+            }
+        }
+
         //import each object used
         foreach (Art3d objsArt in obj.art3d)
         {
@@ -221,7 +340,17 @@ public class GlobalResources : MonoBehaviour
             {
                 MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
                 col.convex = true;
-                col.isTrigger = true;
+                col.isTrigger = true;   
+                SkinnedMeshRenderer skinnedRenderer = rend as SkinnedMeshRenderer;
+                if (skinnedRenderer != null) {
+                    // Create a new mesh and bake the skinned mesh into it
+                    Mesh bakedMesh = new Mesh();
+                    skinnedRenderer.BakeMesh(bakedMesh);
+                    Debug.LogError(bakedMesh.vertexCount);
+                    // Assign the baked mesh to the Mesh Collider
+                    col.sharedMesh = null; // Clear old mesh reference
+                    col.sharedMesh = bakedMesh;
+                }
             }
 
             Temp.name = obj.dir;

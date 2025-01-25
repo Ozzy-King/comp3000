@@ -30,6 +30,7 @@ public class MouseControls : MonoBehaviour
         if (obj == null || mat == null) { return; }
         MeshRenderer[] childrenMeshRendere = obj.GetComponentsInChildren<MeshRenderer>();
         SpriteRenderer[] childrenSpriteRendere = obj.GetComponentsInChildren<SpriteRenderer>();
+        SkinnedMeshRenderer[] childrenskinnedMeshRendere = obj.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (MeshRenderer ch in childrenMeshRendere)
         {
             List<Material> materials = new List<Material>(ch.materials);
@@ -40,6 +41,15 @@ public class MouseControls : MonoBehaviour
             }
         }
         foreach (SpriteRenderer ch in childrenSpriteRendere)
+        {
+            List<Material> materials = new List<Material>(ch.materials);
+            if (!materials.Exists(x => x.shader == mat.shader))
+            {
+                materials.Add(new Material(mat));
+                ch.materials = materials.ToArray();
+            }
+        }
+        foreach (SkinnedMeshRenderer ch in childrenskinnedMeshRendere)
         {
             List<Material> materials = new List<Material>(ch.materials);
             if (!materials.Exists(x => x.shader == mat.shader))
@@ -55,6 +65,7 @@ public class MouseControls : MonoBehaviour
         if (obj == null || mat == null) { return; }
         MeshRenderer[] childrenMeshRendere = obj.GetComponentsInChildren<MeshRenderer>();
         SpriteRenderer[] childrenSpriteRendere = obj.GetComponentsInChildren<SpriteRenderer>();
+        SkinnedMeshRenderer[] childrenskinnedMeshRendere = obj.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (MeshRenderer ch in childrenMeshRendere)
         {
             List<Material> newMat = new List<Material>(ch.materials);
@@ -65,6 +76,15 @@ public class MouseControls : MonoBehaviour
             }
         }
         foreach (SpriteRenderer ch in childrenSpriteRendere)
+        {
+            List<Material> newMat = new List<Material>(ch.materials);
+            if (newMat.Exists(x => x.shader == mat.shader))
+            {
+                newMat.RemoveAll(x => x.shader == mat.shader);
+                ch.SetMaterials(newMat);
+            }
+        }
+        foreach (SkinnedMeshRenderer ch in childrenskinnedMeshRendere)
         {
             List<Material> newMat = new List<Material>(ch.materials);
             if (newMat.Exists(x => x.shader == mat.shader))

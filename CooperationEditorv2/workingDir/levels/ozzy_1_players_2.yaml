@@ -10,43 +10,80 @@ postProcessing:
     focalLength: 0
     aperture: 1
 grid: >
-  AA,BA,CA,DA,EA
+  AA,BA,CA,DA,EA,FA
 
-  AB,BB,CB,DB,EB
+  AB,BB,CB,DB,EB,FB
 
-  AC,BC,CC,DC,EC
+  AC,BC,CC,DC,EC,FC
+
+  AD,BD,CD,DD,ED,FD
+
+  AE,BE,CE,DE,EE,FE
+
+  AF,BF,CF,DF,EF,FF
+
+  AG,BG,CG,DG,EG,FG
 gridObjects:
-  AA:
-  - floor
-  BA:
-  - brick_wall_s
+  AA: []
+  BA: []
   CA:
   - brick_wall_s
-  DA:
-  - brick_wall_s
-  EA:
-  - brick_wall_s
-  AB:
-  - brick_wall_e
-  BB:
+  - OBJ5
+  DA: []
+  EA: []
+  FA: []
+  AB: []
+  BB: []
+  CB: []
+  DB: []
+  EB: []
+  FB: []
+  AC: []
+  BC: []
+  CC: []
+  DC: []
+  EC: []
+  FC: []
+  AD:
   - floor
-  CB:
+  BD:
+  - brick_wall_s
+  CD:
+  - brick_wall_s
+  DD: []
+  ED: []
+  FD: []
+  AE:
+  - brick_wall_e
+  BE:
+  - floor
+  CE:
   - floor
   - imageTest
-  DB:
+  DE: []
+  EE: []
+  FE:
   - floor
-  EB: []
-  AC:
+  AF:
   - brick_wall_e
-  BC:
+  BF:
   - OBJ6
   - floorEndL
-  CC:
+  CF:
   - OBJ1
+  DF:
+  - OBJ2
+  EF: []
+  FF: []
+  AG: []
+  BG: []
+  CG:
   - floorEndL
-  DC:
+  DG:
+  - OBJ2
+  EG:
   - floorEndL
-  EC: []
+  FG: []
 objectDefinitions: 
 sounds: 
 globalData: 

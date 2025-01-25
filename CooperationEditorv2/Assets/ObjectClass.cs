@@ -44,7 +44,11 @@ public class ObjectClass
     public List<string> tags = new List<string>();
     public List<string> mods = new List<string>();
     public string dir = "south";
+
     public string mapObject = "";
+    [YamlMember(Alias = "base")]
+    public List<string> _base { get; set; } = new List<string>();
+    public string id = "";
 
     [YamlMember(Alias = "art3d")]
     public List<Art3d> art3d { get; set; } = new List<Art3d>();

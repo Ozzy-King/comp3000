@@ -35,7 +35,7 @@ public class LevelLoader : MonoBehaviour
         Debug.Log(yml);
         //create desirializer and store result in global resoources
 
-        //yaml contains a string containing your YAML
+        //yml contains a string containing your YAML
         LevelFile p = deserializer.Deserialize<LevelFile>(yml);
         globalResources.levelFile = p;
         
@@ -63,11 +63,12 @@ public class LevelLoader : MonoBehaviour
             }
         }
 
+        //get the list of inlcude files in the levelfiles
         List<string> includeFiles = globalResources.levelFile.include;
         foreach (string includeFile in includeFiles)
         {
-            //get full path and deerilize new file
-            
+
+            //get full path and deerilize new included file
             try
             { 
                 string fullPath = globalResources.workingDirectory + GlobalResources.levelDir + "/" + includeFile;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,12 +26,14 @@ public class ItemPopulater : MonoBehaviour
 
         GameObject cam = Instantiate(camPrefab);
         cam.GetComponent<Camera>().targetTexture = renderTexture;
-        cam.transform.position = new Vector3(3, 104, 3);
+
 
         Destroy(temp);
         int c = 0;
         foreach ((string name, ObjectClass obj) in globalResources.allObjects)
         {
+            Bounds bounds = new Bounds();
+
             Texture2D screenShot = new Texture2D(Mathf.CeilToInt(rect.width), Mathf.CeilToInt(rect.height), TextureFormat.RGBA32, false);  
             //loop each object in each cell
             GameObject HolderObj = new GameObject();//holds al the models for object
@@ -40,6 +43,16 @@ public class ItemPopulater : MonoBehaviour
 
             //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
             bool visible = false;
+
+            //take account of base obejcts, id and mapObject wont work as both can get resolved to in game objects uavaliable for viewing
+            if (obj._base.Count > 0)
+            {
+                foreach (string baseObj in obj._base)
+                {
+                    bounds.Encapsulate( globalResources.instintateObj(baseObj, globalResources.allObjects[baseObj], new Vector3(0, 0, 100), HolderObj));
+                }
+            }
+
             //import each object used
             foreach (Art3d objsArt in obj.art3d)
             {
@@ -51,6 +64,8 @@ public class ItemPopulater : MonoBehaviour
                     MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
                     col.convex = true;
                     col.isTrigger = true;
+
+                    bounds.Encapsulate(rend.bounds);
                 }
 
                 Temp.name = obj.dir;
@@ -76,6 +91,8 @@ public class ItemPopulater : MonoBehaviour
                 BoxCollider collider = Temp.AddComponent<BoxCollider>();
                 collider.isTrigger = true;
 
+                bounds.Encapsulate(collider.bounds);
+
                 Temp.name = obj.dir;
 
                 //CenterPivotAtBottomMiddle(Temp);
@@ -96,9 +113,20 @@ public class ItemPopulater : MonoBehaviour
                 GameObject Temp = Instantiate(globalResources.placeHolder);
                 Temp.transform.position = new Vector3(0, 96, 0);
                 Temp.transform.parent = HolderObj.transform;
+
+                bounds.Encapsulate(Temp.GetComponent<Renderer>().bounds);
             }
 
-            cam.transform.LookAt(HolderObj.transform);
+            
+            //get the correct distance from objects
+            Vector3 centerPoint = bounds.center;
+            float maxExtent = bounds.extents.magnitude;
+            float minDistance = maxExtent / Mathf.Tan(Camera.main.fieldOfView * Mathf.Deg2Rad / 2f);
+            cam.transform.position = (HolderObj.transform.position+ centerPoint) - Camera.main.transform.forward * (minDistance+2);
+
+            //cam.transform.position += new Vector3(0, 100, 0);
+            //cam.transform.LookAt(HolderObj.transform);
+
             cam.GetComponent<Camera>().Render();
             yield return new WaitForEndOfFrame();
             Graphics.CopyTexture(renderTexture, screenShot);
