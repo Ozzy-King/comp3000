@@ -1,0 +1,362 @@
+include: [ ] 
+
+fileProperties:
+  creatorName: Group 23
+
+sceneName: World1Dev
+
+grid:
+
+gridObjects:
+
+objectDefinitions:
+
+  ##used to manage Adam(the mod) related background tasks, is added to gm in levelsShared.yaml file
+  AdamManager: { mapObject: Scoreboard, mods: [ AdamPowerChecker ], tags: [ "scoreboard", "am" ]}
+  ConvayorManager: { mapObject: Custom, mods: [ newConeyorManager ], tags: [ "scoreboard" ]}
+
+  #####notes
+      # the tag "heavy" can be give to an object and you won't be able to throw it but can still pick it up
+
+  ##will need to properly test these at a later date
+  ##this will be for the ending image billbaord
+  ##AdamEndBillBoardLose: {mapObject: Custom, dir: west, art2d: [ { texture: "Art/2D/gameOver.png", scale: {x: 2, y: 2, z: 1} } ], tags: [  ]}
+  ##AdamEndBillBoardWin: {mapObject: Custom, dir: west, art2d: [ { texture: "Art/2D/gameWin.png", scale: {x: 2, y: 2, z: 1} } ], tags: [  ]}
+  
+  ##the body peices for creating the monster(Adam)
+  monsterHead: { mapObject: Custom, mods: [ frankHead ], dir: east, art3d: [ { model: "Art/3D/FloorHead.glb", pos: {x: 0, y: -1.1, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {x: 0, y: 0, z: 0} } ], tags: [ "throwable", "carryable", "part", "head", "destroyIfNotCaught" ] }
+  monsterLeg: { mapObject: Custom, mods: [ frankHead ],  dir: east, art3d: [ { model: "Art/3D/FloorLeg.glb", pos: {x: 0.5, y: 0.5, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {x: 0, y: 0, z: 90} } ], tags: [ "throwable", "carryable", "part", "leg", "destroyIfNotCaught" ] }
+  monsterArm: { mapObject: Custom, mods: [ frankHead ], dir: east, art3d: [ { model: "Art/3D/FloorArm.glb", pos: {x: -1.1, y: -0.9, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {x: 0, y: 0, z: 0} } ], tags: [ "throwable", "carryable", "part", "arm", "destroyIfNotCaught"] }
+  monsterTorso: { mapObject: Custom, mods: [ frankHead ], dir: east, art3d: [ { model: "Art/3D/FloorTorso.glb", pos: {x: 0, y: -0.3, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {x: 0, y: 0, z: 0} } ], tags: [ "carryable", "blocksMove", "part", "torso", "destroyIfNotCaught"] }
+
+  monster_dance_1: { mapObject: Custom, mods: [ ], dir: east, art3d: [ { model: "Art/3D/FrankDanceNew.glb", pos: {x: 0, y: 1, z: 0}, scale: {x: 0.01, y: 0.01, z: 0.01}, rot: {x: 90, y: 90, z: 0} } ], tags: [ "blocksMove", "dancing"] }
+
+  monsterLArmOnTable: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/ArmL.glb", pos: {x: 1.5, y: 0, z: 0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 135} } ], tags: [ "throwable", "blocksMove", "part", "larm" ] }
+  monsterRArmOnTable: { mapObject: Custom,  dir: east, art3d: [ { model: "Art/3D/ArmR.glb", pos: {x: 1.5, y: 0, z: -0.3}, scale: {x: 1, y: 1, z: 1}, rot: {y: 45} } ], tags: [ "throwable", "blocksMove", "part", "rarm" ] }
+  monsterTorsoOnTable: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/Torso.glb", pos: {x: 0.3, y: 1.1, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 90, x: -90} } ], tags: [ "throwable", "blocksMove", "part", "tableTorso" ] }
+  monsterHeadOnTable: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/Head.glb", pos: {x: 0.3, y: 1.1, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 90, x: -90} } ], tags: [ "throwable", "blocksMove", "part", "tableHead" ] }
+  monsterLLegOnTable: { mapObject: Custom,  dir: east, art3d: [ { model: "Art/3D/LegL.glb", pos: {x: 0.3, y: 1.1, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 90, x: -90} } ], tags: [ "throwable", "blocksMove", "part", "lleg" ] }
+  monsterRLegOnTable: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/LegR.glb", pos: {x: 0.3, y: 1.1, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {y: 90, x: -90} } ], tags: [ "throwable", "blocksMove", "part", "rleg" ] }
+
+  #Decoration
+  Bone: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/Bone.glb", pos: {x: 0, y: 0.1, z: 0}, scale: {x: 1, y: 1, z: 1}, rot : {} } ], tags: [ "blocksMove" ] }  
+
+  #Assembly table
+  frankTable_n:
+    mapObject: Custom
+    art3d:
+      - model: "Art/3D/table2.glb"
+        pos: { y: 1 }
+        scale: { x: 1.2, y: 0.05, z: 1 }
+        rot: { y: 90 }
+    art2d:
+    tags: ["blocksMove", "wobbleWhenBumped", "animated", "Monster_Tab"]
+    mods:
+      - frankTable
+    dir: north
+
+  frankTable_green_n:
+    mapObject: Custom
+    art3d:
+      - model: "Art/3D/table2Green.glb"
+        pos: { y: 1 }
+        scale: { x: 1.2, y: 1, z: 1 }
+        rot: { y: 90 }
+    art2d:
+    tags: ["blocksMove", "wobbleWhenBumped", "animated", "Monster_Tab", "completed", "tableGreen"]
+    mods:
+      - frankTable
+    dir: north
+
+  frankTable_red_n:
+    mapObject: Custom
+    art3d:
+      - model: "Art/3D/table2Red.glb"
+        pos: { y: 1 }
+        scale: { x: 1.2, y: 1, z: 1 }
+        rot: { y: 90 }
+    art2d:
+    tags: ["blocksMove", "wobbleWhenBumped", "animated", "Monster_Tab"]
+    mods:
+      -  frankTable
+    dir: north
+
+  #Levers
+
+  #Normal
+
+  leverFloorN: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Levers/Normal/LeverFloor.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} }  ], mods: [ leverActivate ], tags: [ "blocksMove", "Interact", "Up", "Retracts" ] }
+  leverFloorNDown: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Levers/Normal/LeverFloorEnd.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} } ], mods: [ leverActivate ], tags: [ "blocksMove", "Interact", "Down" ] }
+
+  leverFloorNDownAnimated: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Levers/Normal/LeverFloorAnimated.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} }  ], mods: [ ], tags: [ "blocksMove","Interact", "Up" ] }
+  leverFloorNAnimated: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Levers/Normal/LeverFloorEndAnimated.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} }  ], mods: [ ], tags: [ "blocksMove", "Interact", "Down"] }
+  
+  #Yellow
+  leverYFloorN: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Levers/Yellow/LeverYFloor.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} }  ], mods: [ leverActivate ], tags: [ "blocksMove", "Interact", "Up", "Yellow" ] }
+  leverYFloorNDown: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Levers/Yellow/LeverYFloorEnd.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} } ], mods: [ leverActivate ], tags: [ "blocksMove", "Interact", "Down", "Yellow" ] }
+
+  leverYFloorNDownAnimated: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Levers/Yellow/LeverYFloorAnimated.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} }  ], mods: [ ], tags: [ "blocksMove","Interact", "Up" ] }
+  leverYFloorNAnimated: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Levers/Yellow/LeverYFloorEndAnimated.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} }  ], mods: [ ], tags: [ "blocksMove", "Interact", "Down"] }
+
+  #Red
+
+  leverRFloorN: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Levers/Red/LeverRFloor.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} }  ], mods: [ leverActivate ], tags: [ "blocksMove", "Interact", "Up", "Red" ] }
+  leverRFloorNDown: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Levers/Red/LeverRFloorEnd.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} } ], mods: [ leverActivate ], tags: [ "blocksMove", "Interact", "Down", "Red" ] }
+
+  leverRFloorNDownAnimated: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Levers/Red/LeverRFloorAnimated.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} }  ], mods: [ ], tags: [ "blocksMove","Interact", "Up" ] }
+  leverRFloorNAnimated: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Levers/Red/LeverRFloorEndAnimated.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} }  ], mods: [ ], tags: [ "blocksMove", "Interact", "Down"] }
+
+
+  #NOT IN USE
+  leverWallS: { mapObject: Custom, dir: South, art3d: [ { model: "Art/3D/Levers/Yellow/Wall/LeverYWall.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], mods: [ leverActivate ], tags: [ "Interact", "Up" ] }
+  leverWallDownS: { mapObject: Custom, dir: South, art3d: [ { model: "Art/3D/Levers/Yellow/Wall/LeverYWall.glb", pos: {x: -1, y: 2.5, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: -1, z: 1} } ], mods: [ leverActivate ], tags: [ "Interact", "Down" ] }
+
+  leverFloorE: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/Levers/Normal/LeverFloor.glb", pos: {x: -1, y: -0.27, z: 1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} }  ], mods: [ leverActivate ], tags: [ "blocksMove", "Interact", "Up" ] }
+  leverFloorEDown: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/Levers/LeverFloor.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} } ], mods: [ leverActivate ], tags: [ "blocksMove", "Interact", "Down" ] }
+
+  ##the vat models
+  VAT0: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT00.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT10: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT10.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT20: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT20.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT30: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT30.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT40: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT40.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT50: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT50.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT60: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT60.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT70: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT70.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT80: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT80.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT90: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT90.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT100: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT100.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90}  } ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT110: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT110.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT120: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT120.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT130: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT130.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT140: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT140.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT150: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT150.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT160: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT160.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT170: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT170.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT180: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT180.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT190: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT190.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+  VAT200: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT200.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90}  } ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
+
+  power_bucket: { mapObject: Custom, art3d: [ { model: "Art/3D/bucketOfPower.glb", scale: {x: 0.4, y: 0.4, z: 0.4} } ], tags: [ "powerBucket", "blocksMove", "throwable", "carryable" ], mods: [ frankHead ] }
+
+  #can currently only transport body parts and players, can be added apon,
+  conveyorNorthDynamic: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/ConvayorAnimated.glb", pos: {x: 0, y: -0.1, z: 0}, scale: { x: 0.4, y: 0.5, z: 0.45 }, rot: {x: 0, y: 180, z: 0} } ], mods: [ convayorMovement ], tags: [ 'convDyn' ] }
+  conveyorEastDynamic: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/ConvayorAnimated.glb", pos: {x: 0, y: -0.1, z: 0}, scale: { x: 0.4, y: 0.5, z: 0.45 }, rot: {x: 0, y: 180, z: 0} } ], mods: [ convayorMovement ], tags: [ 'convDyn' ] }
+  conveyorSouthDynamic: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/ConvayorAnimated.glb", pos: {x: 0, y: -0.1, z: 0}, scale: { x: 0.4, y: 0.5, z: 0.45 }, rot: {x: 0, y: 180, z: 0} } ], mods: [ convayorMovement ], tags: [ 'convDyn' ] }
+  conveyorWestDynamic: { mapObject: Custom, dir: west, art3d: [ { model: "Art/3D/ConvayorAnimated.glb", pos: {x: 0, y: -0.1, z: 0}, scale: { x: 0.4, y: 0.5, z: 0.45 }, rot: {x: 0, y: 180, z: 0} } ], mods: [ convayorMovement ], tags: [ 'convDyn' ] }
+
+  ##inlcude these ones into the actual map, once above are for showing movement
+  conveyorNorth: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/ConayorStatic.glb", pos: { x: 0, y: -0.1, z: 0 }, scale: { x: 0.4, y: 0.5, z: 0.45 }, rot: { x: 0, y: 180, z: 0 } } ], mods: [ convayorMovement ], tags: [ 'conv', 'floor' ] }
+  conveyorEast: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/ConayorStatic.glb", pos: { x: 0, y: -0.1, z: 0 }, scale: { x: 0.4, y: 0.5, z: 0.45 }, rot: { x: 0, y: 180, z: 0 } } ], mods: [ convayorMovement ], tags: [ 'conv', 'floor' ] }
+  conveyorSouth: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/ConayorStatic.glb", pos: { x: 0, y: -0.1, z: 0 }, scale: { x: 0.4, y: 0.5, z: 0.45 }, rot: { x: 0, y: 180, z: 0 } } ], mods: [ convayorMovement ], tags: [ 'conv', 'floor' ] }
+  conveyorWest: { mapObject: Custom, dir: west, art3d: [ { model: "Art/3D/ConayorStatic.glb", pos: { x: 0, y: -0.1, z: 0 }, scale: { x: 0.4, y: 0.5, z: 0.45 }, rot: { x: 0, y: 180, z: 0 } } ], mods: [ convayorMovement ], tags: [ 'conv', 'floor' ] }
+
+  frankBooksTest: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/Frankbook.glb", pos: {x: 0, y: 0, z: 0}, scale: {x: 0.25, y: 0.25, z: 0.25}, rot: {y: 180}  } ], tags: [] }
+
+  rawGreenLight: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/RawGreenLight.glb", pos: {x: 0, y: 2, z: 1.1}, scale: {x: 1, y: 1, z: 1}, rot: {y: 0}  } ], tags: [] }
+  
+  ## Area unlock
+
+  unlockArea: { mapObject: Custom, mods: [ areaUnlock ], tags: ["locked", "cameraTarget"] }
+
+  ##Floor Tiles
+  fake_floor: { mapObject: BlankStatic, dir: north, tags: ["floor", "blocksMove", "static"] }
+  floor: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Floor.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "floor"] }
+  floorEndL: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/FloorEndL.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "floor"] }
+  floorEndR: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/FloorEndR.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "floor"] }
+  floorCornerL: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/FloorCornerL.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "floor"] }
+  floorCornerR: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/FloorCornerR.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "floor"] }
+
+  ## Empty item for camera focus
+
+  camera_focus: { mapObject: Custom, tags: [ "floor" ] }
+
+  ## Teleporter items
+
+  item_teleporter_in: { mapObject: Custom, dir: north, art3d: [ {model: "Art/3D/TeleporterIn.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 135, z: 0},scale: {x: 1, y: 1, z: 1} }], mods: [ teleportItems ], tags: [ "teleporter", "static"] }
+  item_teleporter_out: { mapObject: Custom, dir: north, art3d: [ {model: "Art/3D/TeleporterOut.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 135, z: 0},scale: {x: 1, y: 1, z: 1} }], tags: [ "teleporterOut", "static" ] }
+  light_blue_teleporter: { mapObject: Light, dir: west, tags: [ "static", "PointLight" ], data: { PointLightRange: 2, PointLightIntensity: 3, PointLightPos: { y: 1 }, PointLightColourText: 0x0000ff } }
+  item_teleporter_in_anim: { mapObject: Custom, dir: north, art3d: [ {model: "Art/3D/TeleporterInAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 135, z: 0},scale: {x: 1, y: 1, z: 1} }], tags: [ "static" ] }
+  item_teleporter_out_anim: { mapObject: Custom, dir: north, art3d: [ {model: "Art/3D/TeleporterOutAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 135, z: 0},scale: {x: 1, y: 1, z: 1} }], tags: [ "static" ] }
+  
+
+  item_teleporter_1: { mapObject: Custom, dir: north, art3d: [ {model: "Art/3D/Teleporter.glb", pos: {x: -0.1, y: 0, z: -0.2}, rot: {x: 0, y: 135, z: 0},scale: {x: 1, y: 1, z: 1} }], mods: [ teleportAll ], tags: [ "teleporter1", "static"] }
+  item_teleporter_2: { mapObject: Custom, dir: north, art3d: [ {model: "Art/3D/Teleporter.glb", pos: {x: -0.1, y: 0, z: -0.2}, rot: {x: 0, y: 135, z: 0},scale: {x: 1, y: 1, z: 1} }], mods: [ teleportAll ], tags: [ "teleporter2", "static"] }
+  item_teleporter_anim: { mapObject: Custom, dir: north, art3d: [ {model: "Art/3D/TeleporterAnim.glb", pos: {x: -0.1, y: 0, z: -0.2}, rot: {x: 0, y: 135, z: 0},scale: {x: 1, y: 1, z: 1} }], tags: [ "static" ] }
+
+  ## Brick Walls
+
+  brick_wall_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/BrickWall.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_s: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickWall.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_n: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/BrickWall.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 0, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_e_lc: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/BrickWallEndLc.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_e_rc: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/BrickWallEndRc.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_e_rc_middle: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickWallEndRc1.glb", pos: {x: 1, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_window2_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/BrickWindowClosed.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_window4_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/BrickWindowOpen.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  brick_wall_s_rc: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickWallEndRc.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_s_lc: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickWallEndLc.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_window2_s: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickWindowClosed.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  brick_window4_s: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickWindowOpen.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  brick_wall_corner_se: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickCorner.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_corner_ne: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/BrickCorner.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  
+  window_floor_s: { mapObject: Custom, dir: north, art3d: [ {model: "Art/3D/windowFloor.glb", pos: {x: 2, y: -0.1, z: 2}, rot: {x: 0, y: 0, z: 0},scale: {x: 2 , y: 1, z: 1} }], mods: [ ], tags: ["static"] }
+  window_floor_e: { mapObject: Custom, dir: north, art3d: [ {model: "Art/3D/windowFloor.glb", pos: {x: 2, y: -0.1, z: 2}, rot: {x: 0, y: 0, z: 0},scale: {x: 1 , y: 1, z: 2} }], mods: [ ], tags: ["static"] }
+
+  ## Interior brick walls
+
+  brick_wall_interior_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/BrickWall.glb", pos: {x: 1, y: 0, z: -0.15}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_interior_s: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickWall.glb", pos: {x: -0.15, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+
+  ## Metal Walls
+
+  metal_wall_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWall.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  metal_wall_half_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWallHalf.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  metal_wall_s: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWall.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  metal_wall_half_s: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWallHalf.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+
+  metal_wall_down_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWallDownArrow.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  metal_wall_down_s: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWallDownArrow.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  metal_wall_up_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWallUpArrow.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  metal_wall_up_s: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWallUpArrow.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+
+
+  ## Yellow
+  metalWallEYellow: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/MetalWallYellow.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "static", "Up", "YellowWall" ] }
+  metalWallEYellowDown: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/MetalWallYellowDown.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static", "Down", "YellowWallDown", "WallDown" ] }
+  
+  metalWallEYellowAnimated: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/MetalWallYellowDownAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "Down", "YellowWallDownAnimated" ] }
+  metalWallEYellowDownAnimated: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/MetalWallYellowAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "Up", "YellowWallAnimated"] }
+
+  metalWallSYellow: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/MetalWallYellow.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "static", "Up", "YellowWall", "South" ] }
+  metalWallSYellowDown: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/MetalWallYellowDown.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static", "Down", "YellowWallDown", "WallDown", "South"] }
+  
+  metalWallSYellowAnimated: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/MetalWallYellowDownAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "Down", "YellowWallDownAnimated", "South" ] }
+  metalWallSYellowDownAnimated: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/MetalWallYellowAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "Up", "YellowWallAnimated", "South"] }
+
+  ## Red
+
+  metalWallERed: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Red/MetalWallRed.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "static", "Up", "RedWall" ] }
+  metalWallERedDown: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Red/MetalWallRedDown.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static", "Down", "RedWallDown", "WallDown" ] }
+  
+  metalWallERedAnimated: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Red/MetalWallRedDownAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "Down", "RedWallDownAnimated" ] }
+  metalWallERedDownAnimated: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Red/MetalWallRedAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "Up", "RedWallAnimated"] }
+
+  metalWallSRed: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Red/MetalWallRed.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "static", "Up", "RedWall", "South" ] }
+  metalWallSRedDown: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Red/MetalWallRedDown.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static", "Down", "RedWallDown", "WallDown", "South" ] }
+  
+  metalWallSRedAnimated: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Red/MetalWallRedDownAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "Down", "RedWallDownAnimated", "South" ] }
+  metalWallSRedDownAnimated: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Red/MetalWallRedAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "Up", "RedWallAnimated", "South" ] }
+
+  ## Short
+
+  metalWallShortELeft: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Short/MetalWallShort.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: -1, y: 1, z: 1} } ], tags: [ "blocksMove", "static", "ShortLeft", "Left" ] }
+  metalWallShortELeftAnimated: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Short/MetalWallShortAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static", "ShortLeftAnimated" ] }
+
+  metalWallShortERight: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Short/MetalWallShort.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static", "ShortRight" ] }
+  metalWallShortERightAnimated: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Short/MetalWallShortAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0},scale: {x: -1, y: 1, z: 1} } ], tags: [ "blocksMove", "static", "ShortRightAnimated", "Left" ] }
+
+  metalWallShortSLeft: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Short/MetalWallShort.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: -1, y: 1, z: 1} } ], tags: [ "blocksMove", "static", "ShortLeft", "Left", "South" ] }
+  metalWallShortSLeftAnimated: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Short/MetalWallShortAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static", "ShortLeftAnimated", "South" ] }
+
+  metalWallShortSRight: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Short/MetalWallShort.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static", "ShortRight", "South" ] }
+  metalWallShortSRightAnimated: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/MetalWalls/Short/MetalWallShortAnim.glb", pos: {x: 0, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: -1, y: 1, z: 1} } ], tags: [ "blocksMove", "static", "ShortRightAnimated", "Left", "South" ] }
+
+
+  ## Lights
+
+  CeilingLight: { mapObject: Light, dir: east, art3d: [ { model: "Art/3D/CeilLight.glb", pos: {x: 0, y: 4, z: 0}, scale: {x: 1.5, y: 1.5, z: 1.5}, rot: {y: 180} } ], tags: ["pointLight" ], data: {PointLightRange: 2, PointLightIntensity: 5, PointLightPos: { y: 3.3}, PointLightColourText: 0xffffff} }
+  WindowLight: { mapObject: Light, dir: east, tags: [ "static", "PointLight" ], data: { PointLightRange: 4, PointLightIntensity: 8, PointLightPos: { x: -0.5, y: 1.5,  z: 0 } } }
+  CeilingLightStrong: { mapObject: Light, dir: east, tags: ["pointLight" ], data: {PointLightRange: 100, PointLightIntensity: 400, PointLightPos: { y: 20}, PointLightColourText: 0xffffff} }
+
+  leverLight: { mapObject: Light, dir: west, tags: [ "static", "PointLight" ], data: { PointLightRange: 1, PointLightIntensity: 0.5, PointLightPos: { x: 0, y: 0.4, z: 0 }, PointLightColourText: 0xfffd8d } }
+  tableLight: { mapObject: Light, dir: west, tags: [ "static", "PointLight" ], data: { PointLightRange: 10, PointLightIntensity: 2, PointLightPos: { x: 1, y: 1, z: 0 }, PointLightColourText: 0xfffd8d } }
+
+  ## Shelves
+  
+  tallShelfS: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/ShelfTall.glb", pos: {x: -0.12, y: -0.27, z: 1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: [ "static", "blocksMove", "blocksThrow"] }
+  tallShelfS_1Books: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookTall1.glb", pos: {x: -0.12, y: -0.27, z: 1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: [ "static", "blocksMove", "blocksThrow"] }
+  tallShelfS_1Books_middle: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookTall1.glb", pos: {x: -1, y: -0.27, z: 1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "blocksMove", "blocksThrow"] }
+
+  tallShelfS_1Books_nonBlock: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookTall1.glb", pos: {x: -0.12, y: -0.27, z: 1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: [ "static"] }
+
+  shortShelfS: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/ShelfShort.glb",pos: {x: -0.12, y: -0.27, z: 1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: [ ] }
+  shortShelfS_1Books: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookShort1.glb", pos: {x: -0.12, y: -0.27, z: 1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "blocksMove"] }
+  shortShelfS_2Books: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookShort2.glb", pos: {x: -0.12, y: -0.27, z: 1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "blocksMove"] }
+  shortShelfS_1Books_middle: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookShort1.glb", pos: {x: -1, y: -0.27, z: 1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "blocksMove"] }
+  shortShelfS_2Books_middle: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookShort2.glb", pos: {x: -1, y: -0.27, z: 1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "blocksMove"] }
+
+  shortShelfS_1Books_nonBlock: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookShort1.glb", pos: {x: -0.12, y: -0.27, z: 1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static"] }
+
+  tallShelfE: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/ShelfTall.glb", pos: {x: -1, y: -0.27, z: -0.12 }, rot: {x: 0, y: 90, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: [ "static", "blocksMove", "blocksThrow"] }
+  tallShelfE_1Books: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookTall1.glb",  pos: {x: -1, y: -0.27, z: -0.12 }, rot: {x: 0, y: 90, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: [ "static", "blocksMove", "blocksThrow"] }
+  tallShelfE_1Books_middle: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookTall1.glb",  pos: {x: -1, y: -0.27, z: -1 }, rot: {x: 0, y: 90, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: [ "static", "blocksMove", "blocksThrow"] }
+  
+  tallShelfE_1Books_nonBlock: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookTall1.glb",  pos: {x: -1, y: -0.27, z: -0.12 }, rot: {x: 0, y: 90, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: [ "static"] }
+
+  shortShelfE: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/ShelfShort.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 90, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "blocksMove" ] }
+  shortShelfE_1Books: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookShort1.glb", pos: {x: -1, y: -0.27, z: -0.12 }, rot: {x: 0, y: 90, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "blocksMove"] }
+  shortShelfE_2Books: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookShort2.glb", pos: {x: -1, y: -0.27, z: -0.12 }, rot: {x: 0, y: 90, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "blocksMove"] }
+  shortShelfE_1Books_middle: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookShort1.glb", pos: {x: -1, y: -0.27, z: -1 }, rot: {x: 0, y: 90, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "blocksMove"] }
+  shortShelfE_2Books_middle: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookShort2.glb", pos: {x: -1, y: -0.27, z: -1 }, rot: {x: 0, y: 90, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "blocksMove"] }
+
+  shortShelfE_1Books_nonBlock: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookShort1.glb", pos: {x: -1, y: -0.27, z: -0.12 }, rot: {x: 0, y: 90, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static"] }
+  shortShelfE_2Books_nonBlock: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/FrankbookShort2.glb", pos: {x: -1, y: -0.27, z: -0.12 }, rot: {x: 0, y: 90, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static"] }
+
+  tallShelfW: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/ShelfTall.glb", pos: {x: -1, y: -0.27, z: 1}, rot: {x: 0, y: 270, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "blocksMove", "blocksThrow" ] }
+  shortShelfW: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/ShelfShort.glb", pos: {x: -1, y: -0.27, z: 1}, rot: {x: 0, y: 270, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: [ "static", "blocksMove"] }
+
+  tallShelfN: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/ShelfTall.glb", pos: {x: 1, y: -0.27, z: 1}, rot: {x: 0, y: 0, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: [ "static", "blocksMove", "blocksThrow"] }
+  shortShelfN: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/ShelfShort.glb", pos: {x: 1, y: -0.27, z: 1}, rot: {x: 0, y: 0, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: [ "static", "blocksMove"] }
+
+  wallShelfE: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/WallShelf.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "static"] }
+  wallShelfS: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/WallShelf.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: ["static" ] }
+
+  potion_shelf_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/PotionShelf.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: ["static" ] }
+  potion_shelf_s: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/PotionShelf.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: -90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: ["static" ] }
+  potion_shelf_s_rev: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/PotionShelf.glb", pos: {x: -1, y: 0, z: 1}, rot: {x: 0, y: -90, z: 0},scale: {x: -1, y: 1, z: 1} } ], tags: ["static" ] }
+  potion_shelf_e_rev: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/PotionShelf.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: -1, y: 1, z: 1} } ], tags: ["static" ] }
+
+  ## Crates
+
+  crate: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Crate.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove" ] }
+  crate_rotated: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Crate.glb", pos: {x: 1.3, y: -0.27, z: 0}, rot: {x: 0, y: 45, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove" ] }
+  crate_tall: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Crate.glb", pos: {x: 1.3, y: 0.65, z: 0}, rot: {x: 0, y: 45, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow" ] }
+
+  armCrate: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/PartsSpawners/ArmCrate.glb", pos: {x: -1.1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], mods: [ "ArmsStall" ], tags: [ "blocksMove" ] }
+  legCrate: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/PartsSpawners/LegCrate.glb", pos: {x: -1.1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], mods: [ "LegsStall" ], tags: [ "blocksMove" ] }
+  headCrate: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/PartsSpawners/HeadCrate.glb", pos: {x: -1.1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], mods: [ "HeadsStall" ], tags: [ "blocksMove" ] }
+  torsoCrate: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/PartsSpawners/TorsoCrate.glb", pos: {x: -1.1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], mods: [ "TorsosStall" ], tags: [ "blocksMove" ] }
+
+  ## Candles
+
+  wallCandle1E: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/WallCandle1.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ ] }
+  wallCandle1S: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/WallCandle1.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ ] }
+
+  wallCandle2E: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/WallCandle2.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ ] }
+  wallCandle2S: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/WallCandle2.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ ] }
+
+  floorCandle1: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/FloorCandle1.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "floor"] }
+  floorCandle2: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/FloorCandle2.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} } ], tags: ["static", "floor"] }
+
+  #Vents
+  vent_s: { mapObject: Custom, art3d: [ { model: "Art/3D/Vent.glb", pos: {x: 0.7, y: 0.5, z: 0}, rot: {x: 0, y: 90, z: 0}, scale: {x: 0.4, y: 0.4, z: 0.4} } ], tags: [ "static" ] }
+  vent_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/Vent.glb", pos: {x: 0, y: 0.5, z: 1}, rot: {x: 0, y: 90, z: 0}, scale: {x: 0.4, y: 0.4, z: 0.4} } ], tags: [ "static" ] }
+
+
+  #2D - Tutorial images
+
+  sliding_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/SlidingTut.png", displayType: quad, pos: {x: 0, y: 4, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  teleport_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/TeleportTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  lifting_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/LiftingDoorTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  lever_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/LeverTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  assembling_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/assemblingTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  
+  conv_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/ConvTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  other_conv_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/OtherConvTutorial.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  
+  bucket_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/BucketTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  vat_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/VatTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  heavy_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/HeavyObjectTut.png", displayType: quad, pos: {x: 0, y: 7, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 6, y: 6, z: 6} } ], tags: [ "static" ] }
+

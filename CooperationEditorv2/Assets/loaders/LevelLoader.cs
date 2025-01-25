@@ -65,9 +65,9 @@ public class LevelLoader : MonoBehaviour
 
         //get the list of inlcude files in the levelfiles
         List<string> includeFiles = globalResources.levelFile.include;
-        foreach (string includeFile in includeFiles)
-        {
+        for (int i = 0; i < includeFiles.Count; i++) { 
 
+            string includeFile = includeFiles[i];
             //get full path and deerilize new included file
             try
             { 
@@ -75,19 +75,28 @@ public class LevelLoader : MonoBehaviour
                 Debug.Log(fullPath);
                 LevelFile newIncludeFile = deserializer.Deserialize<LevelFile>(File.ReadAllText(fullPath));
                 //add includes files to current list
-                foreach (string t in newIncludeFile.include)
+                if (newIncludeFile.include != null)
                 {
-                    includeFiles.Add(t);
+                    foreach (string t in newIncludeFile.include)
+                    {
+                        includeFiles.Add(t);
+                    }
                 }
                 //add each object to the global List
-                foreach ((string objName, ObjectClass obj) in newIncludeFile.objectDefinitions) {
-                    if (!globalResources.allObjects.ContainsKey(objName)) {
-                        globalResources.allObjects.Add(objName, obj);
+                if (newIncludeFile.objectDefinitions != null)
+                {
+                    foreach ((string objName, ObjectClass obj) in newIncludeFile.objectDefinitions)
+                    {
+                        if (!globalResources.allObjects.ContainsKey(objName))
+                        {
+                            globalResources.allObjects.Add(objName, obj);
+                        }
                     }
                 }
             }
             catch (YamlException ex)
             {
+                Debug.LogError($"Error parsing YAML int {includeFile}");
                 Debug.LogError($"Error parsing YAML at line {ex.Start.Line}, column {ex.Start.Column}.");
                 Debug.LogError($"Error message: {ex.Message}");
             }
@@ -102,7 +111,7 @@ public class LevelLoader : MonoBehaviour
         string[] levelRows = globalResources.levelFile.grid.Split('\n', System.StringSplitOptions.RemoveEmptyEntries);
         foreach (string row in levelRows) {
             
-            string[] comps = row.Split(',');//split to individual components
+            string[] comps = row.Split(',', System.StringSplitOptions.RemoveEmptyEntries);//split to individual components
             globalResources.levelWidth = comps.Length;
             //loop though each cell(component) in the row
             for (int i = 0; i < comps.Length; i++) { 

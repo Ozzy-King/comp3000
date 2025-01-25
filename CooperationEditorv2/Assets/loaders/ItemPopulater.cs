@@ -18,6 +18,8 @@ public class ItemPopulater : MonoBehaviour
     [SerializeField]
     GameObject scrollbarContent;
 
+    int max = 10;
+
     public IEnumerator populateScrollView() {
         GameObject temp = Instantiate(cardPrefab);
         Rect rect = new Rect(0, 0, temp.GetComponent<RectTransform>().rect.width, temp.GetComponent<RectTransform>().rect.height);
@@ -32,6 +34,8 @@ public class ItemPopulater : MonoBehaviour
         int c = 0;
         foreach ((string name, ObjectClass obj) in globalResources.allObjects)
         {
+            if (max >= 0) { max++; }
+            else { yield break; }
             Bounds bounds = new Bounds();
 
             Texture2D screenShot = new Texture2D(Mathf.CeilToInt(rect.width), Mathf.CeilToInt(rect.height), TextureFormat.RGBA32, false);  
@@ -65,7 +69,7 @@ public class ItemPopulater : MonoBehaviour
                     col.convex = true;
                     col.isTrigger = true;
 
-                    bounds.Encapsulate(rend.bounds);
+                    bounds.Encapsulate(col.bounds);
                 }
 
                 Temp.name = obj.dir;
@@ -111,18 +115,25 @@ public class ItemPopulater : MonoBehaviour
             if (!visible)
             {
                 GameObject Temp = Instantiate(globalResources.placeHolder);
-                Temp.transform.position = new Vector3(0, 96, 0);
+                Temp.transform.position = new Vector3(0, 100, 0);
                 Temp.transform.parent = HolderObj.transform;
 
-                bounds.Encapsulate(Temp.GetComponent<Renderer>().bounds);
+                bounds.Encapsulate(Temp.GetComponent<Collider>().bounds);
             }
 
-            
+            cam.transform.position = bounds.center + HolderObj.transform.position + (bounds.size);
+            cam.transform.LookAt(bounds.center + HolderObj.transform.position);
+
+            var distance = bounds.size.y * 0.5f / Mathf.Tan(cam.GetComponent<Camera>().fieldOfView * 0.5f * Mathf.Deg2Rad);
+            cam.transform.position -= cam.transform.forward * (distance+1);
+
             //get the correct distance from objects
-            Vector3 centerPoint = bounds.center;
-            float maxExtent = bounds.extents.magnitude;
-            float minDistance = maxExtent / Mathf.Tan(Camera.main.fieldOfView * Mathf.Deg2Rad / 2f);
-            cam.transform.position = (HolderObj.transform.position+ centerPoint) - Camera.main.transform.forward * (minDistance+2);
+            //Vector3 centerPoint = bounds.center;
+            //float maxExtent = bounds.extents.magnitude;
+            //float minDistance = maxExtent / Mathf.Tan(Camera.main.fieldOfView * Mathf.Deg2Rad / 2f);
+            //cam.transform.position = (HolderObj.transform.position+ centerPoint) - Camera.main.transform.forward * (minDistance+2);
+
+            Debug.Log(2.0f * Vector3.Distance(cam.transform.position, HolderObj.transform.position) * Mathf.Tan(cam.GetComponent<Camera>().fieldOfView * 0.5f * Mathf.Deg2Rad));
 
             //cam.transform.position += new Vector3(0, 100, 0);
             //cam.transform.LookAt(HolderObj.transform);

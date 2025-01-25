@@ -1,0 +1,141 @@
+#EDITORPROG:
+include: [FrankensteinShared.yaml, levelsShared.yaml]
+fileProperties:
+  creatorName: osbourne
+sceneName: EmptyWorld
+postProcessing:
+  depthOfField: { enabled: false, focusDistance: 58, focalLength: 0.0, aperture: 1.0 }
+grid: |
+  tl,--,--,--,--,--,--,--,--,--,--,--,--,--,
+  --,--,--,--,--,--,--,--,--,--,--,--,--,--,
+  --,--,--,--,--,--,--,--,--,--,--,--,--,--,
+  --,--,--,gm,--,--,--,--,--,--,--,--,--,--,
+  --,--,--,--,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,
+  --,--,--,--,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,
+  --,--,--,--,C0,C1,C2,C3,C4,C5,C6,C7,C8,C9,
+  --,--,--,--,D0,D1,D2,D3,D4,D5,D6,D7,D8,D9,
+  --,--,--,--,E0,E1,E2,E3,E4,E5,E6,E7,E8,E9,
+  --,--,--,--,F0,F1,F2,F3,F4,F5,F6,F7,F8,F9,
+  --,--,--,--,G0,G1,G2,G3,G4,G5,G6,G7,G8,G9,
+  --,--,--,--,H0,H1,H2,H3,H4,H5,H6,H7,H8,H9,
+  --,--,--,--,I0,I1,I2,I3,I4,I5,I6,I7,I8,I9,
+  --,--,--,--,J0,J1,J2,J3,J4,J5,J6,J7,J8,J9
+gridObjects:
+  gm: [ gm, delay, ConvayorManager, AdamManager ]
+  __: []
+  --: []
+
+  A0: []
+  B0: [brick_wall_e]
+  C0: [brick_wall_e]
+  D0: []
+  E0: []
+  F0: []
+  G0: [brick_wall_e]
+  H0: [brick_wall_e]
+  I0: []
+  J0: []
+  A1: [brick_wall_s]  
+  B1: [floorEndR]  
+  C1: [floorEndL, frankTable_red_n, tableLight]  
+  D1: [brick_wall_s, potion_shelf_s_rev]  
+  E1: [conveyorEast]  
+  F1: [conveyorNorth]  
+  G1: [floorEndR, p3]  
+  H1: [floorEndL, shortShelfE_1Books_nonBlock]  
+  I1: []  
+  J1: []  
+  A2: [brick_wall_s]  
+  B2: [floorEndR, VAT140, conv_Tutorial]  
+  C2: [floorEndL, p1]  
+  D2: [conveyorNorth]  
+  E2: [conveyorNorth]  
+  F2: [brick_wall_s, wallCandle2S]  
+  G2: [floorEndR]  
+  H2: [floorEndL, armCrate]  
+  I2: []  
+  J2: []  
+  A3: [brick_wall_s,potion_shelf_s]
+  B3: [floorEndR, monsterTorso]
+  C3: [floor]
+  D3: [floorEndL, torsoCrate]
+  E3: []
+  F3: []
+  G3: [brick_wall_e]
+  H3: [brick_wall_e, potion_shelf_e_rev]
+  I3: []
+  J3: []  
+  A4: [brick_wall_s]  
+  B4: [floorEndR, tallShelfS_1Books_nonBlock]  
+  C4: [floorEndL]  
+  D4: [conveyorNorth]  
+  E4: [conveyorNorth, monsterArm]  
+  F4: [brick_wall_s]  
+  G4: [floorEndR, p4]  
+  H4: [floorEndL, headCrate]  
+  I4: []  
+  J4: []  
+  A5: [brick_wall_s]  
+  B5: [brick_wall_e]  
+  C5: [brick_wall_e]  
+  D5: [brick_wall_e, brick_wall_s]  
+  E5: [conveyorWest]  
+  F5: [conveyorNorth,floorEndR]  
+  G5: [floorEndL]  
+  H5: []  
+  I5: []  
+  J5: []  
+  A6: [brick_wall_s] 
+  B6: [floorEndR, shortShelfE_2Books_nonBlock, other_conv_Tutorial]  
+  C6: [floor, leverFloorN, leverLight]  
+  D6: [floorEndL, tallShelfE_1Books_nonBlock]  
+  E6: [conveyorWest]  
+  F6: []  
+  G6: []  
+  H6: []  
+  I6: []  
+  J6: []
+  A7: [brick_wall_s, potion_shelf_s_rev]
+  B7: [floorEndR]
+  C7: [floor, p2]
+  D7: [floorEndL, monsterLeg]
+  E7: [conveyorWest, monsterLeg]
+  F7: []
+  G7: []
+  H7: []
+  I7: []
+  J7: []
+  A8: []
+  B8: [floorEndR]
+  C8: [floorEndL, legCrate]
+  D8: []
+  E8: []
+  F8: []
+  G8: []
+  H8: []
+  I8: []
+  J8: []
+  A9: []
+  B9: []
+  C9: []
+  D9: []
+  E9: []
+  F9: []
+  G9: []
+  H9: []
+  I9: []
+  J9: [CeilingLightStrong]
+  --: []
+    
+  tl: [camera_focus]
+  bl: [camera_focus]
+  tr: [camera_focus]
+
+objectDefinitions:
+
+  crateBot: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Crate.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove" ] }
+  crateTop: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Crate.glb", pos: {x: -1.0, y: 0.68, z: -0.9}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow" ] }
+  potion_shelf_s_rev: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/PotionShelf.glb", pos: {x: -1, y: 0, z: 1}, rot: {x: 0, y: -90, z: 0},scale: {x: -1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+
+sounds:
+globalData:

@@ -1,0 +1,415 @@
+include:
+- FrankensteinShared.yaml
+- levelsShared.yaml
+- CoOpAnimationDefinitions.yaml
+fileProperties:
+  creatorName: osbourne
+sceneName: EmptyWorld
+postProcessing:
+  depthOfField:
+    enabled: false
+    focusDistance: 58
+    focalLength: 0
+    aperture: 1
+grid: >
+  AA,BA,CA,DA,EA,FA,GA,HA,IA,JA,KA,LA,MA,NA
+
+  AB,BB,CB,DB,EB,FB,GB,HB,IB,JB,KB,LB,MB,NB
+
+  AC,BC,CC,DC,EC,FC,GC,HC,IC,JC,KC,LC,MC,NC
+
+  AD,BD,CD,DD,ED,FD,GD,HD,ID,JD,KD,LD,MD,ND
+
+  AE,BE,CE,DE,EE,FE,GE,HE,IE,JE,KE,LE,ME,NE
+
+  AF,BF,CF,DF,EF,FF,GF,HF,IF,JF,KF,LF,MF,NF
+
+  AG,BG,CG,DG,EG,FG,GG,HG,IG,JG,KG,LG,MG,NG
+
+  AH,BH,CH,DH,EH,FH,GH,HH,IH,JH,KH,LH,MH,NH
+
+  AI,BI,CI,DI,EI,FI,GI,HI,II,JI,KI,LI,MI,NI
+
+  AJ,BJ,CJ,DJ,EJ,FJ,GJ,HJ,IJ,JJ,KJ,LJ,MJ,NJ
+
+  AK,BK,CK,DK,EK,FK,GK,HK,IK,JK,KK,LK,MK,NK
+
+  AL,BL,CL,DL,EL,FL,GL,HL,IL,JL,KL,LL,ML,NL
+
+  AM,BM,CM,DM,EM,FM,GM,HM,IM,JM,KM,LM,MM,NM
+
+  AN,BN,CN,DN,EN,FN,GN,HN,IN,JN,KN,LN,MN,NN
+
+  AO,BO,CO,DO,EO,FO,GO,HO,IO,JO,KO,LO,MO,NO
+gridObjects:
+  AA: []
+  BA: []
+  CA: []
+  DA: []
+  EA: []
+  FA: []
+  GA: []
+  HA: []
+  IA: []
+  JA: []
+  KA: []
+  LA: []
+  MA: []
+  NA: []
+  AB: []
+  BB: []
+  CB: []
+  DB: []
+  EB: []
+  FB: []
+  GB: []
+  HB: []
+  IB: []
+  JB: []
+  KB: []
+  LB: []
+  MB: []
+  NB: []
+  AC: []
+  BC: []
+  CC:
+  - camera_focus
+  DC: []
+  EC: []
+  FC: []
+  GC: []
+  HC: []
+  IC: []
+  JC: []
+  KC: []
+  LC: []
+  MC: []
+  NC: []
+  AD: []
+  BD: []
+  CD: []
+  DD:
+  - gm
+  - delay
+  - ConvayorManager
+  - AdamManager
+  ED:
+  - brick_wall_corner_se
+  FD:
+  - brick_wall_s
+  GD:
+  - brick_wall_s
+  HD:
+  - brick_wall_s
+  ID:
+  - brick_wall_s
+  JD:
+  - brick_wall_s
+  KD:
+  - brick_wall_s
+  LD:
+  - brick_wall_s
+  MD: [ brick_wall_s ]
+  ND:
+  - camera_focus
+  AE: []
+  BE: []
+  CE: []
+  DE: []
+  EE:
+  - floorEndR
+  - armCrate
+  FE:
+  - floorEndR
+  - vent_s
+  GE:
+  - floorEndR
+  - tallShelfS_1Books_nonBlock
+  HE:
+  - floorEndR
+  - tallShelfS_1Books_nonBlock
+  IE:
+  - floorEndR
+  JE:
+  - floorEndR
+  - shortShelfS_1Books_nonBlock
+  KE:
+  - floorEndR
+  - shortShelfS_1Books_nonBlock
+  LE:
+  - floorEndR
+  ME:
+  - floorEndR
+  NE: []
+  AF: []
+  BF: []
+  CF: []
+  DF:
+  - brick_wall_e
+  EF:
+  - floor
+  - tallShelfE_1Books_nonBlock
+  FF:
+  - floor
+  - CeilingLight
+  GF:
+  - floor
+  HF:
+  - floor
+  - leverFloorN
+  - leverLight
+  IF:
+  - floor
+  JF:
+  - floor
+  - legCrate
+  KF:
+  - floor
+  LF:
+  - floor
+  MF:
+  - floor
+  NF: []
+  AG: []
+  BG: []
+  CG: []
+  DG:
+  - brick_wall_e
+  - wallCandle1E
+  EG:
+  - floor
+  - shortShelfE_1Books_nonBlock
+  FG:
+  - floor
+  GG:
+  - floor
+  HG:
+  - floor
+  IG:
+  - floor
+  - CeilingLight
+  JG:
+  - floor
+  KG:
+  - floor
+  LG:
+  - floor
+  - CeilingLight
+  MG:
+  - floor
+  - torsoCrate
+  NG: []
+  AH: []
+  BH: []
+  CH: []
+  DH:
+  - brick_wall_e
+  EH:
+  - floor
+  - shortShelfE_1Books_nonBlock
+  FH:
+  - floor
+  - p1
+  GH:
+  - floor
+  HH:
+  - floor
+  IH:
+  - floor
+  JH:
+  - floor
+  - crate_tall
+  KH:
+  - floor
+  LH:
+  - floor
+  MH:
+  - floor
+  NH: []
+  AI: []
+  BI: []
+  CI: []
+  DI:
+  - brick_wall_e_lc
+  EI:
+  - floorEndL
+  - crate
+  FI:
+  - floorEndL
+  GI:
+  - floorEndL
+  - conveyorSouth
+  HI:
+  - floorEndL
+  II:
+  - floorEndL
+  - monsterArm
+  JI:
+  - floorEndL
+  - conveyorNorth
+  KI:
+  - floorEndL
+  LI:
+  - floorEndL
+  MI:
+  - floorEndL
+  - conveyorNorth
+  NI: []
+  AJ: []
+  BJ: []
+  CJ: []
+  DJ: []
+  EJ: []
+  FJ: []
+  GJ:
+  - conveyorSouth
+  - metalWallSYellowDown
+  HJ:
+  - brick_wall_s
+  IJ:
+  - potion_shelf_s
+  - brick_wall_s
+  JJ:
+  - conveyorNorth
+  - metalWallSYellow
+  KJ: []
+  LJ: []
+  MJ:
+  - brick_wall_s_rc
+  - conveyorNorth
+  NJ: []
+  AK: []
+  BK: []
+  CK: []
+  DK: []
+  EK: []
+  FK: []
+  GK:
+  - conveyorSouth
+  HK: []
+  IK: []
+  JK:
+  - conveyorNorth
+  KK: []
+  LK:
+  - brick_wall_s
+  MK:
+  - conveyorNorth
+  NK: []
+  AL: []
+  BL: []
+  CL: []
+  DL: []
+  EL:
+  - brick_wall_s
+  FL:
+  - brick_wall_s
+  GL:
+  - conveyorSouth
+  HL:
+  - potion_shelf_s
+  IL:
+  - potion_shelf_s_rev
+  JL:
+  - conveyorNorth
+  KL:
+  - brick_wall_e
+  LL:
+  - floorEndR
+  - vent_s
+  ML:
+  - floorEndR
+  - monsterTorso
+  - conveyorNorth
+  NL: []
+  AM: []
+  BM: []
+  CM: []
+  DM:
+  - brick_wall_e
+  EM:
+  - floorEndR
+  FM:
+  - floorEndR
+  - VAT150
+  GM:
+  - floorEndR
+  - conveyorSouth
+  HM:
+  - floorEndR
+  - shortShelfS
+  IM:
+  - floorEndR
+  - shortShelfS_1Books_nonBlock
+  JM:
+  - floorEndR
+  - conveyorNorth
+  KM:
+  - brick_wall_e
+  LM:
+  - floor
+  MM:
+  - floor
+  - CeilingLight
+  - CeilingLightStrong
+  NM: []
+  AN: []
+  BN: []
+  CN: []
+  DN:
+  - brick_wall_e
+  - wallCandle1E
+  EN:
+  - floor
+  - frankTable_red_n
+  - tableLight
+  FN:
+  - floor
+  - CeilingLight
+  - monsterLeg
+  GN:
+  - floor
+  HN:
+  - floor
+  - p2
+  IN:
+  - floor
+  - CeilingLight
+  JN:
+  - floor
+  KN:
+  - brick_window4_e
+  LN:
+  - floorEndL
+  MN:
+  - floorEndL
+  NN: []
+  AO: []
+  BO: []
+  CO: []
+  DO:
+  - brick_wall_e_lc
+  - camera_focus
+  EO:
+  - floorEndL
+  FO:
+  - floorEndL
+  GO:
+  - floorEndL
+  HO:
+  - floorEndL
+  - leverYFloorN
+  - leverLight
+  IO:
+  - floorEndL
+  JO:
+  - floorEndL
+  - headCrate
+  - camera_focus
+  KO: []
+  LO: []
+  MO: []
+  NO: []
+objectDefinitions: 
+sounds: 
+globalData: 

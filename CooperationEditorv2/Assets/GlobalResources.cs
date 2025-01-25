@@ -117,7 +117,6 @@ public class GlobalResources : MonoBehaviour
         if (levelLoader.loadLevel() == 1){ return; }
         if (levelLoader.LoadObjects()==1) { return; }
         if (levelLoader.parseLevel()==1) { return; }
-        StartCoroutine(populater.populateScrollView());
         CurrentObjectSelectID = allObjects.Keys.First();
 
         //place objects in scene from level
@@ -143,65 +142,71 @@ public class GlobalResources : MonoBehaviour
                     //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
                     bool visible = false;
                     //import each object used
-                    foreach (Art3d objsArt in obj.art3d)
+                    if (obj.art3d != null)
                     {
-                        visible = true;
-                        GameObject Temp = ImportGLTF(workingDirectory + "/" + objsArt.model);
-                        Temp.AddComponent<ObjectAttributes>().attributes3d = objsArt;
-                        foreach (Renderer rend in Temp.GetComponentsInChildren<Renderer>()) {
-                            MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
-                            col.convex = true;
-                            col.isTrigger = true;
-                            SkinnedMeshRenderer skinnedRenderer = rend as SkinnedMeshRenderer;
-                            if (skinnedRenderer != null)
+                        foreach (Art3d objsArt in obj.art3d)
+                        {
+                            visible = true;
+                            GameObject Temp = ImportGLTF(workingDirectory + "/" + objsArt.model);
+                            Temp.AddComponent<ObjectAttributes>().attributes3d = objsArt;
+                            foreach (Renderer rend in Temp.GetComponentsInChildren<Renderer>())
                             {
-                                // Create a new mesh and bake the skinned mesh into it
-                                Mesh bakedMesh = new Mesh();
-                                skinnedRenderer.BakeMesh(bakedMesh);
-                                Debug.LogError(bakedMesh.vertexCount);
-                                // Assign the baked mesh to the Mesh Collider
-                                col.sharedMesh = null; // Clear old mesh reference
-                                col.sharedMesh = bakedMesh;
+                                MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
+                                col.convex = true;
+                                col.isTrigger = true;
+                                SkinnedMeshRenderer skinnedRenderer = rend as SkinnedMeshRenderer;
+                                if (skinnedRenderer != null)
+                                {
+                                    // Create a new mesh and bake the skinned mesh into it
+                                    Mesh bakedMesh = new Mesh();
+                                    skinnedRenderer.BakeMesh(bakedMesh);
+                                    // Assign the baked mesh to the Mesh Collider
+                                    col.sharedMesh = null; // Clear old mesh reference
+                                    col.sharedMesh = bakedMesh;
+                                }
                             }
+
+                            Temp.name = obj.dir;
+
+                            //CenterPivotAtBottomMiddle(Temp);
+
+                            Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
+
+                            Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+                            Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+                            Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
+                            Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+
+                            Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+                            Debug.Log(obj.dir);
+                            Temp.transform.parent = HolderObj.transform;
                         }
-
-                        Temp.name = obj.dir;
-
-                        //CenterPivotAtBottomMiddle(Temp);
-
-                        Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
-
-                        Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
-                        Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
-                        Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
-                        Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
-
-                        Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
-                        Debug.Log(obj.dir);
-                        Temp.transform.parent = HolderObj.transform;
                     }
-                    foreach (Art2d objsArt in obj.art2d)
+                    if (obj.art2d != null)
                     {
-                        visible = true;
-                        GameObject Temp = ImportImage(workingDirectory + artDir + art2dDir + "/" + objsArt.texture);
-                        Temp.AddComponent<ObjectAttributes>().attributes2d = objsArt;
-                        BoxCollider collider = Temp.AddComponent<BoxCollider>();
-                        collider.isTrigger = true;
+                        foreach (Art2d objsArt in obj.art2d)
+                        {
+                            visible = true;
+                            GameObject Temp = ImportImage(workingDirectory + artDir + art2dDir + "/" + objsArt.texture);
+                            Temp.AddComponent<ObjectAttributes>().attributes2d = objsArt;
+                            BoxCollider collider = Temp.AddComponent<BoxCollider>();
+                            collider.isTrigger = true;
 
-                        Temp.name = obj.dir;
+                            Temp.name = obj.dir;
 
-                        //CenterPivotAtBottomMiddle(Temp);
+                            //CenterPivotAtBottomMiddle(Temp);
 
-                        Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
+                            Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
 
-                        Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
-                        Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
-                        Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
-                        Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+                            Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+                            Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+                            Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
+                            Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
 
-                        Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
-                        Debug.Log(obj.dir);
-                        Temp.transform.parent = HolderObj.transform;
+                            Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+                            Debug.Log(obj.dir);
+                            Temp.transform.parent = HolderObj.transform;
+                        }
                     }
                     if (!visible) {
                         GameObject Temp = Instantiate(placeHolder);
@@ -215,6 +220,7 @@ public class GlobalResources : MonoBehaviour
    
         Debug.Log(levelFile.grid);
         LoadedEverything = true;
+        StartCoroutine(populater.populateScrollView());
     }
 
     public Bounds instintateObj(string name, ObjectClass obj, Vector3 newPos, GameObject HolderObj) {
@@ -253,7 +259,7 @@ public class GlobalResources : MonoBehaviour
                     col.sharedMesh = null; // Clear old mesh reference
                     col.sharedMesh = bakedMesh;
                 }
-                bounds.Encapsulate(rend.bounds);
+                bounds.Encapsulate(col.bounds);
             }
 
             Temp.name = obj.dir;
@@ -302,7 +308,7 @@ public class GlobalResources : MonoBehaviour
             GameObject Temp = Instantiate(placeHolder);
             Temp.transform.position = new Vector3(newPos.y, newPos.z, newPos.x);
             Temp.transform.parent = HolderObj.transform;
-            bounds.Encapsulate(Temp.GetComponent<Renderer>().bounds);
+            bounds.Encapsulate(Temp.GetComponent<Collider>().bounds);
         }
         return bounds;
     }
