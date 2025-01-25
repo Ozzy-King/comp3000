@@ -1,0 +1,89 @@
+key:
+	text: //__________________the name of a spesifc feild
+	<text> //_________________can be named anything
+	{} //_____________________struct that can conatin other things
+	[ type/{struct} ] //______an array of what is inside
+	indents //________________feilds contained in other feilds
+
+// whats getting parse
+
+include: [ strings ]
+
+fileProperties:
+  creatorName: string
+
+sceneName: string
+
+postProcessing:
+  depthOfField: { enabled: bool, focusDistance: int, focalLength: float, aperture: float }
+  
+grid: string
+
+gridObjects:
+  tileName: [ strings ]
+  ...//continues with more
+
+objectDefinitions:
+	<objName>: { 
+		base: [ strings ], 
+		dir: string,
+		art3d: [ 
+			{
+				model: string,
+				pos: {x: float, y: float, z: float},
+				rot: {x: float, y: float, z: float},
+				scale: {x: float, y: float, z: float} 
+			},
+			...
+		],
+		art2d: [
+			{
+				texture: string,
+				pos: {x: float, y: float, z: float},
+				rot: {x: float, y: float, z: float},
+				scale: {x: float, y: float, z: float} 
+			},
+			...
+		]
+		tags: [ strings ],
+		mods: [ strings ]
+	}
+	...//continues with more
+
+sounds:
+	<soundName>: {
+		fileNames: [ strings ]
+	}
+	...//continues with more
+
+//might not need this
+GlobalData:
+	Health: int,
+	Need: string
+	
+what cant be included as it isnt get parsed:
+	Anonymous objects such as
+	"""
+	gridObjects:
+		tileName: [ obj1, obj2, { id: anon, data: { id: 1 } } ]
+	"""
+
+//notes on whats currently the limitations of the software is
+practices to use when useing the editor:
+-all object definitions should be defined in an external yaml
+	in level obj def might work but will have to double check, and could break the objs definiton(keep it simple if doing so)
+-if opening a compatiable level make sure all tile definitions are in the level file and not external
+
+-dont use Anonymous object in tile definitions 
+	Anonymous creates uncertinty on what could be included within the object and whether it should be saved back as Anonymous or become a defined object
+-dont pass data to mods, not supported and wont load level
+	same as above, i becomnes difficult to parse as there isnt a define format for what could be inside
+
+
+
+
+
+
+
+
+
