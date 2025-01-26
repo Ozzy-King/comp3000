@@ -13,7 +13,13 @@ public class BillboardScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.LookAt(Camera.main.transform);
-        
+        transform.LookAt(Camera.main.transform);
+
+        // Flip the object around the Y-axis (180 degrees) to ensure the front faces the camera
+        transform.Rotate(0, 180, 0);
+        // gameObject.transform.Rotate(new Vector3(0, 180 ,0));
+        // gameObject.transform.rotation = Quaternion.Euler(-(gameObject.transform.rotation.eulerAngles.x), gameObject.transform.rotation.eulerAngles.y, gameObject.transform.rotation.eulerAngles.z);
+
+
     }
 }

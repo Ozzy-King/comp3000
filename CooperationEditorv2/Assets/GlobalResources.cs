@@ -26,23 +26,41 @@ public class GlobalResources : MonoBehaviour
         return Importer.LoadFromFile(filepath);
     }
     public GameObject ImportImage(string filepath) {
-        GameObject BillboardObject = new GameObject();
+        //create quad object
+        GameObject BillboardObject = Instantiate(quadTemplate);
+        BillboardObject.transform.position = Vector3.zero;
+        MeshRenderer quadMeshRenderer = BillboardObject.GetComponent<MeshRenderer>();
+
+        //create texture variables and populate them with right data
         Texture2D Tex2D;
-        Sprite sprite2D;
         if (!File.Exists(filepath)) { return BillboardObject; }
         
-        //create sprite
+        //create sprite and set mertial to 
         byte[] FileData = File.ReadAllBytes(filepath);
         Tex2D = new Texture2D(2, 2);
         Tex2D.LoadImage(FileData);
-        sprite2D = Sprite.Create(Tex2D, new Rect(0, 0, Tex2D.width, Tex2D.height), new Vector2(0, 0));
+        quadMeshRenderer.material.mainTexture = Tex2D;
 
-        //set sprite to render
-        SpriteRenderer render = BillboardObject.AddComponent<SpriteRenderer>();
-        render.sprite = sprite2D;
+        // Enable transparency
+        quadMeshRenderer.material.SetFloat("_Mode", 3); // 3 = Transparent mode in Standard shader
+        quadMeshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        quadMeshRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        quadMeshRenderer.material.SetInt("_ZWrite", 0);
+        quadMeshRenderer.material.DisableKeyword("_ALPHATEST_ON");
+        quadMeshRenderer.material.EnableKeyword("_ALPHABLEND_ON");
+        quadMeshRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        quadMeshRenderer.material.renderQueue = 3000; // Transparent rendering queue
 
-        //BillboardObject.AddComponent<BillboardScript>();
-        
+
+        //look into to support texture porpertys
+        //quadMeshRenderer.material.SetTextureScale("_MainTex", new Vector2(1, 1)); // Scale
+        //quadMeshRenderer.material.SetColor("_Color", Color.white);
+
+        //inital rotation is -90
+        //rotation around y is +
+        //rotation around x is -
+        //rotation around z is -
+
         return BillboardObject;
     }
 
@@ -62,6 +80,7 @@ public class GlobalResources : MonoBehaviour
     public List<List<(string, ObjectClass)>> level = new List<List<(string, ObjectClass)>>(); //<<--used to set the level up in the world
     public List<GameObject> CurrentLevel;//<<-- all game objects that are in the current map 
     public GameObject placeHolder; //<----- set in editor
+    public GameObject quadTemplate; //<----- set in editor
 
 
     public bool LoadedEverything = false;
@@ -189,7 +208,7 @@ public class GlobalResources : MonoBehaviour
                             visible = true;
                             GameObject Temp = ImportImage(workingDirectory + artDir + art2dDir + "/" + objsArt.texture);
                             Temp.AddComponent<ObjectAttributes>().attributes2d = objsArt;
-                            BoxCollider collider = Temp.AddComponent<BoxCollider>();
+                            MeshCollider collider = Temp.GetComponent<MeshCollider>();
                             collider.isTrigger = true;
 
                             Temp.name = obj.dir;
@@ -197,13 +216,26 @@ public class GlobalResources : MonoBehaviour
                             //CenterPivotAtBottomMiddle(Temp);
 
                             Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
-
+                            
                             Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
-                            Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+                            
+                            Temp.transform.rotation = Quaternion.Euler(0, -90, 0);//rotate around y to get it into north east south west
                             Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
-                            Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+                            Temp.transform.Rotate(new Vector3(-objsArt.rot.x, objsArt.rot.y, -objsArt.rot.z));//added roation for inital direction
 
                             Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+
+                            MeshRenderer quadMeshRenderer = Temp.GetComponent<MeshRenderer>();
+                            quadMeshRenderer.material.SetFloat("_Metallic", objsArt.metallic); // 3 = Transparent mode in Standard shader
+                            quadMeshRenderer.material.SetFloat("_Glossiness", objsArt.smoothness); // 3 = Transparent mode in Standard shader
+
+
+                            //use this to support billboarding
+                            //if billboard or not quad(dafault to billboard if invalid)
+                            if (objsArt.displayType == "billboard" || objsArt.displayType != "quad") {
+                                Temp.AddComponent<BillboardScript>();
+                            }
+
                             Debug.Log(obj.dir);
                             Temp.transform.parent = HolderObj.transform;
                         }

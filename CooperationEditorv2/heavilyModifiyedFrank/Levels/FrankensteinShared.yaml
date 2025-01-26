@@ -347,16 +347,16 @@ objectDefinitions:
 
   #2D - Tutorial images
 
-  sliding_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/SlidingTut.png", displayType: quad, pos: {x: 0, y: 4, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
-  teleport_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/TeleportTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
-  lifting_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/LiftingDoorTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
-  lever_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/LeverTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
-  assembling_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/assemblingTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  sliding_Tutorial: { mapObject: Custom, art2d: [ { texture: "SlidingTut.png", metallic: 1.0, smoothness: 1.0, displayType: quad, pos: {x: 0, y: 4, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  teleport_Tutorial: { mapObject: Custom, art2d: [ { texture: "TeleportTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  lifting_Tutorial: { mapObject: Custom, art2d: [ { texture: "LiftingDoorTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  lever_Tutorial: { mapObject: Custom, art2d: [ { texture: "LeverTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  assembling_Tutorial: { mapObject: Custom, art2d: [ { texture: "assemblingTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
   
-  conv_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/ConvTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
-  other_conv_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/OtherConvTutorial.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  conv_Tutorial: { mapObject: Custom, art2d: [ { texture: "ConvTut.png", displayType: billboard, metallic: 1.0, smoothness: 1.0, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  other_conv_Tutorial: { mapObject: Custom, art2d: [ { texture: "OtherConvTutorial.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
   
-  bucket_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/BucketTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
-  vat_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/VatTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
-  heavy_Tutorial: { mapObject: Custom, art2d: [ { texture: "Art/2D/HeavyObjectTut.png", displayType: quad, pos: {x: 0, y: 7, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 6, y: 6, z: 6} } ], tags: [ "static" ] }
+  bucket_Tutorial: { mapObject: Custom, art2d: [ { texture: "BucketTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  vat_Tutorial: { mapObject: Custom, art2d: [ { texture: "VatTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  heavy_Tutorial: { mapObject: Custom, art2d: [ { texture: "HeavyObjectTut.png", displayType: quad, pos: {x: 0, y: 7, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 6, y: 6, z: 6} } ], tags: [ "static" ] }
 

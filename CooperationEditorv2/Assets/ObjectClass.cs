@@ -27,6 +27,10 @@ public class Art2d
     public vec3 rot = new vec3();
     public vec3Scale scale = new vec3Scale();
     public string texture = "";
+    [YamlMember(Alias = "display_type")]
+    public string displayType = "";
+    public float smoothness = 0.6f;
+    public float metallic = 0.1f;
 }
 
 public class ObjectClass
