@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.8603976, g: 0.8603976, b: 0.8603976, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -96,7 +96,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 83358e1ae356f784a8ab7f6822434108, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -510,7 +510,7 @@ Transform:
   m_GameObject: {fileID: 360613983}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1019,8 +1019,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1050346393}
   m_HandleRect: {fileID: 1050346392}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.65851367
+  m_Value: -0.0000095741425
+  m_Size: 0.85606587
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1302,7 +1302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &705507994
 Light:
   m_ObjectHideFlags: 0
@@ -1598,7 +1598,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -258.08386, y: 218.99998}
+  m_AnchoredPosition: {x: -258.08386, y: 153.00154}
   m_SizeDelta: {x: 258, y: 1063}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1406837073
@@ -2223,6 +2223,7 @@ MonoBehaviour:
   levelWidth: 0
   CurrentLevel: []
   placeHolder: {fileID: 4718759678689770175, guid: f34c0523351899c44953c3df2750da5f, type: 3}
+  quadTemplate: {fileID: 5738539659427967960, guid: 3b80e456dfafc164882637bab87d6fae, type: 3}
   LoadedEverything: 0
   inputFilePath: {fileID: 1746856211}
   _LuaDropDown: {fileID: 0}
