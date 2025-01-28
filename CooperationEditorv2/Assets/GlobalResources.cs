@@ -152,9 +152,9 @@ public class GlobalResources : MonoBehaviour
                     HolderObj.transform.position = new Vector3(newPos.y, 0, newPos.x);
 
                     //take account of base obejcts, id and mapObject wont work as both can get resolved to in game objects uavaliable for viewing
-                    if (obj._base.Count > 0) {
+                    if (obj._base != null && obj._base.Count > 0) {
                         foreach (string baseObj in obj._base) {
-                            instintateObj(baseObj, allObjects[baseObj], newPos, HolderObj);
+                            instintateObjAsBase(baseObj, allObjects[baseObj], newPos, HolderObj, obj.DirToAngle());
                         }
                     }
 
@@ -252,10 +252,105 @@ public class GlobalResources : MonoBehaviour
    
         Debug.Log(levelFile.grid);
         LoadedEverything = true;
-        StartCoroutine(populater.populateScrollView());
+        //StartCoroutine(populater.populateScrollView());
     }
 
-    public Bounds instintateObj(string name, ObjectClass obj, Vector3 newPos, GameObject HolderObj) {
+
+
+    //when and object is used as a base it will take on the perant dir instead of the objects dir
+    //used as generic and ashelp centre camer to object when taking picktures
+    public void instintateObjAsBase(string name, ObjectClass obj, Vector3 newPos, GameObject HolderObj, float rotateDir = 0)
+    {
+
+        //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
+        bool visible = false;
+        //take account of base obejcts, id and mapObject wont work as both can get resolved to in game objects uavaliable for viewing
+        if (obj._base.Count > 0)
+        {
+            foreach (string baseObj in obj._base)
+            {
+                instintateObj(baseObj, allObjects[baseObj], newPos, HolderObj, rotateDir);
+            }
+        }
+
+        //import each object used
+        foreach (Art3d objsArt in obj.art3d)
+        {
+            visible = true;
+            GameObject Temp = ImportGLTF(workingDirectory + "/" + objsArt.model);
+            Temp.AddComponent<ObjectAttributes>().attributes3d = objsArt;
+            foreach (Renderer rend in Temp.GetComponentsInChildren<Renderer>())
+            {
+                MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
+                col.convex = true;
+                col.isTrigger = true;
+                SkinnedMeshRenderer skinnedRenderer = rend as SkinnedMeshRenderer;
+                if (skinnedRenderer != null)
+                {
+                    // Create a new mesh and bake the skinned mesh into it
+                    Mesh bakedMesh = new Mesh();
+                    skinnedRenderer.BakeMesh(bakedMesh);
+                    Debug.LogError(bakedMesh.vertexCount);
+                    // Assign the baked mesh to the Mesh Collider
+                    col.sharedMesh = null; // Clear old mesh reference
+                    col.sharedMesh = bakedMesh;
+                }
+            }
+
+            Temp.name = obj.dir;
+
+            //CenterPivotAtBottomMiddle(Temp);
+
+            Temp.transform.position = new Vector3(newPos.y, newPos.z, newPos.x);
+
+            Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+            Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(0, rotateDir, 0));//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+
+            Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+            Debug.Log(obj.dir);
+            Temp.transform.parent = HolderObj.transform;
+        }
+        foreach (Art2d objsArt in obj.art2d)
+        {
+            visible = true;
+            GameObject Temp = ImportImage(workingDirectory + artDir + art2dDir + "/" + objsArt.texture);
+            Temp.AddComponent<ObjectAttributes>().attributes2d = objsArt;
+
+            BoxCollider collider = Temp.AddComponent<BoxCollider>();
+
+            collider.isTrigger = true;
+
+            Temp.name = obj.dir;
+
+            //CenterPivotAtBottomMiddle(Temp);
+
+            Temp.transform.position = new Vector3(newPos.y, newPos.z, newPos.x);
+
+            Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+            Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(0, rotateDir, 0));//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+
+            Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+            Debug.Log(obj.dir);
+            Temp.transform.parent = HolderObj.transform;
+        }
+        if (!visible)
+        {
+            GameObject Temp = Instantiate(placeHolder);
+            Temp.transform.position = new Vector3(newPos.y, newPos.z, newPos.x);
+            Temp.transform.parent = HolderObj.transform;
+        }
+
+    }
+
+
+
+
+    //used as generic and ashelp centre camer to object when taking picktures
+    public Bounds instintateObj(string name, ObjectClass obj, Vector3 newPos, GameObject HolderObj, float rotateDir = 0) {
 
         //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
         bool visible = false;
@@ -265,7 +360,7 @@ public class GlobalResources : MonoBehaviour
         {
             foreach (string baseObj in obj._base)
             {
-                bounds.Encapsulate(instintateObj(baseObj, allObjects[baseObj], newPos, HolderObj));
+                bounds.Encapsulate(instintateObj(baseObj, allObjects[baseObj], newPos, HolderObj, rotateDir));
             }
         }
 
@@ -302,6 +397,7 @@ public class GlobalResources : MonoBehaviour
 
             Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
             Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(0, rotateDir, 0));//rotate around y to get it into north east south west
             Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
             Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
 
@@ -328,6 +424,7 @@ public class GlobalResources : MonoBehaviour
 
             Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
             Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(0, rotateDir, 0));//rotate around y to get it into north east south west
             Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
             Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
 
@@ -342,11 +439,14 @@ public class GlobalResources : MonoBehaviour
             Temp.transform.parent = HolderObj.transform;
             bounds.Encapsulate(Temp.GetComponent<Collider>().bounds);
         }
+
         return bounds;
     }
 
 
 
+
+    //used by mouse to create new visual when placeing
     public GameObject createObject(string name) {
 
         ObjectClass obj = allObjects[name];

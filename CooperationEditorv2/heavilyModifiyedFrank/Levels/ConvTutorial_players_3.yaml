@@ -63,6 +63,7 @@ gridObjects:
   BA: []
   CA:
   - other_conv_Tutorial
+  - __anonymous__0
   DA: []
   EA: []
   FA: []
@@ -553,6 +554,29 @@ objectDefinitions:
         y: 1
         z: 1
       model: Art/3D/PotionShelf.glb
+    art2d: []
+  __anonymous__0:
+    tags: []
+    mods: []
+    dir: south
+    mapObject: ''
+    id: ''
+    base:
+    - other_conv_Tutorial
+    art3d:
+    - pos:
+        x: -0.2
+        y: 0
+        z: 0
+      rot:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 0.7
+        y: 0.7
+        z: 0.7
+      model: Art/3D/VAT00.glb
     art2d: []
 sounds: 
 globalData: 

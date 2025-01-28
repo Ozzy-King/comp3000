@@ -58,59 +58,66 @@ public class ItemPopulater : MonoBehaviour
             }
 
             //import each object used
-            foreach (Art3d objsArt in obj.art3d)
+            if (obj.art3d == null)
             {
-                visible = true;
-                GameObject Temp = globalResources.ImportGLTF(globalResources.workingDirectory + "/" + objsArt.model);
-                Temp.AddComponent<ObjectAttributes>().attributes3d = objsArt;
-                foreach (Renderer rend in Temp.GetComponentsInChildren<Renderer>())
+                foreach (Art3d objsArt in obj.art3d)
                 {
-                    MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
-                    col.convex = true;
-                    col.isTrigger = true;
+                    visible = true;
+                    GameObject Temp = globalResources.ImportGLTF(globalResources.workingDirectory + "/" + objsArt.model);
+                    Temp.AddComponent<ObjectAttributes>().attributes3d = objsArt;
+                    foreach (Renderer rend in Temp.GetComponentsInChildren<Renderer>())
+                    {
+                        MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
+                        col.convex = true;
+                        col.isTrigger = true;
 
-                    bounds.Encapsulate(col.bounds);
+                        bounds.Encapsulate(col.bounds);
+                    }
+
+                    Temp.name = obj.dir;
+
+                    //CenterPivotAtBottomMiddle(Temp);
+
+                    Temp.transform.position = new Vector3(0, 100, 0);
+
+                    Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+                    Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+                    Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
+                    Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+
+                    Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+                    Debug.Log(obj.dir);
+                    Temp.transform.parent = HolderObj.transform;
                 }
-
-                Temp.name = obj.dir;
-
-                //CenterPivotAtBottomMiddle(Temp);
-
-                Temp.transform.position = new Vector3(0, 100, 0);
-
-                Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
-                Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
-                Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
-                Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
-
-                Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
-                Debug.Log(obj.dir);
-                Temp.transform.parent = HolderObj.transform;
             }
-            foreach (Art2d objsArt in obj.art2d)
+            //create all 2d art assets for the obejct
+            if (obj.art2d != null)
             {
-                visible = true;
-                GameObject Temp = globalResources.ImportImage(globalResources.workingDirectory + GlobalResources.artDir + GlobalResources.art2dDir + "/" + objsArt.texture);
-                Temp.AddComponent<ObjectAttributes>().attributes2d = objsArt;
-                BoxCollider collider = Temp.AddComponent<BoxCollider>();
-                collider.isTrigger = true;
+                foreach (Art2d objsArt in obj.art2d)
+                {
+                    visible = true;
+                    GameObject Temp = globalResources.ImportImage(globalResources.workingDirectory + GlobalResources.artDir + GlobalResources.art2dDir + "/" + objsArt.texture);
+                    Temp.AddComponent<ObjectAttributes>().attributes2d = objsArt;
+                    BoxCollider collider = Temp.AddComponent<BoxCollider>();
+                    collider.isTrigger = true;
 
-                bounds.Encapsulate(collider.bounds);
+                    bounds.Encapsulate(collider.bounds);
 
-                Temp.name = obj.dir;
+                    Temp.name = obj.dir;
 
-                //CenterPivotAtBottomMiddle(Temp);
+                    //CenterPivotAtBottomMiddle(Temp);
 
-                Temp.transform.position = new Vector3(0, 100, 0);
+                    Temp.transform.position = new Vector3(0, 100, 0);
 
-                Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
-                Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
-                Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
-                Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+                    Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+                    Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+                    Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
+                    Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
 
-                Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
-                Debug.Log(obj.dir);
-                Temp.transform.parent = HolderObj.transform;
+                    Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+                    Debug.Log(obj.dir);
+                    Temp.transform.parent = HolderObj.transform;
+                }
             }
             if (!visible)
             {

@@ -17,12 +17,19 @@ public class LevelLoader : MonoBehaviour
 
     public int INIT() {
         deserializer = new DeserializerBuilder().IgnoreUnmatchedProperties()
-                .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                .Build();
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .Build();
         serializer = new SerializerBuilder()
-        .WithNamingConvention(CamelCaseNamingConvention.Instance)
-        .Build();
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .Build();
+
+
         return 0;
+    }
+
+    ObjectClass convertObjToObjectClass(object objectClass) {
+        string yaml = serializer.Serialize(objectClass);
+        return deserializer.Deserialize<ObjectClass>(yaml);
     }
 
     public int loadLevel() {
@@ -54,7 +61,7 @@ public class LevelLoader : MonoBehaviour
     /// </summary>
     public int LoadObjects()
     {
-        //first add object definitonas from level file
+        //first add object definitonas from level file to global all objects list
         if (globalResources.levelFile.objectDefinitions != null)
         {
             foreach ((string objName, ObjectClass obj) in globalResources.levelFile.objectDefinitions)
@@ -112,7 +119,7 @@ public class LevelLoader : MonoBehaviour
     }
 
     public int parseLevel() {
-
+        int anonymousCounter = 0;
         string[] levelRows = globalResources.levelFile.grid.Split('\n', System.StringSplitOptions.RemoveEmptyEntries);
         foreach (string row in levelRows) {
             
@@ -122,9 +129,28 @@ public class LevelLoader : MonoBehaviour
             for (int i = 0; i < comps.Length; i++) { 
                 comps[i] = comps[i].Trim(' ');
                 List<(string, ObjectClass)> ObjList = new List<(string, ObjectClass)>();//list to hold objects for the cell
-                List<string> GridPosList = globalResources.levelFile.gridObjects[comps[i]];//get the list of object used in the cell
-                foreach (string gridObjName in GridPosList) { //loop thouhgh the object in cell
-                    ObjList.Add((gridObjName, globalResources.allObjects[gridObjName]));//find the object class which hass all attributes and add to list
+                List<object> GridPosList = globalResources.levelFile.gridObjects[comps[i]];//get the list of object used in the cell
+                foreach (object gridObjName in GridPosList)
+                { //loop thouhgh the object in cell
+                    //tests if it is a predifened object
+                    if (gridObjName is string)
+                    {
+                        ObjList.Add(((string)gridObjName, globalResources.allObjects[(string)gridObjName]));//find the object class which hass all attributes and add to list
+                    }
+                    //if it is an anoymous object then will need to create a object class 
+                    else {
+                        //cast the ojebct to an object class and add it to to the all object list
+                        ObjectClass newClassVar = convertObjToObjectClass(gridObjName);
+                        Debug.Log(newClassVar);
+                        Debug.Log(gridObjName);
+                        string ObjectClassName = "__anonymous__" + anonymousCounter;
+                        globalResources.allObjects.Add(ObjectClassName, newClassVar);
+                        //add to level defninition to be inlcuded in export
+                        globalResources.levelFile.objectDefinitions.Add(ObjectClassName, newClassVar);
+                        //add object to object list
+                        ObjList.Add( (ObjectClassName, globalResources.allObjects[ObjectClassName]) );
+                        anonymousCounter++;
+                    }
                 }
                 globalResources.level.Add(ObjList);//add cells object list to 
             } //get rid of leading and trailing space

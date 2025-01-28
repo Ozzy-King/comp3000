@@ -112,7 +112,7 @@ objectDefinitions:
   leverWallDownS: { mapObject: Custom, dir: South, art3d: [ { model: "Art/3D/Levers/Yellow/Wall/LeverYWall.glb", pos: {x: -1, y: 2.5, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: -1, z: 1} } ], mods: [ leverActivate ], tags: [ "Interact", "Down" ] }
 
   leverFloorE: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/Levers/Normal/LeverFloor.glb", pos: {x: -1, y: -0.27, z: 1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: 1} }  ], mods: [ leverActivate ], tags: [ "blocksMove", "Interact", "Up" ] }
-  leverFloorEDown: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/Levers/LeverFloor.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} } ], mods: [ leverActivate ], tags: [ "blocksMove", "Interact", "Down" ] }
+  leverFloorEDown: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/Levers/Normal/LeverFloor.glb", pos: {x: -1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} } ], mods: [ leverActivate ], tags: [ "blocksMove", "Interact", "Down" ] }
 
   ##the vat models
   VAT0: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/VAT00.glb", pos: {x: -0.2, y: 0, z: -0.0}, scale: {x: 0.7, y: 0.7, z: 0.7}, rot: {y: 90} }  ], tags: [ "PowerVAT","blocksMove", "blocksThrow" ], mods: [ Vat ] }
