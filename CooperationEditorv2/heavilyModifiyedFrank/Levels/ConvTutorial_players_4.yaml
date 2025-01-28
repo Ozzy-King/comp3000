@@ -41,6 +41,7 @@ grid: >
 gridObjects:
   AA:
   - camera_focus
+  - __anonymous__612204142
   BA: []
   CA: []
   DA: []
@@ -333,6 +334,7 @@ objectDefinitions:
     dir: north
     mapObject: Custom
     id: ''
+    data: {}
     base: []
     art3d:
     - pos:
@@ -357,6 +359,7 @@ objectDefinitions:
     dir: north
     mapObject: Custom
     id: ''
+    data: {}
     base: []
     art3d:
     - pos:
@@ -381,6 +384,7 @@ objectDefinitions:
     dir: east
     mapObject: Custom
     id: ''
+    data: {}
     base: []
     art3d:
     - pos:
@@ -403,6 +407,7 @@ objectDefinitions:
     dir: south
     mapObject: ''
     id: ''
+    data: {}
     base:
     - brick_wall_e
     art3d:
@@ -420,5 +425,25 @@ objectDefinitions:
         z: 2
       model: Art/3D/Bone.glb
     art2d: []
+  __anonymous__612204142:
+    tags:
+    - scoreboard
+    mods:
+    - Scoreboard
+    - name: Scoreboard
+      data:
+        test: 1
+    dir: south
+    mapObject: ''
+    id: ''
+    data:
+      test: 1
+    base:
+    - brick_wall_s
+    - potion_shelf_s
+    art3d: []
+    art2d: []
 sounds: 
-globalData: 
+globalData:
+  test:
+    lool: what

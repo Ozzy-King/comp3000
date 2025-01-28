@@ -151,15 +151,18 @@ public class GlobalResources : MonoBehaviour
                     HolderObj.name = name;
                     HolderObj.transform.position = new Vector3(newPos.y, 0, newPos.x);
 
+                    bool visible = false;
                     //take account of base obejcts, id and mapObject wont work as both can get resolved to in game objects uavaliable for viewing
                     if (obj._base != null && obj._base.Count > 0) {
                         foreach (string baseObj in obj._base) {
-                            instintateObjAsBase(baseObj, allObjects[baseObj], newPos, HolderObj, obj.DirToAngle());
+                           bool visCheck = instintateObjAsBase(baseObj, allObjects[baseObj], newPos, HolderObj, obj.DirToAngle());
+                            if (visCheck && !visible) {
+                                visible = true;
+                            }
                         }
                     }
 
                     //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
-                    bool visible = false;
                     //import each object used
                     if (obj.art3d != null)
                     {
@@ -259,7 +262,9 @@ public class GlobalResources : MonoBehaviour
 
     //when and object is used as a base it will take on the perant dir instead of the objects dir
     //used as generic and ashelp centre camer to object when taking picktures
-    public void instintateObjAsBase(string name, ObjectClass obj, Vector3 newPos, GameObject HolderObj, float rotateDir = 0)
+    //returns if visible
+    //false for invisible -- true for visisble
+    public bool instintateObjAsBase(string name, ObjectClass obj, Vector3 newPos, GameObject HolderObj, float rotateDir = 0)
     {
 
         //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
@@ -343,7 +348,7 @@ public class GlobalResources : MonoBehaviour
             Temp.transform.position = new Vector3(newPos.y, newPos.z, newPos.x);
             Temp.transform.parent = HolderObj.transform;
         }
-
+        return visible; //false for invisible -- true for visisble
     }
 
 

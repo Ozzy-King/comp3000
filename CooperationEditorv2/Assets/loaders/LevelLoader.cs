@@ -143,7 +143,7 @@ public class LevelLoader : MonoBehaviour
                         ObjectClass newClassVar = convertObjToObjectClass(gridObjName);
                         Debug.Log(newClassVar);
                         Debug.Log(gridObjName);
-                        string ObjectClassName = "__anonymous__" + anonymousCounter;
+                        string ObjectClassName = "__anonymous__" + Random.Range(0, int.MaxValue);
                         globalResources.allObjects.Add(ObjectClassName, newClassVar);
                         //add to level defninition to be inlcuded in export
                         globalResources.levelFile.objectDefinitions.Add(ObjectClassName, newClassVar);

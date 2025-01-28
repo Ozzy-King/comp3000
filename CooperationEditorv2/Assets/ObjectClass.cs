@@ -41,7 +41,7 @@ public class Data {
 public class modWithData {
     //the mod name
     public string name = "";
-    public Data data = new Data();
+    public Dictionary<string, object> data = new Dictionary<string, object>();
     //
 }
 
@@ -58,23 +58,26 @@ public class ObjectClass
         else{ return (float)_dir.west * 90; }
     }
 
-    public List<string> tags = new List<string>();
-
-    //can be both a simple string or a class modWithData
-    public List<object> mods = new List<object>();
-    public string dir = "south";
-
     public string mapObject = "";
     [YamlMember(Alias = "base")]
     public List<string> _base { get; set; } = new List<string>();
     public string id = "";
+
+    public string dir = "south";
+
+    public List<string> tags = new List<string>();
+
+
 
     [YamlMember(Alias = "art3d")]
     public List<Art3d> art3d { get; set; } = new List<Art3d>();
     [YamlMember(Alias = "art2d")]
     public List<Art2d> art2d { get; set; } = new List<Art2d>();
 
-    public Data data { get; set; } = new Data();
+    //can be both a simple string or a class modWithData
+    public List<object> mods = new List<object>();
+
+    public Dictionary<string, object> data = new Dictionary<string, object>();
 }
 
 public class FileProperties

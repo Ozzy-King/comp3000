@@ -1,0 +1,433 @@
+include:
+  - FrankensteinShared.yaml
+  - levelsShared.yaml
+fileProperties:
+  creatorName: osbourne
+sceneName: EmptyWorld
+postProcessing:
+  depthOfField:
+    enabled: false
+    focusDistance: 58
+    focalLength: 0
+    aperture: 1
+grid: >
+  AA,BA,CA,DA,EA,FA,GA,HA,IA,JA,KA,LA,MA,NA
+
+  AB,BB,CB,DB,EB,FB,GB,HB,IB,JB,KB,LB,MB,NB
+
+  AC,BC,CC,DC,EC,FC,GC,HC,IC,JC,KC,LC,MC,NC
+
+  AD,BD,CD,DD,ED,FD,GD,HD,ID,JD,KD,LD,MD,ND
+
+  AE,BE,CE,DE,EE,FE,GE,HE,IE,JE,KE,LE,ME,NE
+
+  AF,BF,CF,DF,EF,FF,GF,HF,IF,JF,KF,LF,MF,NF
+
+  AG,BG,CG,DG,EG,FG,GG,HG,IG,JG,KG,LG,MG,NG
+
+  AH,BH,CH,DH,EH,FH,GH,HH,IH,JH,KH,LH,MH,NH
+
+  AI,BI,CI,DI,EI,FI,GI,HI,II,JI,KI,LI,MI,NI
+
+  AJ,BJ,CJ,DJ,EJ,FJ,GJ,HJ,IJ,JJ,KJ,LJ,MJ,NJ
+
+  AK,BK,CK,DK,EK,FK,GK,HK,IK,JK,KK,LK,MK,NK
+
+  AL,BL,CL,DL,EL,FL,GL,HL,IL,JL,KL,LL,ML,NL
+
+  AM,BM,CM,DM,EM,FM,GM,HM,IM,JM,KM,LM,MM,NM
+
+  AN,BN,CN,DN,EN,FN,GN,HN,IN,JN,KN,LN,MN,NN
+gridObjects:
+  AA:
+    [
+      camera_focus,
+      {
+        base: [brick_wall_s, potion_shelf_s],
+        data: { test: 1 },
+        mods: [Scoreboard, { name: Scoreboard, data: { test: 1 } }],
+        tags: ["scoreboard"],
+      },
+    ]
+  BA: []
+  CA: []
+  DA: []
+  EA: []
+  FA: []
+  GA: []
+  HA: []
+  IA: []
+  JA: []
+  KA: []
+  LA: []
+  MA: []
+  NA: []
+  AB: []
+  BB: []
+  CB: []
+  DB: []
+  EB: []
+  FB: []
+  GB: []
+  HB: []
+  IB: []
+  JB: []
+  KB: []
+  LB: []
+  MB: []
+  NB: []
+  AC: []
+  BC: []
+  CC: []
+  DC: []
+  EC: []
+  FC: []
+  GC: []
+  HC: []
+  IC: []
+  JC: []
+  KC: []
+  LC: []
+  MC: []
+  NC: []
+  AD: []
+  BD: []
+  CD: []
+  DD:
+    - gm
+    - delay
+    - ConvayorManager
+    - AdamManager
+  ED: []
+  FD: []
+  GD: []
+  HD: []
+  ID: []
+  JD: []
+  KD: []
+  LD: []
+  MD: []
+  ND: []
+  AE: []
+  BE: []
+  CE: []
+  DE: []
+  EE: []
+  FE:
+    - brick_wall_s
+  GE:
+    - brick_wall_s
+  HE:
+    - brick_wall_s
+    - potion_shelf_s
+  IE:
+    - brick_wall_s
+  JE:
+    - brick_wall_s
+  KE:
+    - brick_wall_s
+  LE:
+    - brick_wall_s
+    - potion_shelf_s_rev
+  ME: []
+  NE: []
+  AF: []
+  BF: []
+  CF: []
+  DF: []
+  EF:
+    - brick_wall_e
+    - __anonymous__0
+  FF:
+    - floorEndR
+  GF:
+    - floorEndR
+    - VAT140
+    - conv_Tutorial
+  HF:
+    - floorEndR
+    - monsterTorso
+  IF:
+    - floorEndR
+    - tallShelfS_1Books_nonBlock
+  JF:
+    - brick_wall_e
+  KF:
+    - floorEndR
+    - shortShelfE_2Books_nonBlock
+    - other_conv_Tutorial
+  LF:
+    - floorEndR
+  MF:
+    - floorEndR
+  NF: []
+  AG: []
+  BG: []
+  CG: []
+  DG: []
+  EG:
+    - brick_wall_e
+  FG:
+    - floorEndL
+    - frankTable_red_n
+    - tableLight
+  GG:
+    - floorEndL
+    - p1
+  HG:
+    - floor
+  IG:
+    - floorEndL
+  JG:
+    - brick_wall_e
+  KG:
+    - floor
+    - leverFloorN
+    - leverLight
+  LG:
+    - floor
+    - p2
+  MG:
+    - floorEndL
+    - legCrate
+  NG: []
+  AH: []
+  BH: []
+  CH: []
+  DH: []
+  EH: []
+  FH:
+    - brick_wall_s
+    - potion_shelf_s_rev
+  GH:
+    - conveyorNorth
+  HH:
+    - floorEndL
+    - torsoCrate
+  IH:
+    - conveyorNorth
+  JH:
+    - brick_wall_e
+    - brick_wall_s
+  KH:
+    - floorEndL
+    - tallShelfE_1Books_nonBlock
+  LH:
+    - floorEndL
+    - monsterLeg
+  MH: []
+  NH: []
+  AI: []
+  BI: []
+  CI: []
+  DI: []
+  EI: []
+  FI:
+    - conveyorEast
+  GI:
+    - conveyorNorth
+  HI: []
+  II:
+    - conveyorNorth
+    - monsterArm
+  JI:
+    - conveyorWest
+  KI:
+    - conveyorWest
+  LI:
+    - conveyorWest
+    - monsterLeg
+  MI: []
+  NI: []
+  AJ: []
+  BJ: []
+  CJ: []
+  DJ: []
+  EJ: []
+  FJ:
+    - conveyorNorth
+  GJ:
+    - brick_wall_s
+    - wallCandle2S
+  HJ: []
+  IJ:
+    - brick_wall_s
+  JJ:
+    - conveyorNorth
+    - floorEndR
+  KJ: []
+  LJ: []
+  MJ: []
+  NJ: []
+  AK: []
+  BK: []
+  CK: []
+  DK: []
+  EK:
+    - brick_wall_e
+  FK:
+    - floorEndR
+    - p3
+  GK:
+    - floorEndR
+  HK:
+    - brick_wall_e
+  IK:
+    - floorEndR
+    - p4
+  JK:
+    - floorEndL
+  KK: []
+  LK: []
+  MK: []
+  NK: []
+  AL: []
+  BL: []
+  CL: []
+  DL: []
+  EL:
+    - brick_wall_e
+  FL:
+    - floorEndL
+    - shortShelfE_1Books_nonBlock
+  GL:
+    - floorEndL
+    - armCrate
+  HL:
+    - brick_wall_e
+    - potion_shelf_e_rev
+  IL:
+    - floorEndL
+    - headCrate
+  JL: []
+  KL: []
+  LL: []
+  ML: []
+  NL: []
+  AM: []
+  BM: []
+  CM: []
+  DM: []
+  EM: []
+  FM: []
+  GM: []
+  HM: []
+  IM: []
+  JM: []
+  KM: []
+  LM: []
+  MM: []
+  NM: []
+  AN: []
+  BN: []
+  CN: []
+  DN: []
+  EN: []
+  FN: []
+  GN: []
+  HN: []
+  IN: []
+  JN: []
+  KN: []
+  LN: []
+  MN: []
+  NN:
+    - CeilingLightStrong
+objectDefinitions:
+  crateBot:
+    tags:
+      - blocksMove
+    mods: []
+    dir: north
+    mapObject: Custom
+    id: ""
+    base: []
+    art3d:
+      - pos:
+          x: -1
+          y: -0.27
+          z: -1
+        rot:
+          x: 0
+          y: 180
+          z: 0
+        scale:
+          x: 1
+          y: 1
+          z: 1
+        model: Art/3D/Crate.glb
+    art2d: []
+  crateTop:
+    tags:
+      - blocksMove
+      - blocksThrow
+    mods: []
+    dir: north
+    mapObject: Custom
+    id: ""
+    base: []
+    art3d:
+      - pos:
+          x: -1
+          y: 0.68
+          z: -0.9
+        rot:
+          x: 0
+          y: 180
+          z: 0
+        scale:
+          x: 1
+          y: 1
+          z: 1
+        model: Art/3D/Crate.glb
+    art2d: []
+  potion_shelf_s_rev:
+    tags:
+      - blocksMove
+      - static
+    mods: []
+    dir: east
+    mapObject: Custom
+    id: ""
+    base: []
+    art3d:
+      - pos:
+          x: -1
+          y: 0
+          z: 1
+        rot:
+          x: 0
+          y: -90
+          z: 0
+        scale:
+          x: -1
+          y: 1
+          z: 1
+        model: Art/3D/PotionShelf.glb
+    art2d: []
+  __anonymous__0:
+    tags: []
+    mods: []
+    dir: south
+    mapObject: ""
+    id: ""
+    base:
+      - brick_wall_e
+    art3d:
+      - pos:
+          x: 0
+          y: 0.1
+          z: 0
+        rot:
+          x: 0
+          y: 0
+          z: 0
+        scale:
+          x: 2
+          y: 2
+          z: 2
+        model: Art/3D/Bone.glb
+    art2d: []
+sounds:
+globalData:
+  test: { lool: what }
