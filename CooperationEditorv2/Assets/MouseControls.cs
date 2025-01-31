@@ -11,6 +11,9 @@ public class MouseControls : MonoBehaviour
     [SerializeField]
     GlobalResources globalResources;
 
+    Vector3 beginDrag = Vector3.zero;
+    Vector3 endDrag = Vector3.zero;
+
     [SerializeField]
     GameObject hoverTextTemplate;
     GameObject hoverTextOBJ = null;
@@ -69,7 +72,7 @@ public class MouseControls : MonoBehaviour
             List<Material> materials = new List<Material>(ch.materials);
             if (!materials.Exists(x => x.shader == mat.shader))
             {
-                materials.Add(new Material(mat));
+                materials.Add(mat);
                 ch.materials = materials.ToArray();
             }
         }
@@ -78,7 +81,7 @@ public class MouseControls : MonoBehaviour
             List<Material> materials = new List<Material>(ch.materials);
             if (!materials.Exists(x => x.shader == mat.shader))
             {
-                materials.Add(new Material(mat));
+                materials.Add(mat);
                 ch.materials = materials.ToArray();
             }
         }
@@ -87,7 +90,7 @@ public class MouseControls : MonoBehaviour
             List<Material> materials = new List<Material>(ch.materials);
             if (!materials.Exists(x => x.shader == mat.shader))
             {
-                materials.Add(new Material(mat));
+                materials.Add(mat);
                 ch.materials = materials.ToArray();
             }
         }
@@ -99,6 +102,7 @@ public class MouseControls : MonoBehaviour
         MeshRenderer[] childrenMeshRendere = obj.GetComponentsInChildren<MeshRenderer>();
         SpriteRenderer[] childrenSpriteRendere = obj.GetComponentsInChildren<SpriteRenderer>();
         SkinnedMeshRenderer[] childrenskinnedMeshRendere = obj.GetComponentsInChildren<SkinnedMeshRenderer>();
+        Material matToDelete;
         foreach (MeshRenderer ch in childrenMeshRendere)
         {
             List<Material> newMat = new List<Material>(ch.materials);
@@ -220,17 +224,11 @@ public class MouseControls : MonoBehaviour
                     lastHoverObj.transform.position = HitWorldPosition;
                     setHoverTextPos(lastHoverObj.transform.position);
                 }
-                //if q is pressed remove and delete object
-                if (Input.GetKeyDown(KeyCode.Q)) {
-                    globalResources.CurrentLevel.Remove(lastHoverObj);
-                    Destroy(lastHoverObj);
-                    lastHoverObj=null;
-                    removeHoverText();
-                }
             }
             //if mouse button isnt held and the ray did hit, set hit obejct to last hover
             else if (didHit)
             {
+                //if right mouse is click over object delete(can be held down with no side effects)
                 removeMaterial(lastHoverObj, globalResources._hoverObj);
                 removeMaterial(lastHoverObj, globalResources._selectrObj);
                 setLastHoverObj(rayHit.transform.gameObject);
@@ -240,6 +238,25 @@ public class MouseControls : MonoBehaviour
                 addHoverText(lastHoverObj.transform.position);
                 setHoverTextPos(lastHoverObj.transform.position);
                 setHoverText(lastHoverObj.name);
+
+                //if right mouse buttons is clicked
+                if (Input.GetMouseButtonDown(1)) {
+                    globalResources.CurrentLevel.Remove(lastHoverObj);
+                    Destroy(lastHoverObj);
+                    lastHoverObj = null;
+                    removeHoverText();
+                }
+
+                //if moddle mouse button is clicked
+                if (Input.GetMouseButtonDown(2)) {
+                    beginDrag = newMouse;
+                }
+                else if (Input.GetMouseButtonUp(2)) {
+                    endDrag = newMouse;
+                    if (Vector3.Distance(beginDrag, endDrag) <= 0.5f) {
+                        globalResources.CurrentObjectSelectID = lastHoverObj.name;
+                    }
+                }
 
             }
             //else remove hover mats from object and set last hover to null

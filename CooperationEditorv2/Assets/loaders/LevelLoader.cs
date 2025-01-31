@@ -39,7 +39,7 @@ public class LevelLoader : MonoBehaviour
 
         //read yaml file in
         string yml =File.ReadAllText(filepath);
-        Debug.Log(yml);
+        //Debug.Log(yml);
         //create desirializer and store result in global resoources
 
         //yml contains a string containing your YAML
@@ -52,7 +52,7 @@ public class LevelLoader : MonoBehaviour
             .WithNamingConvention(CamelCaseNamingConvention.Instance)
             .Build();
         var yaml = serializer.Serialize(p);
-        Debug.Log(yaml);
+        //Debug.Log(yaml);
         return 0;
     }
 
@@ -84,7 +84,7 @@ public class LevelLoader : MonoBehaviour
             try
             { 
                 string fullPath = globalResources.workingDirectory + GlobalResources.levelDir + "/" + includeFile;
-                Debug.Log(fullPath);
+                //Debug.Log(fullPath);
                 LevelFile newIncludeFile = deserializer.Deserialize<LevelFile>(File.ReadAllText(fullPath));
                 //add includes files to current list
                 if (newIncludeFile.include != null)
@@ -141,8 +141,8 @@ public class LevelLoader : MonoBehaviour
                     else {
                         //cast the ojebct to an object class and add it to to the all object list
                         ObjectClass newClassVar = convertObjToObjectClass(gridObjName);
-                        Debug.Log(newClassVar);
-                        Debug.Log(gridObjName);
+                        //Debug.Log(newClassVar);
+                        //Debug.Log(gridObjName);
                         string ObjectClassName = "__anonymous__" + Random.Range(0, int.MaxValue);
                         globalResources.allObjects.Add(ObjectClassName, newClassVar);
                         //add to level defninition to be inlcuded in export
@@ -156,6 +156,36 @@ public class LevelLoader : MonoBehaviour
             } //get rid of leading and trailing space
         }
         return 0;
+    }
+
+
+    public void importExternalIncludes(string file) {
+        List<string> includeList = new List<string>();
+        includeList.Add(file);
+
+        Dictionary<string, ObjectClass> newObjectsDefs = new Dictionary<string, ObjectClass>();
+
+        /////TODO add checks to make sure all loaded correctly
+        for (int i = 0; i < includeList.Count; i++) {
+            //find and deserililize file
+            string fullPath = globalResources.workingDirectory + GlobalResources.levelDir + "/" + includeList[i];
+            //Debug.Log(fullPath);
+            LevelFile newIncludeFile = deserializer.Deserialize<LevelFile>(File.ReadAllText(fullPath));
+
+            //add included include file to include list to be proccessed
+            includeList.AddRange(newIncludeFile.include);
+
+            //add parsed objects to allobjects
+            foreach ((string objName, ObjectClass obj) in newIncludeFile.objectDefinitions) {
+                newObjectsDefs.Add(objName, obj);
+            }
+
+        }
+
+        foreach ((string objName, ObjectClass obj) in newObjectsDefs) {
+            globalResources.allObjects.Add(objName, obj);
+        }
+
     }
 
     // Start is called before the first frame update

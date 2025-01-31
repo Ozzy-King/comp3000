@@ -31,7 +31,9 @@ public class ItemPopulater : MonoBehaviour
     string[] keyList = new string[0];
 
 
-    public async void pageForward() {
+    
+
+    public void pageForward() {
         if (page < keyList.Length/numberOfItems) {
             page += 1;
             StartCoroutine(populateScrollView());

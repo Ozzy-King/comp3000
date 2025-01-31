@@ -1,0 +1,17 @@
+include: [ ] 
+
+fileProperties:
+  creatorName: Group 23
+
+sceneName: World1Dev
+
+grid:
+
+gridObjects:
+
+objectDefinitions:
+  
+  bucket_Tutorial2: { mapObject: Custom, art2d: [ { texture: "BucketTut.png", displayType: quad, pos: {x: 0, y: 20, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  vat_Tutorial2: { base: [bucket_Tutorial2], art2d: [ { texture: "VatTut.png", displayType: quad, pos: {x: 0, y: 10, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 4, y: 4, z: 4} } ], tags: [ "static" ] }
+  heavy_Tutorial2: { base: [vat_Tutorial2], art2d: [ { texture: "HeavyObjectTut.png", displayType: quad, pos: {x: 0, y: 5, z: 0}, rot: {x: 0, y: -45, z: 0}, scale: {x: 6, y: 6, z: 6} } ], tags: [ "static" ] }
+
