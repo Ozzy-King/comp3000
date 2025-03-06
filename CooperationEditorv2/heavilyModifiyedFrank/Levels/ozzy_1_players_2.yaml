@@ -109,7 +109,8 @@ gridObjects:
   - brick_wall_s
   LD:
   - brick_wall_s
-  MD: [ brick_wall_s ]
+  MD:
+  - brick_wall_s
   ND:
   - camera_focus
   AE: []

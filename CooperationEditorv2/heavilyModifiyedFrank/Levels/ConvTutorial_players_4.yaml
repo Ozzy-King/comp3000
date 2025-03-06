@@ -138,8 +138,7 @@ gridObjects:
   DA: []
   EA: []
   FA: []
-  GA:
-  - brick_wall_s
+  GA: []
   HA: []
   IA: []
   JA: []
@@ -888,8 +887,7 @@ gridObjects:
   Oo: []
   Po: []
   Ap: []
-  Bp:
-  - camera_focus
+  Bp: []
   Cp:
   - ConvayorManager
   Dp:
@@ -910,7 +908,8 @@ gridObjects:
   Pp: []
   Aq: []
   Bq: []
-  Cq: []
+  Cq:
+  - camera_focus
   Dq: []
   Eq: []
   Fq: []

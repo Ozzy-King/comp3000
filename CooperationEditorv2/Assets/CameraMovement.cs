@@ -17,12 +17,12 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     int maxPanningSpeed = 200;
     [SerializeField]
-    int panningSpeed = 0;
+    int panningSpeed = 90;
 
     int scrollDistMax = 30;
     int scrollDistMin = 0;
     [SerializeField]
-    int currentScrollDist = 0;
+    int currentScrollDist = 15;
 
     // Start is called before the first frame update
     void Start() {
@@ -31,7 +31,9 @@ public class CameraMovement : MonoBehaviour
         transform.eulerAngles = new Vector3(transform.eulerAngles.x + xangle, transform.eulerAngles.y, transform.eulerAngles.z);//turn camera down
         right = transform.right;//get reight transform
         up = transform.forward;
-        panningSpeed = maxPanningSpeed / scrollDistMax * (scrollDistMax-currentScrollDist);
+        //panningSpeed = maxPanningSpeed / scrollDistMax * (scrollDistMax-currentScrollDist);
+        panningSpeed = 6;
+        currentScrollDist = 29;
         mouseScreenPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 
     }

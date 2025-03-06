@@ -101,6 +101,9 @@ public class GlobalResources : MonoBehaviour
     public const string art2dDir = "/2D";
     public string LevelName = "Level_1_players_2.yaml";
 
+    public TMP_Dropdown levelDropdown;
+
+
     public List<string> ExternalIncludes;
 
 
@@ -207,6 +210,25 @@ public class GlobalResources : MonoBehaviour
     public GameObject inputFilePath;
 
 
+    public void populateLevelDropDown()
+    {
+        levelDropdown.ClearOptions();
+        LoadButton.GetComponent<Button>().interactable = false;
+        
+        string workingDir = inputFilePath.GetComponent<TMP_InputField>().text;
+        if (!Directory.Exists(workingDir)) { return; }
+
+        LoadButton.GetComponent<Button>().interactable = true;
+        List<string> filenames = new List<string>(Directory.GetFiles(workingDir + levelDir, "*.yaml"));
+        for (int i = 0; i < filenames.Count; i++) {
+            filenames[i] = filenames[i].Split("\\")[^1];
+        }
+        levelDropdown.AddOptions(filenames);
+
+    }
+
+
+
     public void LoadNewLevel() {
         OnApplicationQuit();
 
@@ -215,6 +237,7 @@ public class GlobalResources : MonoBehaviour
         LoadNewButton.SetActive(false);
         LoadButton.SetActive(true);
         inputFilePath.GetComponent<TMP_InputField>().interactable = true;
+        levelDropdown.interactable = true;
 
         ReloadButton.GetComponent<Button>().interactable = false;
         SaveButton.GetComponent<Button>().interactable = false;
@@ -240,8 +263,8 @@ public class GlobalResources : MonoBehaviour
         LoadedEverything = false;
 
         string path_FileName = inputFilePath.GetComponent<TMP_InputField>().text;
-        LevelName = path_FileName.Split("/")[^1];
-        workingDirectory = path_FileName.Replace("/"+LevelName, "") ;
+        LevelName = levelDropdown.options[levelDropdown.value].text;
+        workingDirectory = path_FileName;
 
         if (levelLoader.INIT() == 1) { return; }
         if (levelLoader.loadLevel() == 1){ return; }
@@ -258,9 +281,11 @@ public class GlobalResources : MonoBehaviour
     }
 
     public IEnumerator formLevelObjs() {
+
         LoadButton.SetActive(false);
         inputFilePath.GetComponent<TMP_InputField>().interactable = false;
-
+        levelDropdown.interactable = false;
+        int camYpos = (level.Count / levelWidth)*2, camXpos = levelWidth*2;
         for (int y = 0, c = 0; y < level.Count / levelWidth; y++)
         { //loop throuhg the y
             for (int x = 0; x < levelWidth; x++, c++)
@@ -392,6 +417,10 @@ public class GlobalResources : MonoBehaviour
 
         ReloadButton.GetComponent<Button>().interactable = true;
         SaveButton.GetComponent<Button>().interactable = true;
+
+        Camera.main.transform.position = new Vector3(camYpos, Camera.main.transform.position.y, camXpos);
+
+
         yield return null;
     }
 

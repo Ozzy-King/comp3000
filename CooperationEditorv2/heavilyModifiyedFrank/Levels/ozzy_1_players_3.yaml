@@ -1,630 +1,959 @@
-#EDITORPROG:
-include: [FrankensteinShared.yaml, levelsShared.yaml]
+include:
+- FrankensteinShared.yaml
+- levelsShared.yaml
 fileProperties:
   creatorName: osbourne
 sceneName: EmptyWorld
 postProcessing:
-  depthOfField: { enabled: false, focusDistance: 58, focalLength: 0.0, aperture: 1.0 }
-grid: |
-  __,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,
-  __,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,
-  __,__,tl,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,
-  __,__,__,gm,BA,CA,DA,EA,FA,GA,HA,IA,JA,KA,LA,MA,NA,OA,PA,QA,RA,SA,TA,UA,VA,WA,XA,
-  __,__,__,AB,BB,CB,DB,EB,FB,GB,HB,IB,JB,KB,LB,MB,NB,OB,PB,QB,RB,SB,TB,UB,VB,WB,XB,
-  __,__,__,AC,BC,CC,DC,EC,FC,GC,HC,IC,JC,KC,LC,MC,NC,OC,PC,QC,RC,SC,TC,UC,VC,WC,XC,
-  __,__,__,AD,BD,CD,DD,ED,FD,GD,HD,ID,JD,KD,LD,MD,ND,OD,PD,QD,RD,SD,TD,UD,VD,WD,XD,
-  __,__,__,AE,BE,CE,DE,EE,FE,GE,HE,IE,JE,KE,LE,ME,NE,OE,PE,QE,RE,SE,TE,UE,VE,WE,XE,
-  __,__,__,AF,BF,CF,DF,EF,FF,GF,HF,IF,JF,KF,LF,MF,NF,OF,PF,QF,RF,SF,TF,UF,VF,WF,XF,
-  __,__,__,AG,BG,CG,DG,EG,FG,GG,HG,IG,JG,KG,LG,MG,NG,OG,PG,QG,RG,SG,TG,UG,VG,WG,XG,
-  __,__,__,AH,BH,CH,DH,EH,FH,GH,HH,IH,JH,KH,LH,MH,NH,OH,PH,QH,RH,SH,TH,UH,VH,WH,XH,
-  __,__,__,AI,BI,CI,DI,EI,FI,GI,HI,II,JI,KI,LI,MI,NI,OI,PI,QI,RI,SI,TI,UI,VI,WI,XI,
-  __,__,__,AJ,BJ,CJ,DJ,EJ,FJ,GJ,HJ,IJ,JJ,KJ,LJ,MJ,NJ,OJ,PJ,QJ,RJ,SJ,TJ,UJ,VJ,WJ,XJ,
-  __,__,__,AK,BK,CK,DK,EK,FK,GK,HK,IK,JK,KK,LK,MK,NK,OK,PK,QK,RK,SK,TK,UK,VK,WK,XK,
-  __,__,__,AL,BL,CL,DL,EL,FL,GL,HL,IL,JL,KL,LL,ML,NL,OL,PL,QL,RL,SL,TL,UL,VL,WL,XL,
-  __,__,__,AM,BM,CM,DM,EM,FM,GM,HM,IM,JM,KM,LM,MM,NM,OM,PM,QM,RM,SM,TM,UM,VM,WM,XM,
-  __,__,__,AN,BN,CN,DN,EN,FN,GN,HN,IN,JN,KN,LN,MN,NN,ON,PN,QN,RN,SN,TN,UN,VN,WN,XN,
-  __,__,__,AO,BO,CO,DO,EO,FO,GO,HO,IO,JO,KO,LO,MO,NO,OO,PO,QO,RO,SO,TO,UO,VO,WO,XO,
-  __,__,__,AP,BP,CP,DP,EP,FP,GP,HP,IP,JP,KP,LP,MP,NP,OP,PP,QP,RP,SP,TP,UP,VP,WP,XP,
-  __,__,__,AQ,BQ,CQ,DQ,EQ,FQ,GQ,HQ,IQ,JQ,KQ,LQ,MQ,NQ,OQ,PQ,QQ,RQ,SQ,TQ,UQ,VQ,WQ,XQ,
-  __,__,__,AR,BR,CR,DR,ER,FR,GR,HR,IR,JR,KR,LR,MR,NR,OR,PR,QR,RR,SR,TR,UR,VR,WR,XR,
-  __,__,__,AS,BS,CS,DS,ES,FS,GS,HS,IS,JS,KS,LS,MS,NS,OS,PS,QS,RS,SS,TS,US,VS,WS,XS,
-  __,__,__,AT,BT,CT,DT,ET,FT,GT,HT,IT,JT,KT,LT,MT,NT,OT,PT,QT,RT,ST,TT,UT,VT,WT,XT,
-  __,__,__,AU,BU,CU,DU,EU,FU,GU,HU,IU,JU,KU,LU,MU,NU,OU,PU,QU,RU,SU,TU,UU,VU,WU,XU,
-  __,__,__,AV,BV,CV,DV,EV,FV,GV,HV,IV,JV,KV,LV,MV,NV,OV,PV,QV,RV,SV,TV,UV,VV,WV,XV,
-  __,__,__,AW,BW,CW,DW,EW,FW,GW,HW,IW,JW,KW,LW,MW,NW,OW,PW,QW,RW,SW,TW,UW,VW,WW,XW,
-  __,__,__,AX,BX,CX,DX,EX,FX,GX,HX,IX,JX,KX,LX,MX,NX,OX,PX,QX,RX,SX,TX,UX,VX,WX,XX
+  depthOfField:
+    enabled: false
+    focusDistance: 58
+    focalLength: 0
+    aperture: 1
+grid: >
+  AA,BA,CA,DA,EA,FA,GA,HA,IA,JA,KA,LA,MA,NA,OA,PA,QA,RA,SA,TA,UA,VA,WA,XA,YA,ZA,[A
+
+  AB,BB,CB,DB,EB,FB,GB,HB,IB,JB,KB,LB,MB,NB,OB,PB,QB,RB,SB,TB,UB,VB,WB,XB,YB,ZB,[B
+
+  AC,BC,CC,DC,EC,FC,GC,HC,IC,JC,KC,LC,MC,NC,OC,PC,QC,RC,SC,TC,UC,VC,WC,XC,YC,ZC,[C
+
+  AD,BD,CD,DD,ED,FD,GD,HD,ID,JD,KD,LD,MD,ND,OD,PD,QD,RD,SD,TD,UD,VD,WD,XD,YD,ZD,[D
+
+  AE,BE,CE,DE,EE,FE,GE,HE,IE,JE,KE,LE,ME,NE,OE,PE,QE,RE,SE,TE,UE,VE,WE,XE,YE,ZE,[E
+
+  AF,BF,CF,DF,EF,FF,GF,HF,IF,JF,KF,LF,MF,NF,OF,PF,QF,RF,SF,TF,UF,VF,WF,XF,YF,ZF,[F
+
+  AG,BG,CG,DG,EG,FG,GG,HG,IG,JG,KG,LG,MG,NG,OG,PG,QG,RG,SG,TG,UG,VG,WG,XG,YG,ZG,[G
+
+  AH,BH,CH,DH,EH,FH,GH,HH,IH,JH,KH,LH,MH,NH,OH,PH,QH,RH,SH,TH,UH,VH,WH,XH,YH,ZH,[H
+
+  AI,BI,CI,DI,EI,FI,GI,HI,II,JI,KI,LI,MI,NI,OI,PI,QI,RI,SI,TI,UI,VI,WI,XI,YI,ZI,[I
+
+  AJ,BJ,CJ,DJ,EJ,FJ,GJ,HJ,IJ,JJ,KJ,LJ,MJ,NJ,OJ,PJ,QJ,RJ,SJ,TJ,UJ,VJ,WJ,XJ,YJ,ZJ,[J
+
+  AK,BK,CK,DK,EK,FK,GK,HK,IK,JK,KK,LK,MK,NK,OK,PK,QK,RK,SK,TK,UK,VK,WK,XK,YK,ZK,[K
+
+  AL,BL,CL,DL,EL,FL,GL,HL,IL,JL,KL,LL,ML,NL,OL,PL,QL,RL,SL,TL,UL,VL,WL,XL,YL,ZL,[L
+
+  AM,BM,CM,DM,EM,FM,GM,HM,IM,JM,KM,LM,MM,NM,OM,PM,QM,RM,SM,TM,UM,VM,WM,XM,YM,ZM,[M
+
+  AN,BN,CN,DN,EN,FN,GN,HN,IN,JN,KN,LN,MN,NN,ON,PN,QN,RN,SN,TN,UN,VN,WN,XN,YN,ZN,[N
+
+  AO,BO,CO,DO,EO,FO,GO,HO,IO,JO,KO,LO,MO,NO,OO,PO,QO,RO,SO,TO,UO,VO,WO,XO,YO,ZO,[O
+
+  AP,BP,CP,DP,EP,FP,GP,HP,IP,JP,KP,LP,MP,NP,OP,PP,QP,RP,SP,TP,UP,VP,WP,XP,YP,ZP,[P
+
+  AQ,BQ,CQ,DQ,EQ,FQ,GQ,HQ,IQ,JQ,KQ,LQ,MQ,NQ,OQ,PQ,QQ,RQ,SQ,TQ,UQ,VQ,WQ,XQ,YQ,ZQ,[Q
+
+  AR,BR,CR,DR,ER,FR,GR,HR,IR,JR,KR,LR,MR,NR,OR,PR,QR,RR,SR,TR,UR,VR,WR,XR,YR,ZR,[R
+
+  AS,BS,CS,DS,ES,FS,GS,HS,IS,JS,KS,LS,MS,NS,OS,PS,QS,RS,SS,TS,US,VS,WS,XS,YS,ZS,[S
+
+  AT,BT,CT,DT,ET,FT,GT,HT,IT,JT,KT,LT,MT,NT,OT,PT,QT,RT,ST,TT,UT,VT,WT,XT,YT,ZT,[T
+
+  AU,BU,CU,DU,EU,FU,GU,HU,IU,JU,KU,LU,MU,NU,OU,PU,QU,RU,SU,TU,UU,VU,WU,XU,YU,ZU,[U
+
+  AV,BV,CV,DV,EV,FV,GV,HV,IV,JV,KV,LV,MV,NV,OV,PV,QV,RV,SV,TV,UV,VV,WV,XV,YV,ZV,[V
+
+  AW,BW,CW,DW,EW,FW,GW,HW,IW,JW,KW,LW,MW,NW,OW,PW,QW,RW,SW,TW,UW,VW,WW,XW,YW,ZW,[W
+
+  AX,BX,CX,DX,EX,FX,GX,HX,IX,JX,KX,LX,MX,NX,OX,PX,QX,RX,SX,TX,UX,VX,WX,XX,YX,ZX,[X
+
+  AY,BY,CY,DY,EY,FY,GY,HY,IY,JY,KY,LY,MY,NY,OY,PY,QY,RY,SY,TY,UY,VY,WY,XY,YY,ZY,[Y
+
+  AZ,BZ,CZ,DZ,EZ,FZ,GZ,HZ,IZ,JZ,KZ,LZ,MZ,NZ,OZ,PZ,QZ,RZ,SZ,TZ,UZ,VZ,WZ,XZ,YZ,ZZ,[Z
+
+  A[,B[,C[,D[,E[,F[,G[,H[,I[,J[,K[,L[,M[,N[,O[,P[,Q[,R[,S[,T[,U[,V[,W[,X[,Y[,Z[,[[
 gridObjects:
-
-  tl: [camera_focus]
-
-  gm: [ gm, delay, ConvayorManager, AdamManager ]
-  __: []
-  --: []
-
-  AA: [  ]
-  BA: [  brick_wall_corner_se ]
-  CA: [ brick_wall_s ]
-  DA: [ brick_wall_s ]
-  EA: [ brick_wall_s ]
-  FA: [ brick_wall_s ]
-  GA: [ brick_wall_s ]
-  HA: [ brick_wall_s]
-  IA: [ brick_wall_s]
-  JA: [ brick_wall_s_rc]
-  KA: [ camera_focus ]
-  LA: [ ]
-  MA: [ ]
-  NA: [ ]
-  OA: [ ]
-  PA: [ ]
-  QA: [ ]
-  RA: [ ]
-  SA: [ ]
-  TA: [ ]
-  UA: [ ]
-  VA: [ ]
-  WA: [ ]
-  XA: [ ]
-  AB: [ ]
-  BB: [  floorEndR, armCrate ]
-  CB: [  floorEndR, vent_s ]
-  DB: [  floorEndR, tallShelfS_1Books_nonBlock ]
-  EB: [  floorEndR, tallShelfS_1Books_nonBlock ]
-  FB: [  floorEndR ]
-  GB: [  floorEndR, shortShelfS_1Books_nonBlock ]
-  HB: [  floorEndR, shortShelfS ]
-  IB: [  floorEndR, legCrate ]
-  JB: [  floorEndR ]
-  KB: [ ]
-  LB: [ ]
-  MB: [ ]
-  NB: [ ]
-  OB: [ ]
-  PB: [ ]
-  QB: [ ]
-  RB: [ ]
-  SB: [ ]
-  TB: [ ]
-  UB: [ ]
-  VB: [ ]
-  WB: [ ]
-  XB: [ ]
-  AC: [ brick_wall_e ]
-  BC: [  floor, tallShelfE_1Books_nonBlock ]
-  CC: [  floor, CeilingLight ]
-  DC: [  floor ]
-  EC: [  floor, leverFloorN, leverLight ]
-  FC: [  floor ]
-  GC: [  floor ]
-  HC: [  floor ]
-  IC: [  floor ]
-  JC: [  floor ]
-  KC: [ ]
-  LC: [ ]
-  MC: [ ]
-  NC: [ ]
-  OC: [ ]
-  PC: [ ]
-  QC: [ ]
-  RC: [ ]
-  SC: [ ]
-  TC: [ ]
-  UC: [ ]
-  VC: [ ]
-  WC: [ ]
-  XC: [ ]
-  AD: [ brick_wall_e, wallCandle1E ]
-  BD: [  floor, shortShelfE_2Books_nonBlock ]
-  CD: [  floor]
-  DD: [  floor ]
-  ED: [  floor ]
-  FD: [  floor, CeilingLight ]
-  GD: [  floor ]
-  HD: [  floor ]
-  ID: [  floor, CeilingLight ]
-  JD: [  floor ]
-  KD: [ ]
-  LD: [ ]
-  MD: [ ]
-  ND: [ ]
-  OD: [ ]
-  PD: [ ]
-  QD: [ ]
-  RD: [ ]
-  SD: [ ]
-  TD: [ ]
-  UD: [ ]
-  VD: [ ]
-  WD: [ ]
-  XD: [ ]
-  AE: [  brick_wall_e ]
-  BE: [  floor, shortShelfE_2Books_nonBlock ]
-  CE: [  floor, p1 ]
-  DE: [  floor ]
-  EE: [  floor ]
-  FE: [  floor ]
-  GE: [  floor, crate_tall ]
-  HE: [  floor ]
-  IE: [  floor ]
-  JE: [  floor ]
-  KE: [ ]
-  LE: [ ]
-  ME: [ ]
-  NE: [ ]
-  OE: [ ]
-  PE: [ ]
-  QE: [ ]
-  RE: [ ]
-  SE: [ ]
-  TE: [ ]
-  UE: [ ]
-  VE: [ ]
-  WE: [ ]
-  XE: [ ]
-  AF: [  brick_wall_e_lc ]
-  BF: [  floorEndL, crate]
-  CF: [  floorEndL]
-  DF: [  floorEndL, conveyorSouth]
-  EF: [  floorEndL]
-  FF: [  floorEndL, monsterArm]
-  GF: [  floorEndL,conveyorNorth]
-  HF: [  floorEndL]
-  IF: [  floorEndL, torsoCrate]
-  JF: [  floorEndL,conveyorNorth]
-  KF: [ ]
-  LF: [ ]
-  MF: [ ]
-  NF: [ ]
-  OF: [ ]
-  PF: [ ]
-  QF: [ ]
-  RF: [ ]
-  SF: [ ]
-  TF: [ ]
-  UF: [ ]
-  VF: [ ]
-  WF: [ ]
-  XF: [ ]
-  AG: [ ]
-  BG: [ ]
-  CG: [ ]
-  DG: [  conveyorSouth, metalWallSYellowDown]
-  EG: [ ]
-  FG: [ ]
-  GG: [  conveyorNorth, metalWallSYellow  ]
-  HG: [ ]
-  IG: [ ]
-  JG: [  conveyorNorth ]
-  KG: [ ]
-  LG: [ ]
-  MG: [ ]
-  NG: [ ]
-  OG: [ ]
-  PG: [ ]
-  QG: [ ]
-  RG: [ ]
-  SG: [ ]
-  TG: [ ]
-  UG: [ ]
-  VG: [ ]
-  WG: [ ]
-  XG: [ ]
-  AH: [ ]
-  BH: [ ]
-  CH: [ ]
-  DH: [  conveyorSouth ]
-  EH: [ ]
-  FH: [ ]
-  GH: [  conveyorNorth ]
-  HH: [ ]
-  IH: [  brick_wall_s, potion_shelf_s ]
-  JH: [  conveyorNorth]
-  KH: [ ]
-  LH: [ ]
-  MH: [ ]
-  NH: [ ]
-  OH: [ ]
-  PH: [ ]
-  QH: [ ]
-  RH: [ ]
-  SH: [ ]
-  TH: [ ]
-  UH: [ ]
-  VH: [ ]
-  WH: [ ]
-  XH: [ ]
-  AI: [ ]
-  BI: [  brick_wall_s ]
-  CI: [  brick_wall_s ]
-  DI: [  conveyorSouth ]
-  EI: [  brick_wall_s, potion_shelf_s ]
-  FI: [  brick_wall_s, potion_shelf_s_rev ]
-  GI: [  conveyorNorth ]
-  HI: [ brick_wall_e ]
-  II: [ floorEndR, vent_s ]
-  JI: [ floorEndR, conveyorNorth]
-  KI: [ ]
-  LI: [ ]
-  MI: [ ]
-  NI: [ ]
-  OI: [ ]
-  PI: [ ]
-  QI: [ ]
-  RI: [ ]
-  SI: [ ]
-  TI: [ ]
-  UI: [ ]
-  VI: [ ]
-  WI: [ ]
-  XI: [ ]
-  AJ: [  brick_wall_e ]
-  BJ: [  floorEndR ]
-  CJ: [  floorEndR, VAT150 ]
-  DJ: [  floorEndR, conveyorSouth ]
-  EJ: [  floorEndR, shortShelfS]
-  FJ: [  floorEndR, shortShelfS_1Books_nonBlock ]
-  GJ: [  floorEndR, conveyorNorth ]
-  HJ: [  brick_wall_e]
-  IJ: [  monsterTorso, floor ]
-  JJ: [ floor,CeilingLight, p3, CeilingLightStrong ]
-  KJ: [ ]
-  LJ: [ ]
-  MJ: [ ]
-  NJ: [ ]
-  OJ: [ ]
-  PJ: [ ]
-  QJ: [ ]
-  RJ: [ ]
-  SJ: [ ]
-  TJ: [ ]
-  UJ: [ ]
-  VJ: [ ]
-  WJ: [ ]
-  XJ: [ ]
-  AK: [  brick_wall_e, wallCandle1E ]
-  BK: [  floor, frankTable_red_n, tableLight ]
-  CK: [  floor,CeilingLight,monsterLeg ]
-  DK: [  floor ]
-  EK: [  floor, p2 ]
-  FK: [  floor, CeilingLight ]
-  GK: [  floor ]
-  HK: [  brick_window4_e ]
-  IK: [ floorEndL ]
-  JK: [ floorEndL, headCrate ]
-  KK: [ ]
-  LK: [ ]
-  MK: [ ]
-  NK: [ ]
-  OK: [ ]
-  PK: [ ]
-  QK: [ ]
-  RK: [ ]
-  SK: [ ]
-  TK: [ ]
-  UK: [ ]
-  VK: [ ]
-  WK: [ ]
-  XK: [ ]
-  AL: [  brick_wall_e_lc, camera_focus]
-  BL: [  floorEndL ]
-  CL: [  floorEndL ]
-  DL: [  floorEndL ]
-  EL: [  floorEndL, leverYFloorN, leverLight  ]
-  FL: [  floorEndL ]
-  GL: [  floorEndL, camera_focus]
-  HL: [ ]
-  IL: [ ]
-  JL: [ ]
-  KL: [ ]
-  LL: [ ]
-  ML: [ ]
-  NL: [ ]
-  OL: [ ]
-  PL: [ ]
-  QL: [ ]
-  RL: [ ]
-  SL: [ ]
-  TL: [ ]
-  UL: [ ]
-  VL: [ ]
-  WL: [ ]
-  XL: [ ]
-  AM: [ ]
-  BM: [ ]
-  CM: [ ]
-  DM: [ ]
-  EM: [ ]
-  FM: [ ]
-  GM: [ ]
-  HM: [ ]
-  IM: [ ]
-  JM: [ ]
-  KM: [ ]
-  LM: [ ]
-  MM: [ ]
-  NM: [ ]
-  OM: [ ]
-  PM: [ ]
-  QM: [ ]
-  RM: [ ]
-  SM: [ ]
-  TM: [ ]
-  UM: [ ]
-  VM: [ ]
-  WM: [ ]
-  XM: [ ]
-  AN: [ ]
-  BN: [ ]
-  CN: [ ]
-  DN: [ ]
-  EN: [ ]
-  FN: [ ]
-  GN: [ ]
-  HN: [ ]
-  IN: [ ]
-  JN: [ ]
-  KN: [ ]
-  LN: [ ]
-  MN: [ ]
-  NN: [ ]
-  ON: [ ]
-  PN: [ ]
-  QN: [ ]
-  RN: [ ]
-  SN: [ ]
-  TN: [ ]
-  UN: [ ]
-  VN: [ ]
-  WN: [ ]
-  XN: [ ]
-  AO: [ ]
-  BO: [ ]
-  CO: [ ]
-  DO: [ ]
-  EO: [ ]
-  FO: [ ]
-  GO: [ ]
-  HO: [ ]
-  IO: [ ]
-  JO: [ ]
-  KO: [ ]
-  LO: [ ]
-  MO: [ ]
-  NO: [ ]
-  OO: [ ]
-  PO: [ ]
-  QO: [ ]
-  RO: [ ]
-  SO: [ ]
-  TO: [ ]
-  UO: [ ]
-  VO: [ ]
-  WO: [ ]
-  XO: [ ]
-  AP: [ ]
-  BP: [ ]
-  CP: [ ]
-  DP: [ ]
-  EP: [ ]
-  FP: [ ]
-  GP: [ ]
-  HP: [ ]
-  IP: [ ]
-  JP: [ ]
-  KP: [ ]
-  LP: [ ]
-  MP: [ ]
-  NP: [ ]
-  OP: [ ]
-  PP: [ ]
-  QP: [ ]
-  RP: [ ]
-  SP: [ ]
-  TP: [ ]
-  UP: [ ]
-  VP: [ ]
-  WP: [ ]
-  XP: [ ]
-  AQ: [ ]
-  BQ: [ ]
-  CQ: [ ]
-  DQ: [ ]
-  EQ: [ ]
-  FQ: [ ]
-  GQ: [ ]
-  HQ: [ ]
-  IQ: [ ]
-  JQ: [ ]
-  KQ: [ ]
-  LQ: [ ]
-  MQ: [ ]
-  NQ: [ ]
-  OQ: [ ]
-  PQ: [ ]
-  QQ: [ ]
-  RQ: [ ]
-  SQ: [ ]
-  TQ: [ ]
-  UQ: [ ]
-  VQ: [ ]
-  WQ: [ ]
-  XQ: [ ]
-  AR: [ ]
-  BR: [ ]
-  CR: [ ]
-  DR: [ ]
-  ER: [ ]
-  FR: [ ]
-  GR: [ ]
-  HR: [ ]
-  IR: [ ]
-  JR: [ ]
-  KR: [ ]
-  LR: [ ]
-  MR: [ ]
-  NR: [ ]
-  OR: [ ]
-  PR: [ ]
-  QR: [ ]
-  RR: [ ]
-  SR: [ ]
-  TR: [ ]
-  UR: [ ]
-  VR: [ ]
-  WR: [ ]
-  XR: [ ]
-  AS: [ ]
-  BS: [ ]
-  CS: [ ]
-  DS: [ ]
-  ES: [ ]
-  FS: [ ]
-  GS: [ ]
-  HS: [ ]
-  IS: [ ]
-  JS: [ ]
-  KS: [ ]
-  LS: [ ]
-  MS: [ ]
-  NS: [ ]
-  OS: [ ]
-  PS: [ ]
-  QS: [ ]
-  RS: [ ]
-  SS: [ ]
-  TS: [ ]
-  US: [ ]
-  VS: [ ]
-  WS: [ ]
-  XS: [ ]
-  AT: [ ]
-  BT: [ ]
-  CT: [ ]
-  DT: [ ]
-  ET: [ ]
-  FT: [ ]
-  GT: [ ]
-  HT: [ ]
-  IT: [ ]
-  JT: [ ]
-  KT: [ ]
-  LT: [ ]
-  MT: [ ]
-  NT: [ ]
-  OT: [ ]
-  PT: [ ]
-  QT: [ ]
-  RT: [ ]
-  ST: [ ]
-  TT: [ ]
-  UT: [ ]
-  VT: [ ]
-  WT: [ ]
-  XT: [ ]
-  AU: [ ]
-  BU: [ ]
-  CU: [ ]
-  DU: [ ]
-  EU: [ ]
-  FU: [ ]
-  GU: [ ]
-  HU: [ ]
-  IU: [ ]
-  JU: [ ]
-  KU: [ ]
-  LU: [ ]
-  MU: [ ]
-  NU: [ ]
-  OU: [ ]
-  PU: [ ]
-  QU: [ ]
-  RU: [ ]
-  SU: [ ]
-  TU: [ ]
-  UU: [ ]
-  VU: [ ]
-  WU: [ ]
-  XU: [ ]
-  AV: [ ]
-  BV: [ ]
-  CV: [ ]
-  DV: [ ]
-  EV: [ ]
-  FV: [ ]
-  GV: [ ]
-  HV: [ ]
-  IV: [ ]
-  JV: [ ]
-  KV: [ ]
-  LV: [ ]
-  MV: [ ]
-  NV: [ ]
-  OV: [ ]
-  PV: [ ]
-  QV: [ ]
-  RV: [ ]
-  SV: [ ]
-  TV: [ ]
-  UV: [ ]
-  VV: [ ]
-  WV: [ ]
-  XV: [ ]
-  AW: [ ]
-  BW: [ ]
-  CW: [ ]
-  DW: [ ]
-  EW: [ ]
-  FW: [ ]
-  GW: [ ]
-  HW: [ ]
-  IW: [ ]
-  JW: [ ]
-  KW: [ ]
-  LW: [ ]
-  MW: [ ]
-  NW: [ ]
-  OW: [ ]
-  PW: [ ]
-  QW: [ ]
-  RW: [ ]
-  SW: [ ]
-  TW: [ ]
-  UW: [ ]
-  VW: [ ]
-  WW: [ ]
-  XW: [ ]
-  AX: [ ]
-  BX: [ ]
-  CX: [ ]
-  DX: [ ]
-  EX: [ ]
-  FX: [ ]
-  GX: [ ]
-  HX: [ ]
-  IX: [ ]
-  JX: [ ]
-  KX: [ ]
-  LX: [ ]
-  MX: [ ]
-  NX: [ ]
-  OX: [ ]
-  PX: [ ]
-  QX: [ ]
-  RX: [ ]
-  SX: [ ]
-  TX: [ ]
-  UX: [ ]
-  VX: [ ]
-  WX: [ ]
-  XX: [ CeilingLightStrong]
-
-objectDefinitions:
-
-#Notes for camera focus ====
-  # GL = br
-  # MA = tr
-  # AA = tl
-  # AL = bl
-
-sounds:
-globalData:
+  AA: []
+  BA: []
+  CA: []
+  DA: []
+  EA: []
+  FA: []
+  GA: []
+  HA: []
+  IA: []
+  JA: []
+  KA: []
+  LA: []
+  MA: []
+  NA: []
+  OA: []
+  PA: []
+  QA: []
+  RA: []
+  SA: []
+  TA: []
+  UA: []
+  VA: []
+  WA: []
+  XA: []
+  YA: []
+  ZA: []
+  '[A': []
+  AB: []
+  BB: []
+  CB: []
+  DB: []
+  EB: []
+  FB: []
+  GB: []
+  HB: []
+  IB: []
+  JB: []
+  KB: []
+  LB: []
+  MB: []
+  NB: []
+  OB: []
+  PB: []
+  QB: []
+  RB: []
+  SB: []
+  TB: []
+  UB: []
+  VB: []
+  WB: []
+  XB: []
+  YB: []
+  ZB: []
+  '[B': []
+  AC: []
+  BC: []
+  CC:
+  - camera_focus
+  DC: []
+  EC: []
+  FC: []
+  GC: []
+  HC: []
+  IC: []
+  JC: []
+  KC: []
+  LC: []
+  MC: []
+  NC: []
+  OC: []
+  PC: []
+  QC: []
+  RC: []
+  SC: []
+  TC: []
+  UC: []
+  VC: []
+  WC: []
+  XC: []
+  YC: []
+  ZC: []
+  '[C': []
+  AD: []
+  BD: []
+  CD: []
+  DD:
+  - gm
+  - delay
+  - ConvayorManager
+  - AdamManager
+  ED:
+  - brick_wall_corner_se
+  FD:
+  - brick_wall_s
+  GD:
+  - brick_wall_s
+  HD:
+  - brick_wall_s
+  ID:
+  - brick_wall_s
+  JD:
+  - brick_wall_s
+  KD:
+  - brick_wall_s
+  LD:
+  - brick_wall_s
+  MD:
+  - brick_wall_s_rc
+  ND:
+  - camera_focus
+  OD: []
+  PD: []
+  QD: []
+  RD: []
+  SD: []
+  TD: []
+  UD: []
+  VD: []
+  WD: []
+  XD: []
+  YD: []
+  ZD: []
+  '[D': []
+  AE: []
+  BE: []
+  CE: []
+  DE: []
+  EE:
+  - floorEndR
+  - armCrate
+  FE:
+  - floorEndR
+  - vent_s
+  GE:
+  - floorEndR
+  - tallShelfS_1Books_nonBlock
+  HE:
+  - floorEndR
+  - tallShelfS_1Books_nonBlock
+  IE:
+  - floorEndR
+  JE:
+  - floorEndR
+  - shortShelfS_1Books_nonBlock
+  KE:
+  - floorEndR
+  - shortShelfS
+  LE:
+  - floorEndR
+  - legCrate
+  ME:
+  - floorEndR
+  NE: []
+  OE: []
+  PE: []
+  QE: []
+  RE: []
+  SE: []
+  TE: []
+  UE: []
+  VE: []
+  WE: []
+  XE: []
+  YE: []
+  ZE: []
+  '[E': []
+  AF: []
+  BF: []
+  CF: []
+  DF:
+  - brick_wall_e
+  EF:
+  - floor
+  - tallShelfE_1Books_nonBlock
+  FF:
+  - floor
+  - CeilingLight
+  GF:
+  - floor
+  HF:
+  - floor
+  - leverFloorN
+  - leverLight
+  IF:
+  - floor
+  JF:
+  - floor
+  KF:
+  - floor
+  LF:
+  - floor
+  MF:
+  - floor
+  NF: []
+  OF: []
+  PF: []
+  QF: []
+  RF: []
+  SF: []
+  TF: []
+  UF: []
+  VF: []
+  WF: []
+  XF: []
+  YF: []
+  ZF: []
+  '[F': []
+  AG: []
+  BG: []
+  CG: []
+  DG:
+  - brick_wall_e
+  - wallCandle1E
+  EG:
+  - floor
+  - shortShelfE_2Books_nonBlock
+  FG:
+  - floor
+  GG:
+  - floor
+  HG:
+  - floor
+  IG:
+  - floor
+  - CeilingLight
+  JG:
+  - floor
+  KG:
+  - floor
+  LG:
+  - floor
+  - CeilingLight
+  MG:
+  - floor
+  NG: []
+  OG: []
+  PG: []
+  QG: []
+  RG: []
+  SG: []
+  TG: []
+  UG: []
+  VG: []
+  WG: []
+  XG: []
+  YG: []
+  ZG: []
+  '[G': []
+  AH: []
+  BH: []
+  CH: []
+  DH:
+  - brick_wall_e
+  EH:
+  - floor
+  - shortShelfE_2Books_nonBlock
+  FH:
+  - floor
+  - p1
+  GH:
+  - floor
+  HH:
+  - floor
+  IH:
+  - floor
+  JH:
+  - floor
+  - crate_tall
+  KH:
+  - floor
+  LH:
+  - floor
+  MH:
+  - floor
+  NH: []
+  OH: []
+  PH: []
+  QH: []
+  RH: []
+  SH: []
+  TH: []
+  UH: []
+  VH: []
+  WH: []
+  XH: []
+  YH: []
+  ZH: []
+  '[H': []
+  AI: []
+  BI: []
+  CI: []
+  DI:
+  - brick_wall_e_lc
+  EI:
+  - floorEndL
+  - crate
+  FI:
+  - floorEndL
+  GI:
+  - floorEndL
+  - conveyorSouth
+  HI:
+  - floorEndL
+  II:
+  - floorEndL
+  - monsterArm
+  JI:
+  - floorEndL
+  - conveyorNorth
+  KI:
+  - floorEndL
+  LI:
+  - floorEndL
+  - torsoCrate
+  MI:
+  - floorEndL
+  - conveyorNorth
+  NI: []
+  OI: []
+  PI: []
+  QI: []
+  RI: []
+  SI: []
+  TI: []
+  UI: []
+  VI: []
+  WI: []
+  XI: []
+  YI: []
+  ZI: []
+  '[I': []
+  AJ: []
+  BJ: []
+  CJ: []
+  DJ: []
+  EJ: []
+  FJ: []
+  GJ:
+  - conveyorSouth
+  - metalWallSYellowDown
+  HJ: []
+  IJ: []
+  JJ:
+  - conveyorNorth
+  - metalWallSYellow
+  KJ: []
+  LJ: []
+  MJ:
+  - conveyorNorth
+  NJ: []
+  OJ: []
+  PJ: []
+  QJ: []
+  RJ: []
+  SJ: []
+  TJ: []
+  UJ: []
+  VJ: []
+  WJ: []
+  XJ: []
+  YJ: []
+  ZJ: []
+  '[J': []
+  AK: []
+  BK: []
+  CK: []
+  DK: []
+  EK: []
+  FK: []
+  GK:
+  - conveyorSouth
+  HK: []
+  IK: []
+  JK:
+  - conveyorNorth
+  KK: []
+  LK:
+  - brick_wall_s
+  - potion_shelf_s
+  MK:
+  - conveyorNorth
+  NK: []
+  OK: []
+  PK: []
+  QK: []
+  RK: []
+  SK: []
+  TK: []
+  UK: []
+  VK: []
+  WK: []
+  XK: []
+  YK: []
+  ZK: []
+  '[K': []
+  AL: []
+  BL: []
+  CL: []
+  DL: []
+  EL:
+  - brick_wall_s
+  FL:
+  - brick_wall_s
+  GL:
+  - conveyorSouth
+  HL:
+  - brick_wall_s
+  - potion_shelf_s
+  IL:
+  - brick_wall_s
+  - potion_shelf_s_rev
+  JL:
+  - conveyorNorth
+  KL:
+  - brick_wall_e
+  LL:
+  - floorEndR
+  - vent_s
+  ML:
+  - floorEndR
+  - conveyorNorth
+  NL: []
+  OL: []
+  PL: []
+  QL: []
+  RL: []
+  SL: []
+  TL: []
+  UL: []
+  VL: []
+  WL: []
+  XL: []
+  YL: []
+  ZL: []
+  '[L': []
+  AM: []
+  BM: []
+  CM: []
+  DM:
+  - brick_wall_e
+  EM:
+  - floorEndR
+  FM:
+  - floorEndR
+  - VAT150
+  GM:
+  - floorEndR
+  - conveyorSouth
+  HM:
+  - floorEndR
+  - shortShelfS
+  IM:
+  - floorEndR
+  - shortShelfS_1Books_nonBlock
+  JM:
+  - floorEndR
+  - conveyorNorth
+  KM:
+  - brick_wall_e
+  LM:
+  - monsterTorso
+  - floor
+  MM:
+  - floor
+  - CeilingLight
+  - p3
+  - CeilingLightStrong
+  NM: []
+  OM: []
+  PM: []
+  QM: []
+  RM: []
+  SM: []
+  TM: []
+  UM: []
+  VM: []
+  WM: []
+  XM: []
+  YM: []
+  ZM: []
+  '[M': []
+  AN: []
+  BN: []
+  CN: []
+  DN:
+  - brick_wall_e
+  - wallCandle1E
+  EN:
+  - floor
+  - frankTable_red_n
+  - tableLight
+  FN:
+  - floor
+  - CeilingLight
+  - monsterLeg
+  GN:
+  - floor
+  HN:
+  - floor
+  - p2
+  IN:
+  - floor
+  - CeilingLight
+  JN:
+  - floor
+  KN:
+  - brick_window4_e
+  LN:
+  - floorEndL
+  MN:
+  - floorEndL
+  - headCrate
+  NN: []
+  ON: []
+  PN: []
+  QN: []
+  RN: []
+  SN: []
+  TN: []
+  UN: []
+  VN: []
+  WN: []
+  XN: []
+  YN: []
+  ZN: []
+  '[N': []
+  AO: []
+  BO: []
+  CO: []
+  DO:
+  - brick_wall_e_lc
+  - camera_focus
+  EO:
+  - floorEndL
+  FO:
+  - floorEndL
+  GO:
+  - floorEndL
+  HO:
+  - floorEndL
+  - leverYFloorN
+  - leverLight
+  IO:
+  - floorEndL
+  JO:
+  - floorEndL
+  - camera_focus
+  KO: []
+  LO: []
+  MO: []
+  NO: []
+  OO: []
+  PO: []
+  QO: []
+  RO: []
+  SO: []
+  TO: []
+  UO: []
+  VO: []
+  WO: []
+  XO: []
+  YO: []
+  ZO: []
+  '[O': []
+  AP: []
+  BP: []
+  CP: []
+  DP: []
+  EP: []
+  FP: []
+  GP: []
+  HP: []
+  IP: []
+  JP: []
+  KP: []
+  LP: []
+  MP: []
+  NP: []
+  OP: []
+  PP: []
+  QP: []
+  RP: []
+  SP: []
+  TP: []
+  UP: []
+  VP: []
+  WP: []
+  XP: []
+  YP: []
+  ZP: []
+  '[P': []
+  AQ: []
+  BQ: []
+  CQ: []
+  DQ: []
+  EQ: []
+  FQ: []
+  GQ: []
+  HQ: []
+  IQ: []
+  JQ: []
+  KQ: []
+  LQ: []
+  MQ: []
+  NQ: []
+  OQ: []
+  PQ: []
+  QQ: []
+  RQ: []
+  SQ: []
+  TQ: []
+  UQ: []
+  VQ: []
+  WQ: []
+  XQ: []
+  YQ: []
+  ZQ: []
+  '[Q': []
+  AR: []
+  BR: []
+  CR: []
+  DR: []
+  ER: []
+  FR: []
+  GR: []
+  HR: []
+  IR: []
+  JR: []
+  KR: []
+  LR: []
+  MR: []
+  NR: []
+  OR: []
+  PR: []
+  QR: []
+  RR: []
+  SR: []
+  TR: []
+  UR: []
+  VR: []
+  WR: []
+  XR: []
+  YR: []
+  ZR: []
+  '[R': []
+  AS: []
+  BS: []
+  CS: []
+  DS: []
+  ES: []
+  FS: []
+  GS: []
+  HS: []
+  IS: []
+  JS: []
+  KS: []
+  LS: []
+  MS: []
+  NS: []
+  OS: []
+  PS: []
+  QS: []
+  RS: []
+  SS: []
+  TS: []
+  US: []
+  VS: []
+  WS: []
+  XS: []
+  YS: []
+  ZS: []
+  '[S': []
+  AT: []
+  BT: []
+  CT: []
+  DT: []
+  ET: []
+  FT: []
+  GT: []
+  HT: []
+  IT: []
+  JT: []
+  KT: []
+  LT: []
+  MT: []
+  NT: []
+  OT: []
+  PT: []
+  QT: []
+  RT: []
+  ST: []
+  TT: []
+  UT: []
+  VT: []
+  WT: []
+  XT: []
+  YT: []
+  ZT: []
+  '[T': []
+  AU: []
+  BU: []
+  CU: []
+  DU: []
+  EU: []
+  FU: []
+  GU: []
+  HU: []
+  IU: []
+  JU: []
+  KU: []
+  LU: []
+  MU: []
+  NU: []
+  OU: []
+  PU: []
+  QU: []
+  RU: []
+  SU: []
+  TU: []
+  UU: []
+  VU: []
+  WU: []
+  XU: []
+  YU: []
+  ZU: []
+  '[U': []
+  AV: []
+  BV: []
+  CV: []
+  DV: []
+  EV: []
+  FV: []
+  GV: []
+  HV: []
+  IV: []
+  JV: []
+  KV: []
+  LV: []
+  MV: []
+  NV: []
+  OV: []
+  PV: []
+  QV: []
+  RV: []
+  SV: []
+  TV: []
+  UV: []
+  VV: []
+  WV: []
+  XV: []
+  YV: []
+  ZV: []
+  '[V': []
+  AW: []
+  BW: []
+  CW: []
+  DW: []
+  EW: []
+  FW: []
+  GW: []
+  HW: []
+  IW: []
+  JW: []
+  KW: []
+  LW: []
+  MW: []
+  NW: []
+  OW: []
+  PW: []
+  QW: []
+  RW: []
+  SW: []
+  TW: []
+  UW: []
+  VW: []
+  WW: []
+  XW: []
+  YW: []
+  ZW: []
+  '[W': []
+  AX: []
+  BX: []
+  CX: []
+  DX: []
+  EX: []
+  FX: []
+  GX: []
+  HX: []
+  IX: []
+  JX: []
+  KX: []
+  LX: []
+  MX: []
+  NX: []
+  OX: []
+  PX: []
+  QX: []
+  RX: []
+  SX: []
+  TX: []
+  UX: []
+  VX: []
+  WX: []
+  XX: []
+  YX: []
+  ZX: []
+  '[X': []
+  AY: []
+  BY: []
+  CY: []
+  DY: []
+  EY: []
+  FY: []
+  GY: []
+  HY: []
+  IY: []
+  JY: []
+  KY: []
+  LY: []
+  MY: []
+  NY: []
+  OY: []
+  PY: []
+  QY: []
+  RY: []
+  SY: []
+  TY: []
+  UY: []
+  VY: []
+  WY: []
+  XY: []
+  YY: []
+  ZY: []
+  '[Y': []
+  AZ: []
+  BZ: []
+  CZ: []
+  DZ: []
+  EZ: []
+  FZ: []
+  GZ: []
+  HZ: []
+  IZ: []
+  JZ: []
+  KZ: []
+  LZ: []
+  MZ: []
+  NZ: []
+  OZ: []
+  PZ: []
+  QZ: []
+  RZ: []
+  SZ: []
+  TZ: []
+  UZ: []
+  VZ: []
+  WZ: []
+  XZ: []
+  YZ: []
+  ZZ: []
+  '[Z': []
+  A[: []
+  B[: []
+  C[: []
+  D[: []
+  E[: []
+  F[: []
+  G[: []
+  H[: []
+  I[: []
+  J[: []
+  K[: []
+  L[: []
+  M[: []
+  N[: []
+  O[: []
+  P[: []
+  Q[: []
+  R[: []
+  S[: []
+  T[: []
+  U[: []
+  V[: []
+  W[: []
+  X[: []
+  Y[: []
+  Z[: []
+  '[[':
+  - CeilingLightStrong
+objectDefinitions: 
+sounds: 
+globalData: 

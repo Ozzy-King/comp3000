@@ -1,6 +1,6 @@
 include:
-  - FrankensteinShared.yaml
-  - levelsShared.yaml
+- FrankensteinShared.yaml
+- levelsShared.yaml
 fileProperties:
   creatorName: osbourne
 sceneName: EmptyWorld
@@ -40,15 +40,8 @@ grid: >
   AN,BN,CN,DN,EN,FN,GN,HN,IN,JN,KN,LN,MN,NN
 gridObjects:
   AA:
-    [
-      camera_focus,
-      {
-        base: [brick_wall_s, potion_shelf_s],
-        data: { test: 1 },
-        mods: [Scoreboard, { name: Scoreboard, data: { test: 1 } }],
-        tags: ["scoreboard"],
-      },
-    ]
+  - camera_focus
+  - __anonymous__254156738
   BA: []
   CA: []
   DA: []
@@ -94,10 +87,10 @@ gridObjects:
   BD: []
   CD: []
   DD:
-    - gm
-    - delay
-    - ConvayorManager
-    - AdamManager
+  - gm
+  - delay
+  - ConvayorManager
+  - AdamManager
   ED: []
   FD: []
   GD: []
@@ -114,21 +107,21 @@ gridObjects:
   DE: []
   EE: []
   FE:
-    - brick_wall_s
+  - brick_wall_s
   GE:
-    - brick_wall_s
+  - brick_wall_s
   HE:
-    - brick_wall_s
-    - potion_shelf_s
+  - brick_wall_s
+  - potion_shelf_s
   IE:
-    - brick_wall_s
+  - brick_wall_s
   JE:
-    - brick_wall_s
+  - brick_wall_s
   KE:
-    - brick_wall_s
+  - brick_wall_s
   LE:
-    - brick_wall_s
-    - potion_shelf_s_rev
+  - brick_wall_s
+  - potion_shelf_s_rev
   ME: []
   NE: []
   AF: []
@@ -136,60 +129,60 @@ gridObjects:
   CF: []
   DF: []
   EF:
-    - brick_wall_e
-    - __anonymous__0
+  - brick_wall_e
+  - __anonymous__0
   FF:
-    - floorEndR
+  - floorEndR
   GF:
-    - floorEndR
-    - VAT140
-    - conv_Tutorial
+  - floorEndR
+  - VAT140
+  - conv_Tutorial
   HF:
-    - floorEndR
-    - monsterTorso
+  - floorEndR
+  - monsterTorso
   IF:
-    - floorEndR
-    - tallShelfS_1Books_nonBlock
+  - floorEndR
+  - tallShelfS_1Books_nonBlock
   JF:
-    - brick_wall_e
+  - brick_wall_e
   KF:
-    - floorEndR
-    - shortShelfE_2Books_nonBlock
-    - other_conv_Tutorial
+  - floorEndR
+  - shortShelfE_2Books_nonBlock
+  - other_conv_Tutorial
   LF:
-    - floorEndR
+  - floorEndR
   MF:
-    - floorEndR
+  - floorEndR
   NF: []
   AG: []
   BG: []
   CG: []
   DG: []
   EG:
-    - brick_wall_e
+  - brick_wall_e
   FG:
-    - floorEndL
-    - frankTable_red_n
-    - tableLight
+  - floorEndL
+  - frankTable_red_n
+  - tableLight
   GG:
-    - floorEndL
-    - p1
+  - floorEndL
+  - p1
   HG:
-    - floor
+  - floor
   IG:
-    - floorEndL
+  - floorEndL
   JG:
-    - brick_wall_e
+  - brick_wall_e
   KG:
-    - floor
-    - leverFloorN
-    - leverLight
+  - floor
+  - leverFloorN
+  - leverLight
   LG:
-    - floor
-    - p2
+  - floor
+  - p2
   MG:
-    - floorEndL
-    - legCrate
+  - floorEndL
+  - legCrate
   NG: []
   AH: []
   BH: []
@@ -197,24 +190,24 @@ gridObjects:
   DH: []
   EH: []
   FH:
-    - brick_wall_s
-    - potion_shelf_s_rev
+  - brick_wall_s
+  - potion_shelf_s_rev
   GH:
-    - conveyorNorth
+  - conveyorNorth
   HH:
-    - floorEndL
-    - torsoCrate
+  - floorEndL
+  - torsoCrate
   IH:
-    - conveyorNorth
+  - conveyorNorth
   JH:
-    - brick_wall_e
-    - brick_wall_s
+  - brick_wall_e
+  - brick_wall_s
   KH:
-    - floorEndL
-    - tallShelfE_1Books_nonBlock
+  - floorEndL
+  - tallShelfE_1Books_nonBlock
   LH:
-    - floorEndL
-    - monsterLeg
+  - floorEndL
+  - monsterLeg
   MH: []
   NH: []
   AI: []
@@ -223,20 +216,20 @@ gridObjects:
   DI: []
   EI: []
   FI:
-    - conveyorEast
+  - conveyorEast
   GI:
-    - conveyorNorth
+  - conveyorNorth
   HI: []
   II:
-    - conveyorNorth
-    - monsterArm
+  - conveyorNorth
+  - monsterArm
   JI:
-    - conveyorWest
+  - conveyorWest
   KI:
-    - conveyorWest
+  - conveyorWest
   LI:
-    - conveyorWest
-    - monsterLeg
+  - conveyorWest
+  - monsterLeg
   MI: []
   NI: []
   AJ: []
@@ -245,16 +238,16 @@ gridObjects:
   DJ: []
   EJ: []
   FJ:
-    - conveyorNorth
+  - conveyorNorth
   GJ:
-    - brick_wall_s
-    - wallCandle2S
+  - brick_wall_s
+  - wallCandle2S
   HJ: []
   IJ:
-    - brick_wall_s
+  - brick_wall_s
   JJ:
-    - conveyorNorth
-    - floorEndR
+  - conveyorNorth
+  - floorEndR
   KJ: []
   LJ: []
   MJ: []
@@ -264,19 +257,19 @@ gridObjects:
   CK: []
   DK: []
   EK:
-    - brick_wall_e
+  - brick_wall_e
   FK:
-    - floorEndR
-    - p3
+  - floorEndR
+  - p3
   GK:
-    - floorEndR
+  - floorEndR
   HK:
-    - brick_wall_e
+  - brick_wall_e
   IK:
-    - floorEndR
-    - p4
+  - floorEndR
+  - p4
   JK:
-    - floorEndL
+  - floorEndL
   KK: []
   LK: []
   MK: []
@@ -286,19 +279,19 @@ gridObjects:
   CL: []
   DL: []
   EL:
-    - brick_wall_e
+  - brick_wall_e
   FL:
-    - floorEndL
-    - shortShelfE_1Books_nonBlock
+  - floorEndL
+  - shortShelfE_1Books_nonBlock
   GL:
-    - floorEndL
-    - armCrate
+  - floorEndL
+  - armCrate
   HL:
-    - brick_wall_e
-    - potion_shelf_e_rev
+  - brick_wall_e
+  - potion_shelf_e_rev
   IL:
-    - floorEndL
-    - headCrate
+  - floorEndL
+  - headCrate
   JL: []
   KL: []
   LL: []
@@ -332,102 +325,125 @@ gridObjects:
   LN: []
   MN: []
   NN:
-    - CeilingLightStrong
+  - CeilingLightStrong
 objectDefinitions:
   crateBot:
-    tags:
-      - blocksMove
-    mods: []
-    dir: north
     mapObject: Custom
-    id: ""
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    mods: []
+    data: {}
     base: []
     art3d:
-      - pos:
-          x: -1
-          y: -0.27
-          z: -1
-        rot:
-          x: 0
-          y: 180
-          z: 0
-        scale:
-          x: 1
-          y: 1
-          z: 1
-        model: Art/3D/Crate.glb
+    - pos:
+        x: -1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      model: Art/3D/Crate.glb
     art2d: []
   crateTop:
-    tags:
-      - blocksMove
-      - blocksThrow
-    mods: []
-    dir: north
     mapObject: Custom
-    id: ""
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - blocksThrow
+    mods: []
+    data: {}
     base: []
     art3d:
-      - pos:
-          x: -1
-          y: 0.68
-          z: -0.9
-        rot:
-          x: 0
-          y: 180
-          z: 0
-        scale:
-          x: 1
-          y: 1
-          z: 1
-        model: Art/3D/Crate.glb
+    - pos:
+        x: -1
+        y: 0.68
+        z: -0.9
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      model: Art/3D/Crate.glb
     art2d: []
   potion_shelf_s_rev:
-    tags:
-      - blocksMove
-      - static
-    mods: []
-    dir: east
     mapObject: Custom
-    id: ""
+    id: ''
+    dir: east
+    tags:
+    - blocksMove
+    - static
+    mods: []
+    data: {}
     base: []
     art3d:
-      - pos:
-          x: -1
-          y: 0
-          z: 1
-        rot:
-          x: 0
-          y: -90
-          z: 0
-        scale:
-          x: -1
-          y: 1
-          z: 1
-        model: Art/3D/PotionShelf.glb
+    - pos:
+        x: -1
+        y: 0
+        z: 1
+      rot:
+        x: 0
+        y: -90
+        z: 0
+      scale:
+        x: -1
+        y: 1
+        z: 1
+      model: Art/3D/PotionShelf.glb
     art2d: []
   __anonymous__0:
+    mapObject: ''
+    id: ''
+    dir: south
     tags: []
     mods: []
-    dir: south
-    mapObject: ""
-    id: ""
+    data: {}
     base:
-      - brick_wall_e
+    - brick_wall_e
     art3d:
-      - pos:
-          x: 0
-          y: 0.1
-          z: 0
-        rot:
-          x: 0
-          y: 0
-          z: 0
-        scale:
-          x: 2
-          y: 2
-          z: 2
-        model: Art/3D/Bone.glb
+    - pos:
+        x: 0
+        y: 0.1
+        z: 0
+      rot:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 2
+        y: 2
+        z: 2
+      model: Art/3D/Bone.glb
     art2d: []
-sounds:
+  __anonymous__254156738:
+    mapObject: ''
+    id: ''
+    dir: south
+    tags:
+    - scoreboard
+    mods:
+    - Scoreboard
+    - name: Scoreboard
+      data:
+        test: 1
+    data:
+      test: 1
+    base:
+    - brick_wall_s
+    - potion_shelf_s
+    art3d: []
+    art2d: []
+sounds: 
 globalData:
-  test: { lool: what }
+  test:
+    lool: what

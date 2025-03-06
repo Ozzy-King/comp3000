@@ -61,9 +61,7 @@ grid: >
 gridObjects:
   AA: []
   BA: []
-  CA:
-  - other_conv_Tutorial
-  - __anonymous__0
+  CA: []
   DA: []
   EA: []
   FA: []
@@ -201,8 +199,7 @@ gridObjects:
   LJ: []
   MJ: []
   NJ: []
-  AK:
-  - camera_focus
+  AK: []
   BK: []
   CK: []
   DK: []
@@ -248,6 +245,7 @@ gridObjects:
   BN: []
   CN: []
   DN:
+  - camera_focus
   - gm
   - delay
   - ConvayorManager
@@ -485,12 +483,13 @@ gridObjects:
   - CeilingLightStrong
 objectDefinitions:
   crateBot:
+    mapObject: Custom
+    id: ''
+    dir: north
     tags:
     - blocksMove
     mods: []
-    dir: north
-    mapObject: Custom
-    id: ''
+    data: {}
     base: []
     art3d:
     - pos:
@@ -508,13 +507,14 @@ objectDefinitions:
       model: Art/3D/Crate.glb
     art2d: []
   crateTop:
+    mapObject: Custom
+    id: ''
+    dir: north
     tags:
     - blocksMove
     - blocksThrow
     mods: []
-    dir: north
-    mapObject: Custom
-    id: ''
+    data: {}
     base: []
     art3d:
     - pos:
@@ -532,13 +532,14 @@ objectDefinitions:
       model: Art/3D/Crate.glb
     art2d: []
   potion_shelf_s_rev:
+    mapObject: Custom
+    id: ''
+    dir: east
     tags:
     - blocksMove
     - static
     mods: []
-    dir: east
-    mapObject: Custom
-    id: ''
+    data: {}
     base: []
     art3d:
     - pos:
@@ -556,11 +557,12 @@ objectDefinitions:
       model: Art/3D/PotionShelf.glb
     art2d: []
   __anonymous__0:
-    tags: []
-    mods: []
-    dir: south
     mapObject: ''
     id: ''
+    dir: south
+    tags: []
+    mods: []
+    data: {}
     base:
     - other_conv_Tutorial
     art3d:
