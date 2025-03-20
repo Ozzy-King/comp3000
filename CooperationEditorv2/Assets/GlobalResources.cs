@@ -129,7 +129,7 @@ public class GlobalResources : MonoBehaviour
     //-------------------------------------used for current object manipulation
     //current object selected and if its being picked up or i sa new place
     public GameObject CurrentObjectSelect;
-    public string CurrentObjectSelectID;
+    public string CurrentObjectSelectID = "";
     public bool pickedup = false;
     //------------------------------------------
     void cleanImageCache()
@@ -270,7 +270,10 @@ public class GlobalResources : MonoBehaviour
         if (levelLoader.loadLevel() == 1){ return; }
         if (levelLoader.LoadObjects()==1) { return; }
         if (levelLoader.parseLevel()==1) { return; }
-        CurrentObjectSelectID = allObjects.Keys.First();
+        if (allObjects.Count != 0) { 
+            CurrentObjectSelectID = allObjects.Keys.First();
+        }
+        
 
         //place objects in scene from level
         StartCoroutine(formLevelObjs());

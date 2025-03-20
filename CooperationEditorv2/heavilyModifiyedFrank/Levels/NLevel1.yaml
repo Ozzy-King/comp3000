@@ -1,0 +1,163 @@
+include:
+- LevelsShared.yaml
+- FrankensteinShared.yaml
+fileProperties:
+  creatorName: <NAME>
+sceneName: EmptyWorld
+postProcessing:
+  depthOfField:
+    enabled: false
+    focusDistance: 58
+    focalLength: 0
+    aperture: 1
+grid: >
+  AA,BA,CA,DA,EA,FA,GA,HA,IA
+
+  AB,BB,CB,DB,EB,FB,GB,HB,IB
+
+  AC,BC,CC,DC,EC,FC,GC,HC,IC
+
+  AD,BD,CD,DD,ED,FD,GD,HD,ID
+
+  AE,BE,CE,DE,EE,FE,GE,HE,IE
+
+  AF,BF,CF,DF,EF,FF,GF,HF,IF
+
+  AG,BG,CG,DG,EG,FG,GG,HG,IG
+gridObjects:
+  AA: []
+  BA:
+  - brick_wall_corner_se
+  CA:
+  - brick_wall_s
+  DA:
+  - brick_wall_s
+  EA:
+  - brick_wall_s
+  FA:
+  - brick_wall_s
+  GA:
+  - brick_wall_s
+  HA:
+  - brick_wall_s
+  IA: []
+  AB: []
+  BB:
+  - floorEndR
+  CB:
+  - floorEndR
+  DB:
+  - floorEndR
+  EB:
+  - floorEndR
+  FB:
+  - floorEndR
+  GB:
+  - floorEndR
+  HB:
+  - floorEndR
+  IB:
+  - floorCornerR
+  AC:
+  - brick_wall_e
+  BC:
+  - floor
+  CC:
+  - floor
+  DC:
+  - floor
+  EC:
+  - floor
+  FC:
+  - floor
+  GC:
+  - floor
+  HC:
+  - floor
+  IC:
+  - floor
+  AD:
+  - brick_wall_e
+  BD:
+  - floor
+  CD:
+  - floor
+  DD:
+  - floor
+  - p2
+  ED:
+  - floor
+  FD:
+  - floor
+  GD:
+  - floor
+  HD:
+  - floor
+  ID:
+  - floor
+  AE:
+  - brick_wall_e
+  BE:
+  - floor
+  CE:
+  - floor
+  DE:
+  - floor
+  EE:
+  - floor
+  FE:
+  - floor
+  GE:
+  - floor
+  HE:
+  - floor
+  IE:
+  - floor
+  AF:
+  - brick_wall_e
+  BF:
+  - floor
+  - brick_wall_interior_s
+  CF:
+  - floor
+  - brick_wall_interior_s
+  DF:
+  - floor
+  - brick_wall_interior_s
+  EF:
+  - floor
+  - brick_wall_interior_s
+  FF:
+  - floor
+  - brick_wall_interior_s
+  GF:
+  - floor
+  - brick_wall_interior_s
+  HF:
+  - floor
+  - metalWallSYellowDown
+  IF:
+  - floor
+  - metalWallSYellowDown
+  AG:
+  - brick_wall_e
+  BG:
+  - floorEndL
+  CG:
+  - floorEndL
+  - p1
+  DG:
+  - floorEndL
+  EG:
+  - floorEndL
+  FG:
+  - floorEndL
+  GG:
+  - floorEndL
+  HG:
+  - floorEndL
+  IG:
+  - floorCornerL
+objectDefinitions: 
+sounds: 
+globalData: 

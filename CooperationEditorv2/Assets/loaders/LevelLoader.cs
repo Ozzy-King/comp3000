@@ -176,8 +176,12 @@ public class LevelLoader : MonoBehaviour
             includeList.AddRange(newIncludeFile.include);
 
             //add parsed objects to allobjects
-            foreach ((string objName, ObjectClass obj) in newIncludeFile.objectDefinitions) {
-                newObjectsDefs.Add(objName, obj);
+            if (newIncludeFile.objectDefinitions != null)
+            {
+                foreach ((string objName, ObjectClass obj) in newIncludeFile.objectDefinitions)
+                {
+                    newObjectsDefs.Add(objName, obj);
+                }
             }
 
         }
