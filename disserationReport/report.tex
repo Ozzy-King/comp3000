@@ -23,6 +23,7 @@
 \usepackage{pgfplots}
 \usepackage{tikz}
 \usepackage{amsmath}
+
 \begin{document}
 \onehalfspacing %set the spaceing to 1.5line spaceing
 
@@ -86,7 +87,15 @@ Code Link:
 
 \section{introduction <TODO LOOK AT SOFTWAREDESIGN DOC IN REPO>}
 \subsection{Background}
+this dissertation idea came about throuhg a problem identified in my second acedemic year while developing a mod for the game Co-Operation created by MINDFEAST. the issue found was the tedious nature of creating levels in general. once levels became big or contain a lot of objects they start to become a mess, and attempts to quickly change a single object can become a massive effort. there are multiple method used for finding and changeing object posistioning:
+\begin{itemize}
+    \item counting rows and columns in the game 
+    \item crawling throuhg the file until you have found the correct object
+    \item make continuous mental logs of where things have been placed 
+\end{itemize}
+even these with these methods, level designing and iteration becomes slow and tedious. my aim with this project is to create a tool to be used along side Co-Operation to make level creaetion easier and more fluid. 
 \subsection{Objectives}
+the objective of the porject is to 
 \subsection{Deliverables}
 %%%%%%%%%%%%%%%%%%
 
@@ -96,12 +105,18 @@ Code Link:
 \section{Method Of Approach}
 
 \subsection{technologies}
-\subsubsection{C\#}
 \subsubsection{unity}
+to create this project i utilised unity for its easy to use graphics maniplulation methods. From the beginning it was clear a 3D solution was required for the project. If 2D was chosen it would not have given the same feed back or easy usablility to the user. By going 3D i could give the user a closer idea to what the levels will look like in game.   
+\subsubsection{C\#}
+i was required to code within C\# as unity was chosen to be developed within. this was benneficial as i am quite well versed in it.
 
 \subsubsection{Libraries}
 \subsubsection*{importing GLB objects}
+i have used UnityGLTF to import glb object within to unity at runtime. this allowed for hot reloading objects without the need of re compilation of the entire unity project.\\
+https://github.com/KhronosGroup/UnityGLTF
 \subsubsection*{parsing YAML}
+to be able to import and export file in YAML format, without haveing to create my own parser from scrtach, i have used YamlDotNet. This is a library built for C\# and so worked easily with unity. \\
+https://github.com/aaubry/YamlDotNet 
 \subsubsection{Co-Operation game}
 \subsubsection{github}
 
