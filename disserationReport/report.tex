@@ -87,16 +87,56 @@ Code Link:
 
 \section{introduction <TODO LOOK AT SOFTWAREDESIGN DOC IN REPO>}
 \subsection{Background}
-this dissertation idea came about throuhg a problem identified in my second acedemic year while developing a mod for the game Co-Operation created by MINDFEAST. the issue found was the tedious nature of creating levels in general. once levels became big or contain a lot of objects they start to become a mess, and attempts to quickly change a single object can become a massive effort. there are multiple method used for finding and changeing object posistioning:
+this dissertation idea came about through a problem identified in my second academic year while developing a mod for the game Co-Operation created by MINDFEAST. the issue found was the tedious nature of creating levels. once levels became big or contain a lot of objects they start to become a mess, and attempts to quickly change a single object can become a massive effort. there are multiple method used for finding and changing object positioning:
 \begin{itemize}
     \item counting rows and columns in the game 
-    \item crawling throuhg the file until you have found the correct object
+    \item crawling through the file until you have found the correct object
     \item make continuous mental logs of where things have been placed 
 \end{itemize}
-even these with these methods, level designing and iteration becomes slow and tedious. my aim with this project is to create a tool to be used along side Co-Operation to make level creaetion easier and more fluid. 
+even these with these methods, level designing and iteration becomes slow and tedious. my aim with this project is to create a visual, easy to use tool to be used along side Co-Operation making level creation more fluid. 
 \subsection{Objectives}
-the objective of the porject is to 
+the objective of this project is to create an easy to use visual level editing tool for both experience and inexperienced. it will be made for individuals in the Co-Operation community wanting to create levels easier. It will be aimed at people who have little to no understanding in modding and/or YAML. more experienced modders can utilise this tool to help create levels as they wont need to manually edit YAML files. it will also open up the creativity of modding to those who wouldn't normal attempt to make one.
 \subsection{Deliverables}
+the deliverable will be a piece of software that can display a close to 1:1 level representation, while facilitating a live tile manipulation solution to be able to edit the level directly. the users will be able to export their created levels to their respective folders, as well as import existing level files so that older levels can also be easily modified with the tool.
+object manipulation
+\begin{itemize}
+    \item use the file format GLB (this format is also used in Co-Operation)
+    \item create objects in the scene
+    \item moved object around the scene before and after placement
+    \item delete object from the scene
+\end{itemize}
+scene manipulation
+\begin{itemize}
+	\item scroll wheel
+	\begin{itemize}
+		\item used for zooming in and out of the scene changing the panning speed
+		\item upper and lower bound to zooming extent
+	\end{itemize}
+	\item middle mouse click
+	\begin{itemize}
+		\item hold click used for panning around the scene
+	\end{itemize}
+\end{itemize}
+importing and exporting of level data
+\begin{itemize}
+	\item exporting of levels
+	\begin{itemize}
+		\item files export to the YAML format provided by MindFeast for compatibility with the Co-Operation game
+	\end{itemize}
+	\item importing of levels
+	\begin{itemize}
+			\item import YAML files into the editor in Co-Operations format for both old and new levels
+			\item object definitions can be properly read to correct placement into the scene
+	\end{itemize}
+\end{itemize}
+quality of life
+\begin{itemize}
+	\item have the object highlight when mouse is hovering over it
+	\item know which object you are currently interacting with
+	\item know which object is the next for placement
+	\item middle mouse click to select currently hovering over object for next placement(creates new object not modifies new object)
+	\item 
+\end{itemize}
 %%%%%%%%%%%%%%%%%%
 
 \section{Legal, Social, Ethical and Professional Issues}
@@ -106,23 +146,36 @@ the objective of the porject is to
 
 \subsection{technologies}
 \subsubsection{unity}
-to create this project i utilised unity for its easy to use graphics maniplulation methods. From the beginning it was clear a 3D solution was required for the project. If 2D was chosen it would not have given the same feed back or easy usablility to the user. By going 3D i could give the user a closer idea to what the levels will look like in game.   
+to create this project i utilised unity for its easy to use graphics manipulation methods. From the beginning it was clear a 3D solution was required for the project. If 2D was chosen it would not have given the same feedback methods or easy usability to the user. By going 3D i could give the user a closer idea to what the levels will look like in game.
 \subsubsection{C\#}
-i was required to code within C\# as unity was chosen to be developed within. this was benneficial as i am quite well versed in it.
+i was required to code within C\# as this is unity primary coding language . this was beneficial as i am well versed in it and have used it before(both unity and C\#).
 
 \subsubsection{Libraries}
 \subsubsection*{importing GLB objects}
-i have used UnityGLTF to import glb object within to unity at runtime. this allowed for hot reloading objects without the need of re compilation of the entire unity project.\\
+i have chosen to use UnityGLTF to import GLB object, which are compatible with Co-Operation, to unity at runtime. this allowed for hot reloading objects without the need of re compilation of the entire unity project.\\
 https://github.com/KhronosGroup/UnityGLTF
 \subsubsection*{parsing YAML}
-to be able to import and export file in YAML format, without haveing to create my own parser from scrtach, i have used YamlDotNet. This is a library built for C\# and so worked easily with unity. \\
+to be able to import and export file in YAML format, without having to create my own parser from scratch, i have used YamlDotNet. This is a library built for C\# and so worked easily with unity. this made importing and export much easier as i didn't need to manually parse or worry about correct spacing.\\
 https://github.com/aaubry/YamlDotNet 
 \subsubsection{Co-Operation game}
-\subsubsection{github}
-
-\subsection{non-functional requirements}
+Through out the development the actual game Co-Operation was used to valid my progress. without the use of the game i could not 
+\begin{itemize}
+	\item make sure that the object placement in the tool match the ones in game
+	\item know if the exported file was valid to be used with in the game
+\end{itemize}
+\subsubsection{GitHub}
+GitHub has been used for version control and storage of the project files and code. currently only two branches have been made and have now been merged, with the later branch being made more towards the end of development. while version control wasn't heavily used, it was extensively used for transporting the code.
 
 \subsection{functional requirements}
+functional requirements include details such as object CRUD as well as map panning and the importing and exporting of levels. these are the core vital aspects for the application to work. even with the bare bones of these features the tool would have made level creation easier visually.
+
+\subsection{non-functional requirements}
+non-functional requirements where the quality of life feature like: 
+\begin{itemize}
+	\item changing of pan speed based on zoom distance
+	\item the on screen hints as to the current state of selected and next placements
+	\item quick middle mouse click to select object for next placement
+\end{itemize}
 
 \subsection{UML}
 \subsubsection{classes}
@@ -132,9 +185,14 @@ https://github.com/aaubry/YamlDotNet
 \section{project managment}
 %%%%%%%%%%%%%%%%%%
 
-\section{Preperation}
+\section{Preparation}
+the preparation for this project to start and be complete began when i first saw the issue arise. while creating the mod the least interesting part was level creation but this (in my opinion) was due to the mental strain of designing and then translating the level to the YAML format. I only ever had vague ideas on how it would look in game. and later on came the task of modifying a cell in the middle of the map with no easy to point out reference point.
 \subsection{previous attempts}
-
+the previous attempts were hacks. they were quickly made in an attempt to make the editing at that point easier. only one works, which happens to be the 2\textsuperscript{nd} attempt, due to my shortcuts used used when programming win32.
+\subsubsection{1\textsuperscript{st} attempt}
+the first attempt used windows win32.h to create and show information to the users, it was entirely text based only showing buttons and input boxes to the user.
+\subsubsection{2\textsuperscript{nd} attempt}
+the second attempt actually took notes from the first attempt, making it so each object has its won layer and so only one object is focused on at a time. 
 %%%%%%%%%%%%%%%%%%
 
 \section{implementation}
