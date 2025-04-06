@@ -7,14 +7,14 @@
 \contentsline {subsection}{\numberline {1.1}Background}{5}{}%
 \contentsline {subsection}{\numberline {1.2}Objectives}{5}{}%
 \contentsline {subsection}{\numberline {1.3}Deliverables}{5}{}%
-\contentsline {section}{\numberline {2}Legal, Social, Ethical and Professional Issues}{7}{}%
-\contentsline {section}{\numberline {3}Method Of Approach}{7}{}%
-\contentsline {subsection}{\numberline {3.1}technologies}{7}{}%
-\contentsline {subsubsection}{\numberline {3.1.1}unity}{7}{}%
+\contentsline {section}{\numberline {2}Legal, Social, Ethical and Professional Issues}{6}{}%
+\contentsline {section}{\numberline {3}Method Of Approach}{6}{}%
+\contentsline {subsection}{\numberline {3.1}technologies}{6}{}%
+\contentsline {subsubsection}{\numberline {3.1.1}unity}{6}{}%
 \contentsline {subsubsection}{\numberline {3.1.2}C\#}{7}{}%
 \contentsline {subsubsection}{\numberline {3.1.3}Libraries}{7}{}%
 \contentsline {subsubsection}{\numberline {3.1.4}Co-Operation game}{7}{}%
-\contentsline {subsubsection}{\numberline {3.1.5}GitHub}{8}{}%
+\contentsline {subsubsection}{\numberline {3.1.5}GitHub}{7}{}%
 \contentsline {subsection}{\numberline {3.2}functional requirements}{8}{}%
 \contentsline {subsection}{\numberline {3.3}non-functional requirements}{8}{}%
 \contentsline {subsection}{\numberline {3.4}UML}{8}{}%
@@ -22,18 +22,20 @@
 \contentsline {subsubsection}{\numberline {3.4.2}control flow}{8}{}%
 \contentsline {section}{\numberline {4}project managment}{8}{}%
 \contentsline {section}{\numberline {5}Preparation}{8}{}%
-\contentsline {subsection}{\numberline {5.1}previous attempts}{9}{}%
-\contentsline {subsubsection}{\numberline {5.1.1}1\textsuperscript {st} attempt}{9}{}%
-\contentsline {subsubsection}{\numberline {5.1.2}2\textsuperscript {nd} attempt}{9}{}%
-\contentsline {section}{\numberline {6}implementation}{9}{}%
-\contentsline {subsection}{\numberline {6.1}unity}{9}{}%
-\contentsline {subsection}{\numberline {6.2}YAML}{9}{}%
-\contentsline {subsubsection}{\numberline {6.2.1}importing}{9}{}%
-\contentsline {subsubsection}{\numberline {6.2.2}exporting}{9}{}%
-\contentsline {subsection}{\numberline {6.3}Reverse Engineering of Level Layout}{9}{}%
-\contentsline {subsubsection}{\numberline {6.3.1}object placement}{9}{}%
-\contentsline {subsubsection}{\numberline {6.3.2}object orientation}{9}{}%
-\contentsline {subsection}{\numberline {6.4}cacheing for faster loading}{9}{}%
-\contentsline {section}{\numberline {7}Evaluation}{9}{}%
-\contentsline {section}{\numberline {8}Conclusion}{10}{}%
-\contentsline {subsection}{\numberline {8.1}further Work}{10}{}%
+\contentsline {subsection}{\numberline {5.1}libraries in use}{8}{}%
+\contentsline {subsection}{\numberline {5.2}previous attempts}{9}{}%
+\contentsline {subsubsection}{\numberline {5.2.1}1\textsuperscript {st} attempt}{9}{}%
+\contentsline {subsubsection}{\numberline {5.2.2}2\textsuperscript {nd} attempt}{10}{}%
+\contentsline {subsubsection}{\numberline {5.2.3}3\textsuperscript {rd} attempt}{11}{}%
+\contentsline {section}{\numberline {6}implementation}{11}{}%
+\contentsline {subsection}{\numberline {6.1}unity}{11}{}%
+\contentsline {subsection}{\numberline {6.2}YAML}{11}{}%
+\contentsline {subsubsection}{\numberline {6.2.1}importing}{11}{}%
+\contentsline {subsubsection}{\numberline {6.2.2}exporting}{11}{}%
+\contentsline {subsection}{\numberline {6.3}Reverse Engineering of Level Layout}{11}{}%
+\contentsline {subsubsection}{\numberline {6.3.1}object placement}{11}{}%
+\contentsline {subsubsection}{\numberline {6.3.2}object orientation}{11}{}%
+\contentsline {subsection}{\numberline {6.4}cacheing for faster loading}{11}{}%
+\contentsline {section}{\numberline {7}Evaluation}{12}{}%
+\contentsline {section}{\numberline {8}Conclusion}{12}{}%
+\contentsline {subsection}{\numberline {8.1}further Work}{12}{}%
