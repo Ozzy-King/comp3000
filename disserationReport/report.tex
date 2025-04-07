@@ -20,8 +20,35 @@
 
 \usepackage[a4paper, margin=1in]{geometry} % Sets A4 paper size and 1-inch margins
 
+\usepackage{listings}
 \usepackage{xcolor}
 \newcommand{\NOTE}[1]{ \break \color{red} #1 \color{black} \break}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
 
 \usepackage{pgfplots}
 \usepackage{tikz}
@@ -197,7 +224,15 @@ the third attempt is this dissertation. its aim is to have easy identifiable cel
 \subsubsection{exporting}
 
 \subsection{Reverse Engineering of Level Layout}
+one of the main issues faced in this project was the problem of object placement, both as placing them to form object based on object definitions, and placing them within the cells. this occurred as i did not have access to the game sources code since it it a piece of proprietary work created by MindFeast. while the company did offer to let me view their code, there was a required contract and with the stated requirements i chose not to sign. this let me keep the rights and associated freedom of my software. 
 \subsubsection{object placement}
+object placement was slightly confuseing at first but once thought trhouhg was quite simple. the confuseing came due to how the camera was placed in scene and working out which axis's where x and z.
+\NOTE{add image of ingame and ineditor axises}
+\begin{lstlisting}[language=C, caption=Python example]
+Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+\end{lstlisting}
+to correct the placement and offseting of objects in object definitions and cells, the x and z values are simply reverse using the -(minus) operator
+\NOTE{add image of code snippet for reverse}
 \subsubsection{object orientation}
 
 \subsection{cacheing for faster loading}
