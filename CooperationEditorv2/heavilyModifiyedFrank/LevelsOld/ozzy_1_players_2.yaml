@@ -1,7 +1,6 @@
 include:
 - FrankensteinShared.yaml
 - levelsShared.yaml
-- CoOpAnimationDefinitions.yaml
 fileProperties:
   creatorName: osbourne
 sceneName: EmptyWorld

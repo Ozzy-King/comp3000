@@ -1,0 +1,84 @@
+fileProperties:
+  creatorName: Mind Feast Games
+
+sceneName:
+
+grid:
+
+gridObjects:
+
+objectDefinitions:
+
+animationDefinitions:
+  # === PLAYER SPINE ANIMATIONS ===
+  # ===============================
+  player_shared_idle: !SpineAnimation { spineAnimationName: 'Idle', loop: true }
+  player_shared_idleCarry: !SpineAnimation { spineAnimationName: 'Idle-Carry', loop: true }
+  player_shared_run: !SpineAnimation { spineAnimationName: 'Run', loop: true }
+  player_shared_runCarry: !SpineAnimation { spineAnimationName: 'Run-Carry', loop: true }
+  player_shared_throw: !SpineAnimation { spineAnimationName: 'Throw', restorePrevious: true }
+  player_shared_bump: !SpineAnimation { spineAnimationName: 'Bump' }
+  player_shared_bumpCarry: !SpineAnimation { spineAnimationName: 'Bump-Carry' }
+
+  # Character 1 (athlete) only:
+  player_athlete_wait: !SpineAnimation { spineAnimationName: 'Wait', restorePrevious: true }
+
+  # Character 2 (footballer) only:
+  player_footballer_wait: !SpineAnimation { spineAnimationName: 'Wait-Ballspin', restorePrevious: true }
+
+  # Character 3 (clown) only:
+  player_clown_wait: !SpineAnimation { spineAnimationName: 'Wait-Juggle', restorePrevious: true }
+
+  # === PATIENT SPINE ANIMATIONS ===
+  #=================================
+
+  # Shared by all patients:
+  patient_shared_idle: !SpineAnimation { spineAnimationName: 'Sick_Idle_1', loop: true }
+  patient_shared_carried: !SpineAnimation { spineAnimationName: 'Carried', loop: true }
+  patient_shared_thrown: !SpineAnimation { spineAnimationName: 'Thrown', loop: true }
+  patient_shared_falling: !SpineAnimation { spineAnimationName: 'Falling', restorePrevious: true }
+  patient_shared_inBed_frontView: !SpineAnimation { spineAnimationName: 'In Bed Front View/In Bed', loop: true }
+  patient_shared_inBed_backView: !SpineAnimation { spineAnimationName: 'InBed-Backview', loop: true }
+  patient_shared_cured: !SpineAnimation { spineAnimationName: 'Recovered', awaitAnimation: true, fade: { fadeIn: false, fadeTime: 0.7, delay: 1.5 } }
+  patient_shared_dead: !SpineAnimation { spineAnimationName: 'Sick_Idle_1', fade: { fadeIn: false, fadeTime: 0.7, delay: 0.5 } }
+
+  # Ed Banger only:
+  patient_edBanger_carried: !SpineAnimation { spineAnimationName: 'Carried_ver3', loop: true }
+
+  # Chris only:
+  patient_chris_carried: !SpineAnimation { spineAnimationName: 'Carried_ver2', loop: true }
+
+  # Olivia & Avo only:
+  patient_oliviaAvo_idle: !SpineAnimation { spineAnimationName: 'Child-Sick-1', loop: true }
+  patient_oliviaAvo_carried: !SpineAnimation { spineAnimationName: 'Child-Being-Carried', loop: true }
+  patient_oliviaAvo_thrown: !SpineAnimation { spineAnimationName: 'Child-Being-Thrown', loop: true }
+  patient_oliviaAvo_falling: !SpineAnimation { spineAnimationName: 'Child-Being-Carried', restorePrevious: true }
+  patient_oliviaAvo_inBed_frontView: !SpineAnimation { spineAnimationName: 'Child-Inbed', loop: true }
+  patient_oliviaAvo_inBed_backView: !SpineAnimation { spineAnimationName: 'Child-InBed-Backview', loop: true }
+  patient_oliviaAvo_cured: !SpineAnimation { spineAnimationName: 'Child-Healed', awaitAnimation: true, fade: { fadeIn: false, fadeTime: 0.7, delay: 1.5 } }
+  patient_oliviaAvo_dead: !SpineAnimation { spineAnimationName: 'Child-Sick-1', fade: { fadeIn: false, fadeTime: 0.7, delay: 0.5 } }
+  
+  # Chameleon only:
+  patient_chameleon_idle: !SpineAnimation { spineAnimationName: 'Idle', loop: true }
+  patient_chameleon_thrown: !SpineAnimation { spineAnimationName: 'Being-Thrown-ColourChange', loop: true }
+  patient_chameleon_falling: !SpineAnimation { spineAnimationName: 'Carried', restorePrevious: true }
+  patient_chameleon_inBed: !SpineAnimation { spineAnimationName: 'InBed', loop: true }
+  patient_chameleon_cured: !SpineAnimation { spineAnimationName: 'Healed', awaitAnimation: true, fade: { fadeIn: false, fadeTime: 0.7, delay: 1.5 } }
+  patient_chameleon_dead: !SpineAnimation { spineAnimationName: 'Idle', fade: { fadeIn: false, fadeTime: 0.7, delay: 0.5 } }
+
+  # === GLB ANIMATIONS ===
+  # ======================
+  medicine_idle: !GLBAnimation { animationName: 'Idle_Anim', blendTime: 0.5 }
+  medicine_bounce: !GLBAnimation { animationName: 'Jump_Anim', blendTime: 0.5 }
+
+  medicine_syringe_idle: !GLBAnimation { animationName: 'Syringe_Idle_Anim', blendTime: 0.5 }
+  medicine_syringe_bounce: !GLBAnimation { animationName: 'Syringe_Jump_Anim', blendTime: 0.5 }
+
+  # === BOUNCY MESH DEFORMATION ===
+  # ===============================
+  wobble_generic: !MeshDeformAnimation { strength: 0.3, duration: 1.15, vibrato: 8, stretchDeform: { axis: Z } }
+  wobble_bush: !MeshDeformAnimation { strength: 0.3, duration: 1.15, vibrato: 8, stretchDeform: { axis: Y, regionUpper: 8.0 } }
+
+globalAnimationMappings:
+  - topic: 'wobble'
+    animations: [!Animation { animationDefinitionName: 'wobble_generic' }]

@@ -1,4 +1,4 @@
-include: [ CoOpAnimationDefinitions.yaml, FrankensteinShared.yaml ]
+include: [ CoOpAnimationDefinitions.yaml ]
 
 fileProperties:
   creatorName: Mind Feast Games
@@ -129,5 +129,4 @@ sounds:
   ThrowPatient: { fileNames: [ ThrowPatient.wav ] }
   WrongMedicine: { fileNames: [ PlayerCollide.wav ] }
   InvalidAction: { fileNames: [ PlayerCollide.wav ] }
-  PlaceDownPatient: { fileNames: [ PutPatientInBed.wav ] }
   Walk: { fileNames: [ Walk1_1.ogg, Walk1_2.ogg, Walk1_3.ogg, Walk1_4.ogg ] }
