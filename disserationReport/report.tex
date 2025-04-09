@@ -131,17 +131,12 @@ the deliverable will be a piece of software that can display a close to 1:1 leve
 
 for object manipulation features that are to be required are CUD(Create, Update, Delete) on object with in the scene, as well as be able to import object in GLB format from the correct file location
 
-scene manipulation is the zooming and panning of the camera. fo zooming the maouse wheel is used with minumum and maximum limits to zooming, and for panning, middle mouse click is used as well as the speed changin based on zoom distance. 
+scene manipulation is the zooming and panning of the camera. for zooming the mouse wheel is used with minimum and maximum limits to zooming, and for panning, middle mouse click is used as well as the speed changing based on zoom distance. 
 
-when importing and exporting of levels it uses the yaml fomat described by the game documents. the exporting requirements are that it has the same level layout and can be played in the game, and core level features are supported for importing. this includes the main features of 2d art objects as well as 3d art objects and the structure of object definition them selves. the only feature that cant be supported without integration, of this tool into the game, would be "mapObject" with values that aren't "custom" since these rely on built in objects that arn't avaliable. if the object uses previous described object it woud use "base" instead of "mapObject" 
+when importing and exporting of levels it uses the YAML format described by the game documents. the exporting requirements are that it has the same level layout and can be played in the game, and core level features are supported for importing. this includes the main features of 2d art objects as well as 3d art objects and the structure of object definition them selves. the only feature that cant be supported without integration, of this tool into the game, would be "mapObject" with values that aren't "custom" since these rely on built in objects that aren't available. if the object uses previous described object it would use "base" instead of "mapObject". 
+
 quality of life
-\begin{itemize}
-	\item have the object highlight when mouse is hovering over it
-	\item know which object you are currently interacting with
-	\item know which object is the next for placement
-	\item middle mouse click to select currently hovering over object for next placement(creates new object not modifies new object)
-	\item 
-\end{itemize}
+quality of light features that will be added are feedback to users to update them on the current state of the editor. a key quality of life feature is the object highlighting both when the user hovers their mouse over and object and when interacting with the object through clicking and dragging. the other quality if life aspect is for making selecting objects easier and which object is going to be placed next. this is done through middle mouse click for selecting objects, and the next object being placed is done through on screen text in the bottom left.
 %%%%%%%%%%%%%%%%%%
 
 \section{Legal, Social, Ethical and Professional Issues}
@@ -163,12 +158,9 @@ https://github.com/KhronosGroup/UnityGLTF
 YamlDotNet is used be able to import and export file in YAML format without having to write a parser from scratch. This is a library built for C\# and so worked easily with unity. this made importing and export much easier as there was no need to manually parse the file.\\
 https://github.com/aaubry/YamlDotNet 
 \subsubsection{Co-Operation game}
-Through out the development the actual game Co-Operation was used to valid my progress. without the use of the game validation coudl not be made for features such as: 
-\begin{itemize}
-	\item true object alignment from editor to game
-	\item exported file compatible with the game
-\end{itemize}
-access was gained to this during comp2003, where the client MindFeast ask for a mod to be created for their game Co-Operation.
+Co-Opertion will be used to to test if the level output file of the editor is valid to use in game and if the view within the editor it similar/ the same. this is very important to use in order to create this editor as its aim is to give real time visualisation of the level when creating and updating it
+
+access was gained to this during comp2003, where the client, MindFeast, asked for a mod to be created for their game Co-Operation.
 \subsubsection{GitHub}
 GitHub has been used for version control and storage of the project files and code. currently only two branches have been made and have now been merged, with the later branch being made more towards the end of development. while version control wasn't heavily used, it was extensively used for transporting the code.
 
