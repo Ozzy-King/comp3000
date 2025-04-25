@@ -1,0 +1,584 @@
+include:
+- FrankensteinShared.yaml
+- levelsShared.yaml
+fileProperties:
+  creatorName: osbourne
+sceneName: EmptyWorld
+postProcessing:
+  depthOfField:
+    enabled: false
+    focusDistance: 58
+    focalLength: 0
+    aperture: 1
+grid: >
+  AA,BA,CA,DA,EA,FA,GA,HA,IA,JA,KA,LA,MA,NA
+
+  AB,BB,CB,DB,EB,FB,GB,HB,IB,JB,KB,LB,MB,NB
+
+  AC,BC,CC,DC,EC,FC,GC,HC,IC,JC,KC,LC,MC,NC
+
+  AD,BD,CD,DD,ED,FD,GD,HD,ID,JD,KD,LD,MD,ND
+
+  AE,BE,CE,DE,EE,FE,GE,HE,IE,JE,KE,LE,ME,NE
+
+  AF,BF,CF,DF,EF,FF,GF,HF,IF,JF,KF,LF,MF,NF
+
+  AG,BG,CG,DG,EG,FG,GG,HG,IG,JG,KG,LG,MG,NG
+
+  AH,BH,CH,DH,EH,FH,GH,HH,IH,JH,KH,LH,MH,NH
+
+  AI,BI,CI,DI,EI,FI,GI,HI,II,JI,KI,LI,MI,NI
+
+  AJ,BJ,CJ,DJ,EJ,FJ,GJ,HJ,IJ,JJ,KJ,LJ,MJ,NJ
+
+  AK,BK,CK,DK,EK,FK,GK,HK,IK,JK,KK,LK,MK,NK
+
+  AL,BL,CL,DL,EL,FL,GL,HL,IL,JL,KL,LL,ML,NL
+
+  AM,BM,CM,DM,EM,FM,GM,HM,IM,JM,KM,LM,MM,NM
+
+  AN,BN,CN,DN,EN,FN,GN,HN,IN,JN,KN,LN,MN,NN
+
+  AO,BO,CO,DO,EO,FO,GO,HO,IO,JO,KO,LO,MO,NO
+
+  AP,BP,CP,DP,EP,FP,GP,HP,IP,JP,KP,LP,MP,NP
+
+  AQ,BQ,CQ,DQ,EQ,FQ,GQ,HQ,IQ,JQ,KQ,LQ,MQ,NQ
+
+  AR,BR,CR,DR,ER,FR,GR,HR,IR,JR,KR,LR,MR,NR
+
+  AS,BS,CS,DS,ES,FS,GS,HS,IS,JS,KS,LS,MS,NS
+
+  AT,BT,CT,DT,ET,FT,GT,HT,IT,JT,KT,LT,MT,NT
+
+  AU,BU,CU,DU,EU,FU,GU,HU,IU,JU,KU,LU,MU,NU
+
+  AV,BV,CV,DV,EV,FV,GV,HV,IV,JV,KV,LV,MV,NV
+
+  AW,BW,CW,DW,EW,FW,GW,HW,IW,JW,KW,LW,MW,NW
+
+  AX,BX,CX,DX,EX,FX,GX,HX,IX,JX,KX,LX,MX,NX
+gridObjects:
+  AA: []
+  BA: []
+  CA: []
+  DA: []
+  EA: []
+  FA: []
+  GA: []
+  HA: []
+  IA: []
+  JA: []
+  KA: []
+  LA: []
+  MA: []
+  NA: []
+  AB: []
+  BB: []
+  CB: []
+  DB: []
+  EB: []
+  FB: []
+  GB: []
+  HB: []
+  IB: []
+  JB: []
+  KB: []
+  LB: []
+  MB: []
+  NB: []
+  AC: []
+  BC: []
+  CC: []
+  DC: []
+  EC: []
+  FC: []
+  GC: []
+  HC: []
+  IC: []
+  JC: []
+  KC: []
+  LC: []
+  MC: []
+  NC: []
+  AD: []
+  BD: []
+  CD: []
+  DD: []
+  ED: []
+  FD: []
+  GD: []
+  HD: []
+  ID: []
+  JD: []
+  KD: []
+  LD: []
+  MD: []
+  ND: []
+  AE: []
+  BE: []
+  CE: []
+  DE: []
+  EE: []
+  FE: []
+  GE: []
+  HE: []
+  IE: []
+  JE: []
+  KE: []
+  LE: []
+  ME: []
+  NE: []
+  AF: []
+  BF: []
+  CF: []
+  DF: []
+  EF: []
+  FF: []
+  GF: []
+  HF: []
+  IF: []
+  JF: []
+  KF: []
+  LF: []
+  MF: []
+  NF: []
+  AG: []
+  BG: []
+  CG: []
+  DG: []
+  EG: []
+  FG: []
+  GG: []
+  HG: []
+  IG: []
+  JG: []
+  KG: []
+  LG: []
+  MG: []
+  NG: []
+  AH: []
+  BH: []
+  CH: []
+  DH: []
+  EH: []
+  FH: []
+  GH: []
+  HH: []
+  IH: []
+  JH: []
+  KH: []
+  LH: []
+  MH: []
+  NH: []
+  AI: []
+  BI: []
+  CI: []
+  DI: []
+  EI: []
+  FI: []
+  GI: []
+  HI: []
+  II: []
+  JI: []
+  KI: []
+  LI: []
+  MI: []
+  NI: []
+  AJ: []
+  BJ: []
+  CJ: []
+  DJ: []
+  EJ: []
+  FJ: []
+  GJ: []
+  HJ: []
+  IJ: []
+  JJ: []
+  KJ: []
+  LJ: []
+  MJ: []
+  NJ: []
+  AK: []
+  BK: []
+  CK: []
+  DK: []
+  EK: []
+  FK: []
+  GK: []
+  HK: []
+  IK: []
+  JK: []
+  KK: []
+  LK: []
+  MK: []
+  NK: []
+  AL: []
+  BL: []
+  CL: []
+  DL: []
+  EL: []
+  FL: []
+  GL: []
+  HL: []
+  IL: []
+  JL: []
+  KL: []
+  LL: []
+  ML: []
+  NL: []
+  AM: []
+  BM: []
+  CM: []
+  DM: []
+  EM: []
+  FM: []
+  GM: []
+  HM: []
+  IM: []
+  JM: []
+  KM: []
+  LM: []
+  MM: []
+  NM: []
+  AN: []
+  BN: []
+  CN: []
+  DN:
+  - camera_focus
+  - gm
+  - delay
+  - ConvayorManager
+  - AdamManager
+  EN: []
+  FN: []
+  GN: []
+  HN: []
+  IN: []
+  JN: []
+  KN: []
+  LN: []
+  MN: []
+  NN: []
+  AO: []
+  BO: []
+  CO: []
+  DO: []
+  EO: []
+  FO:
+  - brick_wall_s
+  - potion_shelf_s_rev
+  GO:
+  - brick_wall_s
+  - potion_shelf_s_rev
+  HO:
+  - brick_wall_s
+  - potion_shelf_s
+  IO:
+  - brick_wall_s
+  JO:
+  - brick_wall_s
+  - potion_shelf_s_rev
+  KO:
+  - brick_wall_s
+  - potion_shelf_s_rev
+  LO:
+  - brick_wall_s
+  - potion_shelf_s_rev
+  MO: []
+  NO: []
+  AP: []
+  BP: []
+  CP: []
+  DP: []
+  EP:
+  - brick_wall_e
+  FP:
+  - floorEndR
+  GP:
+  - floorEndR
+  - VAT100
+  - conv_Tutorial
+  HP:
+  - floorEndR
+  - monsterTorso
+  IP:
+  - floorEndR
+  - tallShelfS_1Books_nonBlock
+  JP:
+  - brick_wall_e
+  KP:
+  - floorEndR
+  - shortShelfE_2Books_nonBlock
+  LP:
+  - floorEndR
+  MP:
+  - floorEndR
+  NP: []
+  AQ: []
+  BQ: []
+  CQ: []
+  DQ: []
+  EQ:
+  - brick_wall_e
+  FQ:
+  - floorEndL
+  - frankTable_red_n
+  - tableLight
+  GQ:
+  - floorEndL
+  - p1
+  HQ:
+  - floor
+  IQ:
+  - floorEndL
+  JQ:
+  - brick_wall_e
+  KQ:
+  - floor
+  - leverFloorN
+  - leverLight
+  LQ:
+  - floor
+  - p2
+  MQ:
+  - floorEndL
+  - legCrate
+  NQ: []
+  AR: []
+  BR: []
+  CR: []
+  DR: []
+  ER: []
+  FR:
+  - brick_wall_s
+  - potion_shelf_s_rev
+  GR:
+  - conveyorNorth
+  HR:
+  - floorEndL
+  - torsoCrate
+  IR:
+  - conveyorNorth
+  JR:
+  - brick_wall_e
+  KR:
+  - floorEndL
+  - tallShelfE_1Books_nonBlock
+  LR:
+  - floorEndL
+  - monsterLeg
+  MR: []
+  NR: []
+  AS: []
+  BS: []
+  CS: []
+  DS: []
+  ES: []
+  FS:
+  - conveyorEast
+  GS:
+  - conveyorNorth
+  HS: []
+  IS:
+  - conveyorNorth
+  - monsterArm
+  JS:
+  - conveyorWest
+  KS:
+  - conveyorWest
+  LS:
+  - conveyorWest
+  - monsterLeg
+  MS: []
+  NS: []
+  AT: []
+  BT: []
+  CT: []
+  DT: []
+  ET: []
+  FT:
+  - conveyorNorth
+  GT:
+  - brick_wall_s
+  - wallCandle2S
+  HT: []
+  IT: []
+  JT: []
+  KT: []
+  LT: []
+  MT: []
+  NT: []
+  AU: []
+  BU: []
+  CU: []
+  DU: []
+  EU:
+  - brick_wall_e
+  FU:
+  - floorEndR
+  - p3
+  GU:
+  - floorEndR
+  HU: []
+  IU: []
+  JU: []
+  KU: []
+  LU: []
+  MU: []
+  NU: []
+  AV: []
+  BV: []
+  CV: []
+  DV: []
+  EV:
+  - brick_wall_e
+  FV:
+  - floorEndL
+  - headCrate
+  - shortShelfE_1Books_nonBlock
+  - potion_shelf_s_rev
+  GV:
+  - floorEndL
+  - armCrate
+  - potion_shelf_s_rev
+  HV:
+  - potion_shelf_s_rev
+  - potion_shelf_s_rev
+  IV:
+  - potion_shelf_s_rev
+  JV: []
+  KV: []
+  LV: []
+  MV: []
+  NV: []
+  AW: []
+  BW: []
+  CW: []
+  DW: []
+  EW: []
+  FW: []
+  GW: []
+  HW: []
+  IW: []
+  JW: []
+  KW: []
+  LW: []
+  MW: []
+  NW: []
+  AX: []
+  BX: []
+  CX: []
+  DX: []
+  EX: []
+  FX: []
+  GX: []
+  HX: []
+  IX: []
+  JX: []
+  KX: []
+  LX: []
+  MX: []
+  NX:
+  - CeilingLightStrong
+objectDefinitions:
+  crateBot:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    mods: []
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: -1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      model: Art/3D/Crate.glb
+    art2d: []
+  crateTop:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - blocksThrow
+    mods: []
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: -1
+        y: 0.68
+        z: -0.9
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      model: Art/3D/Crate.glb
+    art2d: []
+  potion_shelf_s_rev:
+    mapObject: Custom
+    id: ''
+    dir: east
+    tags:
+    - blocksMove
+    - static
+    mods: []
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: -1
+        y: 0
+        z: 1
+      rot:
+        x: 0
+        y: -90
+        z: 0
+      scale:
+        x: -1
+        y: 1
+        z: 1
+      model: Art/3D/PotionShelf.glb
+    art2d: []
+  __anonymous__0:
+    mapObject: ''
+    id: ''
+    dir: south
+    tags: []
+    mods: []
+    data: {}
+    base:
+    - other_conv_Tutorial
+    art3d:
+    - pos:
+        x: -0.2
+        y: 0
+        z: 0
+      rot:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 0.7
+        y: 0.7
+        z: 0.7
+      model: Art/3D/VAT00.glb
+    art2d: []
+sounds: 
+globalData: 

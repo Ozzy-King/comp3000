@@ -12,8 +12,8 @@ public class LevelLoader : MonoBehaviour
     [SerializeField]
     GlobalResources globalResources;
 
-    IDeserializer deserializer;
-    ISerializer serializer;
+    IDeserializer deserializer = null;
+    ISerializer serializer = null;
 
     public int INIT() {
         deserializer = new DeserializerBuilder().IgnoreUnmatchedProperties()
@@ -91,7 +91,11 @@ public class LevelLoader : MonoBehaviour
                 {
                     foreach (string t in newIncludeFile.include)
                     {
-                        includeFiles.Add(t);
+                        if(!includeFiles.Contains(t)){
+                            includeFiles.Add(t);
+                        }else{
+                            throw new YamlException("circular file includes: " + t);
+                        }
                     }
                 }
                 //add each object to the global List
@@ -108,7 +112,7 @@ public class LevelLoader : MonoBehaviour
             }
             catch (YamlException ex)
             {
-                Debug.LogError($"Error parsing YAML int {includeFile}");
+                Debug.LogError($"Error parsing YAML in {includeFile}");
                 Debug.LogError($"Error parsing YAML at line {ex.Start.Line}, column {ex.Start.Column}.");
                 Debug.LogError($"Error message: {ex.Message}");
             }

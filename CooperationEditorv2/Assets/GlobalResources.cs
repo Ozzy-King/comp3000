@@ -93,7 +93,7 @@ public class GlobalResources : MonoBehaviour
         return BillboardObject;
     }
 
-    public string workingDirectory = ".\\testing";
+    public string workingDirectory = "./testing";
     public const string levelDir = "/Levels";
     public const string codeDir = "/Code";
     public const string artDir = "/Art";
@@ -221,10 +221,9 @@ public class GlobalResources : MonoBehaviour
         LoadButton.GetComponent<Button>().interactable = true;
         List<string> filenames = new List<string>(Directory.GetFiles(workingDir + levelDir, "*.yaml"));
         for (int i = 0; i < filenames.Count; i++) {
-            filenames[i] = filenames[i].Split("\\")[^1];
+            filenames[i] = filenames[i].Split('/')[^1];
         }
         levelDropdown.AddOptions(filenames);
-
     }
 
 

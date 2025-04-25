@@ -1,0 +1,806 @@
+include: []
+fileProperties:
+  creatorName: <NAME>
+sceneName: EmptyWorld
+postProcessing:
+  depthOfField:
+    enabled: false
+    focusDistance: 58
+    focalLength: 0
+    aperture: 1
+grid: >
+  AA,BA,CA
+
+  AB,BB,CB
+
+  AC,BC,CC
+
+  AD,BD,CD
+
+  AE,BE,CE
+
+  AF,BF,CF
+
+  AG,BG,CG
+
+  AH,BH,CH
+gridObjects:
+  AA:
+  - inFile1
+  BA:
+  - inFile1
+  CA:
+  - inFile1
+  AB:
+  - inFile1
+  BB:
+  - inFile1
+  CB:
+  - inFile1
+  AC:
+  - inFile1
+  BC:
+  - inFile1
+  CC:
+  - inFile1
+  AD:
+  - inFile1
+  BD:
+  - inFile1
+  CD:
+  - inFile1
+  AE:
+  - inFile1
+  BE:
+  - inFile1
+  CE:
+  - inFile1
+  AF:
+  - inFile1
+  BF:
+  - inFile1
+  CF:
+  - inFile1
+  AG:
+  - inFile1
+  BG:
+  - inFile1
+  CG:
+  - inFile1
+  AH:
+  - inFile1
+  BH:
+  - inFile1
+  CH:
+  - inFile1
+objectDefinitions:
+  inFile1:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile2:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile3:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile4:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile5:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile6:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile7:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile8:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile9:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile10:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile11:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile12:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile13:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile14:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile15:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile16:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile17:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile18:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile19:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile20:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile21:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile22:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile23:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile24:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile25:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+  inFile26:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - Interact
+    - Up
+    - Red
+    mods:
+    - leverActivate
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: 1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: -1
+      model: Art/3D/Levers/Red/LeverRFloor.glb
+    art2d: []
+sounds: 
+globalData: 

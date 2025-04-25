@@ -1,0 +1,12 @@
+#EDITORPROG:
+include: [ ]
+fileProperties:
+  creatorName: <NAME>
+sceneName: EmptyWorld
+postProcessing:
+  depthOfField: { enabled: false, focusDistance: 58, focalLength: 0.0, aperture: 1.0 }
+grid: |
+gridObjects:
+  
+objectDefinitions:
+  inInc: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/Levers/Red/LeverRFloor.glb", pos: {x: 1, y: -0.27, z: -1}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 1, z: -1} }  ], mods: [ leverActivate ], tags: [ "blocksMove", "Interact", "Up", "Red" ] }

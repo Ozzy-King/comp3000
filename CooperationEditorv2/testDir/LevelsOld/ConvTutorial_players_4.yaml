@@ -1,0 +1,1313 @@
+include:
+- FrankensteinShared.yaml
+- levelsShared.yaml
+- FrankensteinShared2.yaml
+fileProperties:
+  creatorName: osbourne
+sceneName: EmptyWorld
+postProcessing:
+  depthOfField:
+    enabled: false
+    focusDistance: 58
+    focalLength: 0
+    aperture: 1
+grid: >
+  AA,BA,CA,DA,EA,FA,GA,HA,IA,JA,KA,LA,MA,NA,OA,PA
+
+  AB,BB,CB,DB,EB,FB,GB,HB,IB,JB,KB,LB,MB,NB,OB,PB
+
+  AC,BC,CC,DC,EC,FC,GC,HC,IC,JC,KC,LC,MC,NC,OC,PC
+
+  AD,BD,CD,DD,ED,FD,GD,HD,ID,JD,KD,LD,MD,ND,OD,PD
+
+  AE,BE,CE,DE,EE,FE,GE,HE,IE,JE,KE,LE,ME,NE,OE,PE
+
+  AF,BF,CF,DF,EF,FF,GF,HF,IF,JF,KF,LF,MF,NF,OF,PF
+
+  AG,BG,CG,DG,EG,FG,GG,HG,IG,JG,KG,LG,MG,NG,OG,PG
+
+  AH,BH,CH,DH,EH,FH,GH,HH,IH,JH,KH,LH,MH,NH,OH,PH
+
+  AI,BI,CI,DI,EI,FI,GI,HI,II,JI,KI,LI,MI,NI,OI,PI
+
+  AJ,BJ,CJ,DJ,EJ,FJ,GJ,HJ,IJ,JJ,KJ,LJ,MJ,NJ,OJ,PJ
+
+  AK,BK,CK,DK,EK,FK,GK,HK,IK,JK,KK,LK,MK,NK,OK,PK
+
+  AL,BL,CL,DL,EL,FL,GL,HL,IL,JL,KL,LL,ML,NL,OL,PL
+
+  AM,BM,CM,DM,EM,FM,GM,HM,IM,JM,KM,LM,MM,NM,OM,PM
+
+  AN,BN,CN,DN,EN,FN,GN,HN,IN,JN,KN,LN,MN,NN,ON,PN
+
+  AO,BO,CO,DO,EO,FO,GO,HO,IO,JO,KO,LO,MO,NO,OO,PO
+
+  AP,BP,CP,DP,EP,FP,GP,HP,IP,JP,KP,LP,MP,NP,OP,PP
+
+  AQ,BQ,CQ,DQ,EQ,FQ,GQ,HQ,IQ,JQ,KQ,LQ,MQ,NQ,OQ,PQ
+
+  AR,BR,CR,DR,ER,FR,GR,HR,IR,JR,KR,LR,MR,NR,OR,PR
+
+  AS,BS,CS,DS,ES,FS,GS,HS,IS,JS,KS,LS,MS,NS,OS,PS
+
+  AT,BT,CT,DT,ET,FT,GT,HT,IT,JT,KT,LT,MT,NT,OT,PT
+
+  AU,BU,CU,DU,EU,FU,GU,HU,IU,JU,KU,LU,MU,NU,OU,PU
+
+  AV,BV,CV,DV,EV,FV,GV,HV,IV,JV,KV,LV,MV,NV,OV,PV
+
+  AW,BW,CW,DW,EW,FW,GW,HW,IW,JW,KW,LW,MW,NW,OW,PW
+
+  AX,BX,CX,DX,EX,FX,GX,HX,IX,JX,KX,LX,MX,NX,OX,PX
+
+  AY,BY,CY,DY,EY,FY,GY,HY,IY,JY,KY,LY,MY,NY,OY,PY
+
+  AZ,BZ,CZ,DZ,EZ,FZ,GZ,HZ,IZ,JZ,KZ,LZ,MZ,NZ,OZ,PZ
+
+  A[,B[,C[,D[,E[,F[,G[,H[,I[,J[,K[,L[,M[,N[,O[,P[
+
+  A\,B\,C\,D\,E\,F\,G\,H\,I\,J\,K\,L\,M\,N\,O\,P\
+
+  A],B],C],D],E],F],G],H],I],J],K],L],M],N],O],P]
+
+  A^,B^,C^,D^,E^,F^,G^,H^,I^,J^,K^,L^,M^,N^,O^,P^
+
+  A_,B_,C_,D_,E_,F_,G_,H_,I_,J_,K_,L_,M_,N_,O_,P_
+
+  A`,B`,C`,D`,E`,F`,G`,H`,I`,J`,K`,L`,M`,N`,O`,P`
+
+  Aa,Ba,Ca,Da,Ea,Fa,Ga,Ha,Ia,Ja,Ka,La,Ma,Na,Oa,Pa
+
+  Ab,Bb,Cb,Db,Eb,Fb,Gb,Hb,Ib,Jb,Kb,Lb,Mb,Nb,Ob,Pb
+
+  Ac,Bc,Cc,Dc,Ec,Fc,Gc,Hc,Ic,Jc,Kc,Lc,Mc,Nc,Oc,Pc
+
+  Ad,Bd,Cd,Dd,Ed,Fd,Gd,Hd,Id,Jd,Kd,Ld,Md,Nd,Od,Pd
+
+  Ae,Be,Ce,De,Ee,Fe,Ge,He,Ie,Je,Ke,Le,Me,Ne,Oe,Pe
+
+  Af,Bf,Cf,Df,Ef,Ff,Gf,Hf,If,Jf,Kf,Lf,Mf,Nf,Of,Pf
+
+  Ag,Bg,Cg,Dg,Eg,Fg,Gg,Hg,Ig,Jg,Kg,Lg,Mg,Ng,Og,Pg
+
+  Ah,Bh,Ch,Dh,Eh,Fh,Gh,Hh,Ih,Jh,Kh,Lh,Mh,Nh,Oh,Ph
+
+  Ai,Bi,Ci,Di,Ei,Fi,Gi,Hi,Ii,Ji,Ki,Li,Mi,Ni,Oi,Pi
+
+  Aj,Bj,Cj,Dj,Ej,Fj,Gj,Hj,Ij,Jj,Kj,Lj,Mj,Nj,Oj,Pj
+
+  Ak,Bk,Ck,Dk,Ek,Fk,Gk,Hk,Ik,Jk,Kk,Lk,Mk,Nk,Ok,Pk
+
+  Al,Bl,Cl,Dl,El,Fl,Gl,Hl,Il,Jl,Kl,Ll,Ml,Nl,Ol,Pl
+
+  Am,Bm,Cm,Dm,Em,Fm,Gm,Hm,Im,Jm,Km,Lm,Mm,Nm,Om,Pm
+
+  An,Bn,Cn,Dn,En,Fn,Gn,Hn,In,Jn,Kn,Ln,Mn,Nn,On,Pn
+
+  Ao,Bo,Co,Do,Eo,Fo,Go,Ho,Io,Jo,Ko,Lo,Mo,No,Oo,Po
+
+  Ap,Bp,Cp,Dp,Ep,Fp,Gp,Hp,Ip,Jp,Kp,Lp,Mp,Np,Op,Pp
+
+  Aq,Bq,Cq,Dq,Eq,Fq,Gq,Hq,Iq,Jq,Kq,Lq,Mq,Nq,Oq,Pq
+
+  Ar,Br,Cr,Dr,Er,Fr,Gr,Hr,Ir,Jr,Kr,Lr,Mr,Nr,Or,Pr
+
+  As,Bs,Cs,Ds,Es,Fs,Gs,Hs,Is,Js,Ks,Ls,Ms,Ns,Os,Ps
+
+  At,Bt,Ct,Dt,Et,Ft,Gt,Ht,It,Jt,Kt,Lt,Mt,Nt,Ot,Pt
+
+  Au,Bu,Cu,Du,Eu,Fu,Gu,Hu,Iu,Ju,Ku,Lu,Mu,Nu,Ou,Pu
+
+  Av,Bv,Cv,Dv,Ev,Fv,Gv,Hv,Iv,Jv,Kv,Lv,Mv,Nv,Ov,Pv
+
+  Aw,Bw,Cw,Dw,Ew,Fw,Gw,Hw,Iw,Jw,Kw,Lw,Mw,Nw,Ow,Pw
+
+  Ax,Bx,Cx,Dx,Ex,Fx,Gx,Hx,Ix,Jx,Kx,Lx,Mx,Nx,Ox,Px
+
+  Ay,By,Cy,Dy,Ey,Fy,Gy,Hy,Iy,Jy,Ky,Ly,My,Ny,Oy,Py
+
+  Az,Bz,Cz,Dz,Ez,Fz,Gz,Hz,Iz,Jz,Kz,Lz,Mz,Nz,Oz,Pz
+
+  A{,B{,C{,D{,E{,F{,G{,H{,I{,J{,K{,L{,M{,N{,O{,P{
+
+  A|,B|,C|,D|,E|,F|,G|,H|,I|,J|,K|,L|,M|,N|,O|,P|
+gridObjects:
+  AA: []
+  BA: []
+  CA: []
+  DA: []
+  EA: []
+  FA: []
+  GA: []
+  HA: []
+  IA: []
+  JA: []
+  KA: []
+  LA: []
+  MA: []
+  NA: []
+  OA: []
+  PA: []
+  AB: []
+  BB: []
+  CB: []
+  DB: []
+  EB: []
+  FB: []
+  GB: []
+  HB: []
+  IB: []
+  JB: []
+  KB: []
+  LB: []
+  MB: []
+  NB: []
+  OB: []
+  PB: []
+  AC: []
+  BC: []
+  CC: []
+  DC: []
+  EC: []
+  FC: []
+  GC: []
+  HC: []
+  IC: []
+  JC: []
+  KC: []
+  LC: []
+  MC: []
+  NC: []
+  OC: []
+  PC: []
+  AD: []
+  BD: []
+  CD: []
+  DD: []
+  ED: []
+  FD: []
+  GD: []
+  HD: []
+  ID: []
+  JD: []
+  KD: []
+  LD: []
+  MD: []
+  ND: []
+  OD: []
+  PD: []
+  AE: []
+  BE: []
+  CE: []
+  DE: []
+  EE: []
+  FE: []
+  GE: []
+  HE: []
+  IE: []
+  JE: []
+  KE: []
+  LE: []
+  ME: []
+  NE: []
+  OE: []
+  PE: []
+  AF: []
+  BF: []
+  CF: []
+  DF: []
+  EF: []
+  FF: []
+  GF: []
+  HF: []
+  IF: []
+  JF: []
+  KF: []
+  LF: []
+  MF: []
+  NF: []
+  OF: []
+  PF: []
+  AG: []
+  BG: []
+  CG: []
+  DG: []
+  EG: []
+  FG: []
+  GG: []
+  HG: []
+  IG: []
+  JG: []
+  KG: []
+  LG: []
+  MG: []
+  NG: []
+  OG: []
+  PG: []
+  AH: []
+  BH: []
+  CH: []
+  DH: []
+  EH: []
+  FH: []
+  GH: []
+  HH: []
+  IH: []
+  JH: []
+  KH: []
+  LH: []
+  MH: []
+  NH: []
+  OH: []
+  PH: []
+  AI: []
+  BI: []
+  CI: []
+  DI: []
+  EI: []
+  FI: []
+  GI: []
+  HI: []
+  II: []
+  JI: []
+  KI: []
+  LI: []
+  MI: []
+  NI: []
+  OI: []
+  PI: []
+  AJ: []
+  BJ: []
+  CJ: []
+  DJ: []
+  EJ: []
+  FJ: []
+  GJ: []
+  HJ: []
+  IJ: []
+  JJ: []
+  KJ: []
+  LJ: []
+  MJ: []
+  NJ: []
+  OJ: []
+  PJ: []
+  AK: []
+  BK: []
+  CK: []
+  DK: []
+  EK: []
+  FK: []
+  GK: []
+  HK: []
+  IK: []
+  JK: []
+  KK: []
+  LK: []
+  MK: []
+  NK: []
+  OK: []
+  PK: []
+  AL: []
+  BL: []
+  CL: []
+  DL: []
+  EL: []
+  FL: []
+  GL: []
+  HL: []
+  IL: []
+  JL: []
+  KL: []
+  LL: []
+  ML: []
+  NL: []
+  OL: []
+  PL: []
+  AM: []
+  BM: []
+  CM: []
+  DM: []
+  EM: []
+  FM: []
+  GM: []
+  HM: []
+  IM: []
+  JM: []
+  KM: []
+  LM: []
+  MM: []
+  NM: []
+  OM: []
+  PM: []
+  AN: []
+  BN: []
+  CN: []
+  DN: []
+  EN: []
+  FN: []
+  GN: []
+  HN: []
+  IN: []
+  JN: []
+  KN: []
+  LN: []
+  MN: []
+  NN: []
+  ON: []
+  PN: []
+  AO: []
+  BO: []
+  CO: []
+  DO: []
+  EO: []
+  FO: []
+  GO: []
+  HO: []
+  IO: []
+  JO: []
+  KO: []
+  LO: []
+  MO: []
+  NO: []
+  OO: []
+  PO: []
+  AP: []
+  BP: []
+  CP: []
+  DP: []
+  EP: []
+  FP: []
+  GP: []
+  HP: []
+  IP: []
+  JP: []
+  KP: []
+  LP: []
+  MP: []
+  NP: []
+  OP: []
+  PP: []
+  AQ: []
+  BQ: []
+  CQ: []
+  DQ: []
+  EQ: []
+  FQ: []
+  GQ: []
+  HQ: []
+  IQ: []
+  JQ: []
+  KQ: []
+  LQ: []
+  MQ: []
+  NQ: []
+  OQ: []
+  PQ: []
+  AR: []
+  BR: []
+  CR: []
+  DR: []
+  ER: []
+  FR: []
+  GR: []
+  HR: []
+  IR: []
+  JR: []
+  KR: []
+  LR: []
+  MR: []
+  NR: []
+  OR: []
+  PR: []
+  AS: []
+  BS: []
+  CS: []
+  DS: []
+  ES: []
+  FS: []
+  GS: []
+  HS: []
+  IS: []
+  JS: []
+  KS: []
+  LS: []
+  MS: []
+  NS: []
+  OS: []
+  PS: []
+  AT: []
+  BT: []
+  CT: []
+  DT: []
+  ET: []
+  FT: []
+  GT: []
+  HT: []
+  IT: []
+  JT: []
+  KT: []
+  LT: []
+  MT: []
+  NT: []
+  OT: []
+  PT: []
+  AU: []
+  BU: []
+  CU: []
+  DU: []
+  EU: []
+  FU: []
+  GU: []
+  HU: []
+  IU: []
+  JU: []
+  KU: []
+  LU: []
+  MU: []
+  NU: []
+  OU: []
+  PU: []
+  AV: []
+  BV: []
+  CV: []
+  DV: []
+  EV: []
+  FV: []
+  GV: []
+  HV: []
+  IV: []
+  JV: []
+  KV: []
+  LV: []
+  MV: []
+  NV: []
+  OV: []
+  PV: []
+  AW: []
+  BW: []
+  CW: []
+  DW: []
+  EW: []
+  FW: []
+  GW: []
+  HW: []
+  IW: []
+  JW: []
+  KW: []
+  LW: []
+  MW: []
+  NW: []
+  OW: []
+  PW: []
+  AX: []
+  BX: []
+  CX: []
+  DX: []
+  EX: []
+  FX: []
+  GX: []
+  HX: []
+  IX: []
+  JX: []
+  KX: []
+  LX: []
+  MX: []
+  NX: []
+  OX: []
+  PX: []
+  AY: []
+  BY: []
+  CY: []
+  DY: []
+  EY: []
+  FY: []
+  GY: []
+  HY: []
+  IY: []
+  JY: []
+  KY: []
+  LY: []
+  MY: []
+  NY: []
+  OY: []
+  PY: []
+  AZ: []
+  BZ: []
+  CZ: []
+  DZ: []
+  EZ: []
+  FZ: []
+  GZ: []
+  HZ: []
+  IZ: []
+  JZ: []
+  KZ: []
+  LZ: []
+  MZ: []
+  NZ: []
+  OZ: []
+  PZ: []
+  A[: []
+  B[: []
+  C[: []
+  D[: []
+  E[: []
+  F[: []
+  G[: []
+  H[: []
+  I[: []
+  J[: []
+  K[: []
+  L[: []
+  M[: []
+  N[: []
+  O[: []
+  P[: []
+  A\: []
+  B\: []
+  C\: []
+  D\: []
+  E\: []
+  F\: []
+  G\: []
+  H\: []
+  I\: []
+  J\: []
+  K\: []
+  L\: []
+  M\: []
+  N\: []
+  O\: []
+  P\: []
+  A]: []
+  B]: []
+  C]: []
+  D]: []
+  E]: []
+  F]: []
+  G]: []
+  H]: []
+  I]: []
+  J]: []
+  K]: []
+  L]: []
+  M]: []
+  N]: []
+  O]: []
+  P]: []
+  A^: []
+  B^: []
+  C^: []
+  D^: []
+  E^: []
+  F^: []
+  G^: []
+  H^: []
+  I^: []
+  J^: []
+  K^: []
+  L^: []
+  M^: []
+  N^: []
+  O^: []
+  P^: []
+  A_: []
+  B_: []
+  C_: []
+  D_: []
+  E_: []
+  F_: []
+  G_: []
+  H_: []
+  I_: []
+  J_: []
+  K_: []
+  L_: []
+  M_: []
+  N_: []
+  O_: []
+  P_: []
+  A`: []
+  B`: []
+  C`: []
+  D`: []
+  E`: []
+  F`: []
+  G`: []
+  H`: []
+  I`: []
+  J`: []
+  K`: []
+  L`: []
+  M`: []
+  N`: []
+  O`: []
+  P`: []
+  Aa: []
+  Ba: []
+  Ca: []
+  Da: []
+  Ea: []
+  Fa: []
+  Ga: []
+  Ha: []
+  Ia: []
+  Ja: []
+  Ka: []
+  La: []
+  Ma: []
+  Na: []
+  Oa: []
+  Pa: []
+  Ab: []
+  Bb: []
+  Cb: []
+  Db: []
+  Eb: []
+  Fb: []
+  Gb: []
+  Hb: []
+  Ib: []
+  Jb: []
+  Kb: []
+  Lb: []
+  Mb: []
+  Nb: []
+  Ob: []
+  Pb: []
+  Ac: []
+  Bc: []
+  Cc: []
+  Dc: []
+  Ec: []
+  Fc: []
+  Gc: []
+  Hc: []
+  Ic: []
+  Jc: []
+  Kc: []
+  Lc: []
+  Mc: []
+  Nc: []
+  Oc: []
+  Pc: []
+  Ad: []
+  Bd: []
+  Cd: []
+  Dd: []
+  Ed: []
+  Fd: []
+  Gd: []
+  Hd: []
+  Id: []
+  Jd: []
+  Kd: []
+  Ld: []
+  Md: []
+  Nd: []
+  Od: []
+  Pd: []
+  Ae: []
+  Be: []
+  Ce: []
+  De: []
+  Ee: []
+  Fe: []
+  Ge: []
+  He: []
+  Ie: []
+  Je: []
+  Ke: []
+  Le: []
+  Me: []
+  Ne: []
+  Oe: []
+  Pe: []
+  Af: []
+  Bf: []
+  Cf: []
+  Df: []
+  Ef: []
+  Ff: []
+  Gf: []
+  Hf: []
+  If: []
+  Jf: []
+  Kf: []
+  Lf: []
+  Mf: []
+  Nf: []
+  Of: []
+  Pf: []
+  Ag: []
+  Bg: []
+  Cg: []
+  Dg: []
+  Eg: []
+  Fg: []
+  Gg: []
+  Hg: []
+  Ig: []
+  Jg: []
+  Kg: []
+  Lg: []
+  Mg: []
+  Ng: []
+  Og: []
+  Pg: []
+  Ah: []
+  Bh: []
+  Ch: []
+  Dh: []
+  Eh: []
+  Fh: []
+  Gh: []
+  Hh: []
+  Ih: []
+  Jh: []
+  Kh: []
+  Lh: []
+  Mh: []
+  Nh: []
+  Oh: []
+  Ph: []
+  Ai: []
+  Bi: []
+  Ci: []
+  Di: []
+  Ei: []
+  Fi: []
+  Gi: []
+  Hi: []
+  Ii: []
+  Ji: []
+  Ki: []
+  Li: []
+  Mi: []
+  Ni: []
+  Oi: []
+  Pi: []
+  Aj: []
+  Bj: []
+  Cj: []
+  Dj: []
+  Ej: []
+  Fj: []
+  Gj: []
+  Hj: []
+  Ij: []
+  Jj: []
+  Kj: []
+  Lj: []
+  Mj: []
+  Nj: []
+  Oj: []
+  Pj: []
+  Ak: []
+  Bk: []
+  Ck: []
+  Dk: []
+  Ek: []
+  Fk: []
+  Gk: []
+  Hk: []
+  Ik: []
+  Jk: []
+  Kk: []
+  Lk: []
+  Mk: []
+  Nk: []
+  Ok: []
+  Pk: []
+  Al: []
+  Bl: []
+  Cl: []
+  Dl: []
+  El: []
+  Fl: []
+  Gl: []
+  Hl: []
+  Il: []
+  Jl: []
+  Kl: []
+  Ll: []
+  Ml: []
+  Nl: []
+  Ol: []
+  Pl: []
+  Am: []
+  Bm: []
+  Cm: []
+  Dm: []
+  Em: []
+  Fm: []
+  Gm: []
+  Hm: []
+  Im: []
+  Jm: []
+  Km: []
+  Lm: []
+  Mm: []
+  Nm: []
+  Om: []
+  Pm: []
+  An: []
+  Bn: []
+  Cn: []
+  Dn: []
+  En: []
+  Fn: []
+  Gn: []
+  Hn: []
+  In: []
+  Jn: []
+  Kn: []
+  Ln: []
+  Mn: []
+  Nn: []
+  On: []
+  Pn: []
+  Ao: []
+  Bo: []
+  Co:
+  - AdamManager
+  Do:
+  - gm
+  Eo: []
+  Fo: []
+  Go: []
+  Ho: []
+  Io: []
+  Jo: []
+  Ko: []
+  Lo: []
+  Mo: []
+  No: []
+  Oo: []
+  Po: []
+  Ap: []
+  Bp: []
+  Cp:
+  - ConvayorManager
+  Dp:
+  - delay
+  Ep: []
+  Fp: []
+  Gp: []
+  Hp:
+  - monsterArm
+  Ip: []
+  Jp: []
+  Kp: []
+  Lp:
+  - brick_wall_s
+  Mp: []
+  Np: []
+  Op: []
+  Pp: []
+  Aq: []
+  Bq: []
+  Cq:
+  - camera_focus
+  Dq: []
+  Eq: []
+  Fq: []
+  Gq: []
+  Hq: []
+  Iq:
+  - floorEndR
+  Jq: []
+  Kq:
+  - brick_wall_s
+  - tallShelfS_1Books_nonBlock
+  Lq: []
+  Mq: []
+  Nq: []
+  Oq: []
+  Pq: []
+  Ar: []
+  Br: []
+  Cr: []
+  Dr: []
+  Er: []
+  Fr: []
+  Gr: []
+  Hr: []
+  Ir: []
+  Jr: []
+  Kr: []
+  Lr:
+  - other_conv_Tutorial
+  Mr: []
+  Nr: []
+  Or:
+  - floorEndR
+  Pr: []
+  As: []
+  Bs: []
+  Cs: []
+  Ds: []
+  Es: []
+  Fs: []
+  Gs:
+  - brick_wall_s
+  Hs:
+  - brick_wall_s
+  Is:
+  - brick_wall_s
+  - potion_shelf_s
+  Js: []
+  Ks:
+  - brick_wall_s
+  Ls: []
+  Ms:
+  - potion_shelf_s_rev
+  Ns: []
+  Os: []
+  Ps: []
+  At: []
+  Bt: []
+  Ct: []
+  Dt: []
+  Et: []
+  Ft:
+  - brick_wall_e
+  - __anonymous__0
+  Gt:
+  - floorEndR
+  Ht:
+  - floorEndR
+  - VAT140
+  - conv_Tutorial
+  It:
+  - floorEndR
+  - monsterTorso
+  Jt: []
+  Kt:
+  - brick_wall_e
+  Lt:
+  - floorEndR
+  - shortShelfE_2Books_nonBlock
+  Mt: []
+  Nt: []
+  Ot: []
+  Pt: []
+  Au: []
+  Bu: []
+  Cu: []
+  Du: []
+  Eu: []
+  Fu:
+  - brick_wall_e
+  Gu:
+  - floorEndL
+  - frankTable_red_n
+  - tableLight
+  Hu:
+  - floorEndL
+  - p1
+  Iu:
+  - floor
+  Ju:
+  - floorEndL
+  Ku:
+  - brick_wall_e
+  - conveyorWest
+  Lu:
+  - floor
+  - leverFloorN
+  - leverLight
+  Mu:
+  - floor
+  - p2
+  Nu:
+  - legCrate
+  Ou:
+  - floorEndR
+  - item_teleporter_out
+  Pu:
+  - floorEndL
+  Av: []
+  Bv: []
+  Cv:
+  - heavy_Tutorial2
+  Dv: []
+  Ev: []
+  Fv: []
+  Gv:
+  - brick_wall_s
+  - potion_shelf_s_rev
+  - brick_wall_s
+  Hv:
+  - conveyorNorth
+  Iv:
+  - floorEndL
+  - torsoCrate
+  Jv:
+  - conveyorNorth
+  Kv:
+  - brick_wall_e
+  Lv:
+  - floorEndL
+  - tallShelfE_1Books_nonBlock
+  Mv:
+  - floorEndL
+  - monsterLeg
+  Nv:
+  - monsterLeg
+  Ov: []
+  Pv: []
+  Aw: []
+  Bw: []
+  Cw: []
+  Dw: []
+  Ew: []
+  Fw: []
+  Gw: []
+  Hw: []
+  Iw: []
+  Jw:
+  - conveyorNorth
+  Kw:
+  - conveyorWest
+  Lw: []
+  Mw: []
+  Nw: []
+  Ow: []
+  Pw: []
+  Ax: []
+  Bx: []
+  Cx: []
+  Dx: []
+  Ex: []
+  Fx: []
+  Gx:
+  - conveyorNorth
+  Hx:
+  - brick_wall_s
+  - wallCandle2S
+  Ix: []
+  Jx:
+  - brick_wall_s
+  Kx:
+  - conveyorNorth
+  - floorEndR
+  Lx:
+  - conveyorWest
+  Mx:
+  - conveyorWest
+  Nx: []
+  Ox: []
+  Px: []
+  Ay: []
+  By: []
+  Cy: []
+  Dy: []
+  Ey: []
+  Fy:
+  - brick_wall_e
+  Gy:
+  - floorEndR
+  - p3
+  Hy:
+  - floorEndR
+  Iy:
+  - brick_wall_e
+  Jy:
+  - floorEndR
+  - p4
+  Ky:
+  - floor
+  Ly:
+  - floorEndR
+  My:
+  - floorEndR
+  Ny: []
+  Oy: []
+  Py: []
+  Az: []
+  Bz: []
+  Cz: []
+  Dz: []
+  Ez: []
+  Fz:
+  - brick_wall_e
+  Gz:
+  - __anonymous__612204142
+  - floorEndL
+  - shortShelfE_1Books_nonBlock
+  Hz:
+  - floorEndL
+  - armCrate
+  Iz:
+  - brick_wall_e
+  - potion_shelf_e_rev
+  Jz:
+  - floorEndL
+  - headCrate
+  - floorEndL
+  Kz:
+  - floorEndL
+  Lz:
+  - floorEndL
+  Mz:
+  - floorEndL
+  - item_teleporter_in
+  Nz: []
+  Oz: []
+  Pz: []
+  A{: []
+  B{: []
+  C{: []
+  D{: []
+  E{: []
+  F{: []
+  G{: []
+  H{: []
+  I{: []
+  J{: []
+  K{: []
+  L{: []
+  M{: []
+  N{: []
+  O{: []
+  P{: []
+  A|: []
+  B|: []
+  C|: []
+  D|: []
+  E|: []
+  F|: []
+  G|: []
+  H|: []
+  I|: []
+  J|: []
+  K|: []
+  L|: []
+  M|: []
+  N|: []
+  O|:
+  - CeilingLightStrong
+  P|: []
+objectDefinitions:
+  crateBot:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    mods: []
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: -1
+        y: -0.27
+        z: -1
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      model: Art/3D/Crate.glb
+    art2d: []
+  crateTop:
+    mapObject: Custom
+    id: ''
+    dir: north
+    tags:
+    - blocksMove
+    - blocksThrow
+    mods: []
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: -1
+        y: 0.68
+        z: -0.9
+      rot:
+        x: 0
+        y: 180
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      model: Art/3D/Crate.glb
+    art2d: []
+  potion_shelf_s_rev:
+    mapObject: Custom
+    id: ''
+    dir: east
+    tags:
+    - blocksMove
+    - static
+    mods: []
+    data: {}
+    base: []
+    art3d:
+    - pos:
+        x: -1
+        y: 0
+        z: 1
+      rot:
+        x: 0
+        y: -90
+        z: 0
+      scale:
+        x: -1
+        y: 1
+        z: 1
+      model: Art/3D/PotionShelf.glb
+    art2d: []
+  __anonymous__0:
+    mapObject: ''
+    id: ''
+    dir: south
+    tags: []
+    mods: []
+    data: {}
+    base:
+    - brick_wall_e
+    art3d:
+    - pos:
+        x: 0
+        y: 0.1
+        z: 0
+      rot:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 2
+        y: 2
+        z: 2
+      model: Art/3D/Bone.glb
+    art2d: []
+  __anonymous__612204142:
+    mapObject: ''
+    id: ''
+    dir: south
+    tags:
+    - scoreboard
+    mods:
+    - Scoreboard
+    - name: Scoreboard
+      data:
+        test: 1
+    data:
+      test: 1
+    base:
+    - brick_wall_s
+    - potion_shelf_s
+    art3d: []
+    art2d: []
+sounds: 
+globalData:
+  test:
+    lool: what
