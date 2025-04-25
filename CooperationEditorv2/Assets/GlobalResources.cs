@@ -107,7 +107,7 @@ public class GlobalResources : MonoBehaviour
     public List<string> ExternalIncludes;
 
 
-
+    public List<string> allIncludes = new List<string>();
     public LevelFile levelFile;
     public Dictionary<string, ObjectClass> allObjects = new Dictionary<string, ObjectClass>();
     public int levelWidth;
@@ -166,6 +166,8 @@ public class GlobalResources : MonoBehaviour
         CurrentLevel.Clear();
 
         cleanImageCache();
+
+        allIncludes.Clear();
     }
 
     //------------------------------------attribute manipulation
@@ -176,13 +178,14 @@ public class GlobalResources : MonoBehaviour
         //check file exists
         string fileName = IncludeInputFeild.GetComponent<TMP_InputField>().text;
         string fullPath = workingDirectory + GlobalResources.levelDir + "/" + fileName;
-        if (!File.Exists(fullPath) || levelFile.include.Contains(fileName)) { return; }
+        if (!File.Exists(fullPath) || allIncludes.Contains(fileName)) { return; }
 
         //import the new inlcude file
         levelLoader.importExternalIncludes(fileName);
 
         //add new inlcude file to levelFile
         levelFile.include.Add(fileName);
+        allIncludes.Add(fileName);
 
         StartCoroutine(populater.populateScrollView());
 

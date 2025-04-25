@@ -118,6 +118,9 @@ public class LevelLoader : MonoBehaviour
             }
 
         }
+        //add include files to all includes list
+        globalResources.allIncludes.AddRange(includeFiles);
+
         return 0;
     
     }

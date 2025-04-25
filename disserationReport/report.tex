@@ -615,13 +615,20 @@ Cooperation Level Editor started development on windows as that was the operatin
 \subsection{smoke testing}
 through out the development of the application i did manual smoke testing. these are simple tests that are done to check the basic functionality of the application. they are performed so that the implementer knows the created feature is initially working and so further unit tests can be written to test all the required edge tests.
 
-this is a list of basic features tested with smoke testing. this is only for the basic functionality and so dosnt cover edge cases for particular functions. only the expected output is tested for when using the correct controls, and so doesn't take into account potentially broken control sequences.
+this is a list of basic features tested with smoke testing. this is only for the basic functionality and so does not cover edge cases for particular functions. only the expected output is tested for when using the correct controls, and so doesn't take into account potentially broken control sequences.
 
-\addImage{./imags/SMOKETESTS}{Smoke tested features}{smokeTestList}
+\addImageScale{./imags/SMOKETESTS}{Smoke tested features}{smokeTestList}{0.8}
 
-\subsection{unit tests}
+\subsection{unit testing}
+I have created a select number of unit tests. The testing did help and brought a few future features to light. It first helped me spot problems, as tests should. The code accidentally fell into an infinite loop when processing the external include files, as when a file includes itself it will forever include itself if not stopped. This was solved through checking if the include list currently held the current file. It has also brought to light unity's inability to track and garbage collect objects render.material when its modified by my code \cite{Unity_Mat_Technologies}. This results in a memory leak as when objects are destroyed the handle to the material is lost and can not be cleaned up. It has also showed some edge cases which i had not accounted for, such as objects potentially requiring a non-existent base object and attempting to load the objects despite this. However it has shown a future update in which, using the current library \cite{siccity_2021_github}, glb objects are to be asynchronously imported letting more objects get loaded in in parallel making the loading times much faster (in theory).
 
-once the initial application was created, i created a suvery to be able to give to tester of the application.
+there are currently 19 tests spread over 4 file\refImage{unitTestList}, being the main scripts. not all functions are tested and more test should be written for edge cases and potential issues. not all the files have test written for them as keyboard and mouse click emulation is required with this feature not being in Edit Mode Testing.
+
+\addImageScale{./imags/UNITTESTS}{unit tested features}{unitTestList}{0.5}
+
+\subsection{user Testing}
+when users this i got both experience and inexperience users to test the application. this was done by first asking them if they've had experience with Co-Operation, YAML, or modding in general. once i had determined this i then got them to complete a set of tasks which uses the application\refImage{tasksList}. this is so that they could more easily complete the questionnaire i provide and make sure they use all the features I am testing (figures \ref{fig:baseSurvey1}-\ref{fig:baseSurvey5}). the only form of recording was through questionnaires and so the identity of the participates are completely anonymous. however i can say that the participates are Friends, family and university college that have given verbal agreement to test and give feedback on my application.
+
 
 
 %%%%%%%%%%%%%%%%%%
@@ -918,6 +925,13 @@ public class LevelFile
 
 \end{lstlisting}
 
+\addImageScale{./imags/tasks}{tasks for the users to complete}{tasksList}{1}
+
+\addImageScale{./imags/baseServ1}{the question ask once task are complete}{baseSurvey1}{1.1}
+\addImageScale{./imags/baseServ2}{the question ask once task are complete}{baseSurvey2}{1.1}
+\addImageScale{./imags/baseServ3}{the question ask once task are complete}{baseSurvey3}{1.1}
+\addImageScale{./imags/baseServ4}{the question ask once task are complete}{baseSurvey4}{1.1}
+\addImageScale{./imags/baseServ5}{the question ask once task are complete}{baseSurvey5}{1.1}
 
 %TC:endignore 
 \end{document}
