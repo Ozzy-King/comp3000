@@ -11,6 +11,24 @@
 
 %\ref{fig:example} shows an example image.
 
+\newcommand{\addImage}[3]{
+\begin{figure}[h]
+    \centering %centers the figure
+    \includegraphics[width=1\textwidth]{#1}%the graphic used
+    \caption{#2} %the actual action under figure
+    \label{fig:#3} %gives id to the figure (if used like below, only returns number)
+\end{figure}
+}
+\newcommand{\addImageScale}[4]{
+\begin{figure}[h]
+    \centering %centers the figure
+    \includegraphics[width=#4\textwidth]{#1}%the graphic used
+    \caption{#2} %the actual action under figure
+    \label{fig:#3} %gives id to the figure (if used like below, only returns number)
+\end{figure}
+}
+
+\newcommand{\refImage}[1]{(figure \ref{fig:#1})}
 
 \documentclass[12pt]{article}
 
@@ -54,6 +72,50 @@
 \usepackage{tikz}
 \usepackage{amsmath}
 
+%%%%%%used in the lstlisting of yaml
+\newcommand\YAMLcolonstyle{\color{red}\mdseries}
+\newcommand\YAMLkeystyle{\color{black}\bfseries}
+\newcommand\YAMLvaluestyle{\color{blue}\mdseries}
+
+\makeatletter
+
+% here is a macro expanding to the name of the language
+% (handy if you decide to change it further down the road)
+\newcommand\language@yaml{yaml}
+
+\expandafter\expandafter\expandafter\lstdefinelanguage
+\expandafter{\language@yaml}
+{
+  keywords={true,false,null,y,n},
+  keywordstyle=\color{darkgray}\bfseries,
+  basicstyle=\YAMLkeystyle,                                 % assuming a key comes first
+  sensitive=false,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\YAMLvaluestyle\ttfamily,
+  moredelim=[l][\color{orange}]{\&},
+  moredelim=[l][\color{magenta}]{*},
+  moredelim=**[il][\YAMLcolonstyle{:}\YAMLvaluestyle]{:},   % switch to value style at :
+  morestring=[b]',
+  morestring=[b]",
+  literate =    {---}{{\ProcessThreeDashes}}3
+                {>}{{\textcolor{red}\textgreater}}1     
+                {|}{{\textcolor{red}\textbar}}1 
+                {\ -\ }{{\mdseries\ -\ }}3,
+}
+
+% switch to key style at EOL
+\lst@AddToHook{EveryLine}{\ifx\lst@language\language@yaml\YAMLkeystyle\fi}
+\makeatother
+%%%%%%%
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[style=authoryear,backend=biber,style=numeric]{biblatex}
+\addbibresource{ref.bib}
+
+%%
 \begin{document}
 \onehalfspacing %set the spaceing to 1.5line spaceing
 
@@ -91,18 +153,19 @@
 \end{titlepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%TC:ignore
 \section*{Acknowledgements}
 \addcontentsline{toc}{section}{Acknowledgements}
 
 \section*{Abstract}
 \addcontentsline{toc}{section}{Abstract}
+This project see the successful development of a late stage prototype application that will make level creation for Co-Operation easier for users, without the users needing to know/ learn or manipulate YAML files directly. I first talk about the reasons for creating the application as well as defining the applications end goal, with a brief glimpse at the previous attempts made into the creation of this application. Followed by the permission requirements and gathering along with the legal, ethical, social and professional issues and aspects for the project. Then "method of approach" outlines the functional and non-functional requirements needed for the application, as well as management tools used for the project, and the technologies needed for the successful development of the tool. Once all the background has been talked about i then talk about and show the implementation of the application, showing key parts of the applications code, with code snippets and images split between the appendix and inline with the section. After talking of the implementation, the evaluation and conclusion finish the document with references and appendix following.
 
 \section*{Extra}
 \addcontentsline{toc}{section}{Extra}
-Word Count:\\
-Code Link:
-
+Word Count: 7354\\
+Code Link: https://github.com/Ozzy-King/comp3000
+%TC:endignore
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \clearpage
@@ -111,140 +174,750 @@ Code Link:
 \clearpage
 \addcontentsline{toc}{section}{List of Figures}
 \listoffigures
+\addcontentsline{toc}{section}{List of Code Listings}
+\lstlistoflistings
 \clearpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{introduction <TODO LOOK AT SOFTWAREDESIGN DOC IN REPO>}
+\section{introduction}
 \subsection{Background}
-this dissertation idea came about through a problem identified in my second academic year while developing a mod for the game Co-Operation created by MINDFEAST. the issue found was the tedious nature of creating levels. once levels became big or contain a lot of objects they start to become a mess, and attempts to quickly change a single object can become a massive effort. there are multiple method used for finding and changing object positioning:
+this dissertation idea came about through a problem identified in my second academic year while developing a mod for the game Co-Operation created by MINDFEAST. the issue found was the tedious nature of creating levels. there are methods for designing levels, such as 2D layout on paper or excel, so basic level visualisation is possible. However once levels have been implemented, and have become big or start to contain a lot of objects they begin to become a mess, with attempts to quickly change a single objects becoming a massive effort. there are multiple method used for finding and changing object positioning:
 \begin{itemize}
     \item counting rows and columns in the game 
     \item crawling through the file until you have found the correct object
     \item make continuous mental logs of where things have been placed 
 \end{itemize}
-even these with these methods, level designing and iteration becomes slow and tedious. my aim with this project is to create a visual, easy to use tool to be used along side Co-Operation making level creation more fluid. 
+even with these methods, level designing and iteration becomes slow and tedious. My aim with this project is to create a visual, easy to use tool to be used along side Co-Operation making level creation more fluid. 
 \subsection{Objectives}
-the objective of this project is to create an easy to use visual level editing tool for both experience and inexperienced. it will be made for individuals in the Co-Operation community wanting to create levels easier. It will be aimed at people who have little to no understanding in modding and/or YAML. more experienced modders can utilise this tool to help create levels as they wont need to manually edit YAML files. it will also open up the creativity of modding to those who wouldn't normal attempt to make one.
+the aim of this product/application is to  help facilitate the creation of levels for the game Co-Operation. the interface and controls should be easy to use and understand. the target audience are both the experienced and inexperienced players of co-operation who want to create levels for the game.due to the nature of level creation - with YAML being tedious in nature as well as including the requirements for moving around and tracking of strings and substrings - the main target users will be the inexperienced with little to no knowledge of these technologies. 
+in reference to the inexperienced, the tool should allow for users that wouldn't normally create modified content for games to now have a chance. this opens up a previously inaccessible creative nature to the individuals as well as the ability to target the widest audience possible.
+This tool will also be a valuable with the experienced users who have already created mods, those starting to create mods or, have just started learning the modding process. Those who have already got knowledge of YAML can take advantage of this application, as instead of manual file modification, visual manipulation can be performed instead.
+
 \subsection{Deliverables}
-the deliverable will be a piece of software that can display a close to 1:1 level representation, while facilitating a live tile manipulation solution to be able to edit the level directly. the users will be able to export their created levels to their respective folders, as well as import existing level files so that older levels can also be easily modified with the tool.
+the deliverable will be a piece of software that can display a close 1:1 representation of the Co-Operation level, while facilitating a live tile manipulation solution to be able to edit the level directly without needing to modify the text file. the users will be able to export their created levels to their respective folders, as well as import existing level files so that levels not originally made using the tool can also be easily modified.
 
-for object manipulation features that are to be required are CUD(Create, Update, Delete) on object with in the scene, as well as be able to import object in GLB format from the correct file location
+for object manipulation, features that are to be required are CRUD(Create, Read, Update, Delete) on objects with in the scene to have control over how the level looks. the tool should also be able to import objects in GLB format from the correct file location for use within the scene.
 
-scene manipulation is the zooming and panning of the camera. for zooming the mouse wheel is used with minimum and maximum limits to zooming, and for panning, middle mouse click is used as well as the speed changing based on zoom distance. 
+scene manipulation allows the users to zoom and pan the camera around the scene. for zooming the mouse wheel is used with defined minimum and maximum limits. Panning uses middle mouse click to function and its speed is defined by the current zoom level.  
 
-when importing and exporting of levels it uses the YAML format described by the game documents. the exporting requirements are that it has the same level layout and can be played in the game, and core level features are supported for importing. this includes the main features of 2d art objects as well as 3d art objects and the structure of object definition them selves. the only feature that cant be supported without integration, of this tool into the game, would be "mapObject" with values that aren't "custom" since these rely on built in objects that aren't available. if the object uses previous described object it would use "base" instead of "mapObject". 
+when importing and exporting of levels, it uses the YAML format layout described by the game documents. for the exporting requirements, the exported files must look the same in games as in editor as well as also be playable in the game. core level features are supported for importing, this includes the main features of 2d art objects \refImage{art2dSupport} as well as 3d art objects \refImage{art3dSupport} and the structure of object definition them selves \refImage{objDefSupport}. the only feature that cant be supported without integration, of this tool into the game, would be "mapObject" with values that aren't "custom" since these rely on built in objects that aren't available \refImage{mapObjUnsupport}. if the object uses previous described objects it would use "base" instead of "mapObject". 
 
-quality of life
-quality of light features that will be added are feedback to users to update them on the current state of the editor. a key quality of life feature is the object highlighting both when the user hovers their mouse over and object and when interacting with the object through clicking and dragging. the other quality if life aspect is for making selecting objects easier and which object is going to be placed next. this is done through middle mouse click for selecting objects, and the next object being placed is done through on screen text in the bottom left.
+quality of life features that have been added is feedback to users to update them on the current state of the editor. a key quality of life feature is the object highlighting both when the user hovers their mouse over an object and when interacting with the object through clicking and dragging. the other quality of life aspect is for making the selecting of objects easier and which object is going to be placed next.  this is done through middle mouse click for selecting objects, with the next object that will be placed is displayed through on screen text in the bottom left corner.
+
 %%%%%%%%%%%%%%%%%%
 
 \section{Legal, Social, Ethical and Professional Issues}
+\subsection{protecting user supplied data}
+this application does not require personally identifiable data or any personal data. because of this, features such as security and storage are not need in the implementation. the application also doesn't send usage data to external sources and so i wont need to ask for consent or guarantee data privacy. this circumvents a list of possible issues that could arise relating to security, consent, and secure storage, as well as reduce the cost as there is no need to pay for third party hosting servers and cloud storage.
+
+\subsection{permission from MindFeast}
+there was a potential, when starting the project, that i could have stepped into a copy right infringement area which is a legal issue, as well as professional. without permission i would've be working on an application for a game that i don't legally own and copying aspect only found in their game such as the level layout method. 
+professionally this would cause the potential issue for me to be seen as a bad actor meaning future employers potentially wouldn't trust me.
+MindFeast's vision for Co-Operation is to have the community make mods. This is shown through their extensive exposing of the underling base game mechanics though LUA, and YAML. while they want a community effort for mod creation using their modding API, the sort of mod/tool i wanted to make is stand-alone and so wont be using their API directly. to circumvent this issue i was required to gain permission from MindFeast as to allow me to continue with the project. i ended up messaging them on their discord server, gaining confirmation within the next couple days.
+\addImage{./imags/theySaidYeas}{permission confirmation from Director of MINDFEAST}{permisConf}
+
 %%%%%%%%%%%%%%%%%%
+\subsection{permission of previous group}
+for this application i needed an example mod for the testing of the tool. the need for the use of a mod is to help with the testing of the tools features. this included: importing and exporting of GLB objects, objecting manipulation as well as the importing and exporting of new and pre-existing level files.
+there was a possibility of asking MINDFEAST to use their levels for testing but because they use built in objects i opted to use another instead to test the implemented features as best as possible. 
+the mod i used for the duration of this project was the frankenstien mod made in comp2003 in second year. this was the easiest mod to use as i personally help work on it meaning on know what the mod is doing intimately as well as the file structures and the levels in the mod. i also have contact with the other members  who also developed the mod and so i could easily send them messages asking if i had their permission to use their contribution. 
+the reason i didn't create a new mod from scratch was because the application focuses on level creation as opposed to mod creation. however this application could speed up the completion of mods as it stream lines the laborious part of the mod creation.
+\addImageScale{./imags/allowedToUsePrevTeamObjs}{permission confirmation from frankenstein mod creators}{prvModPermisConf}{0.5}
+
+%%%%%%%%%%
+
+\section{Preparation}
+\subsection{previous attempts}
+before making this project coursework, i had two other attempts at the creation of this application. the previous two varied quite a bit and the main aspect from both were brought over to the 3/current attempt which is this dissertations project.
+
+the previous attempts were hacks. they were quickly made in an attempt to make the editing at that point easier. only one works, which happens to be the 2\textsuperscript{nd} attempt, due to shortcuts i used when programming with win32.h .
+\subsubsection{1\textsuperscript{st} attempt}
+the first attempt\cite{_2024_leveleditor} used windows win32 header to create and show information to the users. it was entirely text based, only using buttons and input boxes, with no advance visual features \refImage{oneAttempt}. the point of its creation was to quickly create an application that could be used by the team i was in for the second years comp2003 to create levels faster and easier. understandably it was never used as it was made after most of the levels had been developed and did see a vast amount of bugs due to its two day creation. 
+it did however tackle the issue of cell identification. by using images of all letter combinations from AA to ZZ, the application placed those images in the cells \refImage{oneAttemptInGame}. within the game view the cells could be easily identified and then modified through the tool. the only issues with this design was that it required at least 2 windows open, and one for each cell that was getting edited, meaning the screen could become a mess of windows if multiple cells where getting edited at a time.
+\addImageScale{./imags/attemptOne}{first editor made}{oneAttempt}{0.9}
+\addImageScale{./imags/attemptOneIngameImage}{first editors exported level file in game}{oneAttemptInGame}{0.7}
+
+\subsubsection{2\textsuperscript{nd} attempt}
+after the first attempt, while it was not used, testers and viewers gave feed back and with it came the second variation\cite{ozzyking_2024_github} \refImage{twoAttempt} \refImage{twoAttempt2}. the second attempt used a 2d pixel based engine called "olcPixelGAmeEngine". it worked with the idea that instead of the cells displaying all of its current objects, it would show a colour based on if a specific item was in the cell. this was done by creating layers so each item had it own map.
+this attempt did not see implementation of easily identifiable cells, instead its aim was to make level editing quicker. this was done by only needing the user to find the object in a searchable list and clicking the cell. this gave feedback though colouring the cell, telling the user the item was now in that cell. identification could have been added through the displaying of attempt 1s images, but on this attempt i was also wanting little user setup so it was more user friendly instead of requiring images to be copied into the working folder of each mod.
+
+\addImage{./imags/attemptTwoApplication}{second attempt at making an editor}{twoAttempt}
+\addImage{./imags/attemptTwoApplication2}{second attempt at making an editor}{twoAttempt2}
+
+\subsubsection{current attempt}
+the third attempt is this dissertation. its aim is to have easy identifiable cells as well as make them easily editable, merging both major features from the previous attempts into one. it was understood early on, back in attempt 1, that a completely 3D solution would be best, but due to time restraint on other project this was not feasible at the time.
+
+
+%%%%%%%%%%
+
 
 \section{Method Of Approach}
+\subsection{agile}
+through out the development of the project, agile was the outlined method of approach that was to be used for planning and completing of the dissertation project. agile first sees the creation of sprints which can take the form of a gant chart. these sprints are then worked through one by one, with scrum/ stand-up meetings during/ at the end of each sprint. in these meetings, progress is discussed as well as general plans for the upcoming sprint.  once each sprint has been completed, in term of time as opposed to tasks, future tasks are revise and either added or removed from subsequent sprints. this process aims to make sure you are completing the most amount of work that is possible by the individual. the choice of addition or removing of tasks is based on if all the tasks where complete, meaning if not all where completed then you mostly over assigned tasks and need to reduce for the next sprint.
+ 
+\subsection{trello}
+once each off the sprints had been laid out and created on the gant chart \refImage{sprintImage}, the sprints and the progress for each sprint is to be documented on trello.
+trello is used as a way to track the progress of build an application. it shows what has been implemented, what has yet to be implemented, along with possible future additions that aren't set in stone(possible additional features). it is well suited to team environments as every one can see the apps progress al well as see clear outlines of what needs to be done and what has been done. 
+through out the creation of the application my use of trello was limited, with a lot of the cards being added within one day. how ever i found the addition of cards and the catching up of my trello with the project was beneficial as it showed me what i had done and what i needed to done to finish. it helped keep my mind focused instead of  jumping all over the place loosing track of what i have started or added to.
+
+\addImage{./imags/sprintPlan}{my created sprint plan}{sprintImage}
+
 
 \subsection{technologies}
 \subsubsection{unity}
-to create this project i utilised unity for its easy to use graphics manipulation methods. From the beginning it was clear a 3D solution was required for the project as it would allwo for easy understanding of visuals, easy cell identification, as well as allow for more intuitive use of the software. If 2D was chosen it would not have given the same feedback methods or ease of usability to the user. By going 3D i could give the user a closer idea to what the levels will look like in game.
+to create this project i utilised unity for its easy to use graphics manipulation methods. From the beginning it was clear a 3D solution was required for the project as it would allow for easy understanding of visuals, easy cell identification, as well as allow for more intuitive use of the software. If 2D was chosen it would not have given the same feedback methods or ease of usability to the user. By going 3D i could give the user a closer idea to what the levels will look like in game.
 \subsubsection{C\#}
-i was required to code within C\# as this is unity primary coding language . this was beneficial as i am well versed in it and have used it before(both unity and C\#) and so didnt have a learning curve of a new language.
+i was required to code within C\# as this is unity primary coding language . this was beneficial as i am well versed in it and have used it before(both unity and C\#) and so didn't have a learning curve of a new language.
 
 \subsubsection{Libraries}
 \subsubsection*{importing GLB objects}
-i have chosen to use UnityGLTF to import GLB object, which are compatible with Co-Operation, into unity at runtime. this also allows for hot reloading object definitions without the need of re compilation of the entire unity project meaning further object definition defining could be performed.\\
-https://github.com/KhronosGroup/UnityGLTF
+i have chosen to use UnityGLTF\cite{siccity_2021_github} to import GLB object, which are compatible with Co-Operation, into unity at runtime. this also allows for hot reloading object definitions without the need of re compilation of the entire unity project meaning further object definition defining could be performed. the library was chosen over others as i have used the library before which also allowed for easier setup in code and in project.\\
 \subsubsection*{parsing YAML}
-YamlDotNet is used be able to import and export file in YAML format without having to write a parser from scratch. This is a library built for C\# and so worked easily with unity. this made importing and export much easier as there was no need to manually parse the file.\\
-https://github.com/aaubry/YamlDotNet 
-\subsubsection{Co-Operation game}
-Co-Opertion will be used to to test if the level output file of the editor is valid to use in game and if the view within the editor it similar/ the same. this is very important to use in order to create this editor as its aim is to give real time visualisation of the level when creating and updating it
+YamlDotNet\cite{aubry_2024_aaubryyamldotnet} is used be able to import and export file in YAML format without having to write a parser from scratch. This is a library built for C\# and so worked easily with unity. this made importing and export much easier as there was no need to manually parse the file. the reason for choosing this library is similar to UnityGLTF, as I've previously looked into the use of this library and made implementation easier from the start.\\
 
-access was gained to this during comp2003, where the client, MindFeast, asked for a mod to be created for their game Co-Operation.
+\subsubsection{Co-Operation game}
+Co-Operation will be used to to test if the level output file of the editor is valid to use in game and if the view within the editor it similar/ the same. this is very important to use in order to create this editor as its aim is to give real time visualisation of the level when creating and updating it
+
+access was gained to this during comp2003, where the client, MINDFEAST, asked for a mod to be created for their game Co-Operation.
 \subsubsection{GitHub}
 GitHub has been used for version control and storage of the project files and code. currently only two branches have been made and have now been merged, with the later branch being made more towards the end of development. while version control wasn't heavily used, it was extensively used for transporting the code.
 
 \subsection{functional requirements}
-functional requirements include details such as object CRUD as well as map panning and the importing and exporting of levels. these are the core vital aspects for the application to work. even with the bare bones of these features the tool would have made level creation easier in both the visual aspect as well as the object placement.
+for the functional requirements for the project to be reached, the created application must be able to accurately visualise the imported level so that the user can see and easily understand what the level will look like in game. the required user controls that will be added will allow the user control of the camera for moving around the scene, the importing and exporting of level file which support the core aspect of the level creation with the added ability for importing of already created levels. CRUD is also required so that object can be placed within the scene as well as give the ability to move and delete these object, both the ones already loading from the level and those placed down by the user. with these feature added the application will be useable by users, allowing for importing, creating, updating and exporting of levels for the use of playing in Co-Operation
 
 \subsection{non-functional requirements}
-non-functional requirements where the quality of life feature like: 
+non-functional requirements will allow for quality of life feature to be added. the features include:
 \begin{itemize}
-	\item changing of pan speed based on zoom distance
-	\item the on screen hints as to the current state of selected and next placements
-	\item quick middle mouse click to select object for next placement
+	\item the changing of panning speed based upon the current zoom distance of the camera. this is so that the camera speed stays within a controllable level, stopping the control from potentially loosing the player by unpredictable sporadic movement
+	\item on screen hints as to the current state of selected and next placements, giving feed back to the player as to the what is going on. with this users wont feel as lost or blind when understanding which object they are currently placing or which object they have already placed.
+	\item quick middle mouse click to select object for next placement, allowing users to quickly select/clone objects for use in different places around the scene.
 \end{itemize}
 
-\subsection{UML}
-\subsubsection{classes}
-\subsubsection{control flow}
+
 %%%%%%%%%%%%%%%%%%
 
-\section{project managment}
+%%
+%%\section{project managment}
+%%
+
 %%%%%%%%%%%%%%%%%%
 
-\section{Preparation}
-there are three main aspect to preparation that i took. the first two are my previous attempts at a solution when i first witnessed the issue and attempted to come up with a fix. the third is the research of the libraries to be used with in the project. this was vital as i aimed for a full 3d application, requiring positioning information out of the YAML as well as the import of the GLB objects them selves.
-\subsection {libraries in use}
 
-\subsubsection*{importing GLB objects}
-i am using UnityGLTF to import GLB object as this is a library that i have previously used and understand easily.\\
-https://github.com/KhronosGroup/UnityGLTF
-\subsubsection*{parsing YAML}
-to be able to import and export file in YAML format i am useing YamlDotNet. in my previous attempts i only need the name and was able to make a simple parser. in this version (the third attempt), i need positional and rotation data from the object definition and so need a more robust parser. \\
-https://github.com/aaubry/YamlDotNet
-
-\subsection{previous attempts}
-the previous attempts were hacks. they were quickly made in an attempt to make the editing at that point easier. only one works, which happens to be the 2\textsuperscript{nd} attempt, due to my shortcuts used used when programming win32.
-\subsubsection{1\textsuperscript{st} attempt}
-\NOTE{add images for the first attempt}
-the first attempt used windows win32 header to create and show information to the users. it was entirely text based, only using buttons and input boxes, which no advance visual features. the point of its creation was to quickly create a application that could be used by the mod creation team in second year to help make levels easier. understandably it was never used as it was made after most of the levels had been developed and did see a vast amount bugs due to its two day creation. 
-it did however attempt to tackle the issue of cell identification. by using images of all letter combinations from AA to ZZ, the application placed those images in the cell. within the game view the cells could be easily identified and then modified through the tool. the only issues with this design was that it required at least 2 windows open and the one for each cell that was getting edited and so the screen could become a mess of windows if multiple cells where getting edited at a time.
-\subsubsection{2\textsuperscript{nd} attempt}
-\NOTE{add images for the second attempt}
-after the first attempt, while it was not used, testers gave feed back and with it came the second variation. the second attempt used a 2d pixel based engine called "olcPixelGAmeEngine". it worked through the idea that instead of the cells displaying all of its current items, it would show a colour based on if a specific item was in the cell. this was done by creating layers so each item had it own map.
-this attempt did not see it implementation of easier to identify cells, instead its aim was to make level editing quicker. this was done by only needing the user to find the object in a searchable list and clicking the cell with feedback though colouring telling the user the item was now in that cell. identification could have been added through displaying of the images, but at this point i was also wanting little user setup so it was more user friendly instead of requiring images to be copied into the working folder of each mod.
-\subsubsection{3\textsuperscript{rd} attempt}
-the third attempt is this dissertation. its aim is to have easy identifiable cells as well as make them easily editable, merging both major features from the previous attempts into one. it was understood early on that a completely 3D solution would be best, but due to time restraint on other project this was not feasible.
 %%%%%%%%%%%%%%%%%%
 
 \section{implementation}
-\subsection{unity}
+\subsection{UML}
+\subsubsection{classes}
+with in the diagram shown \refImage{classConnection} it shows the interaction between classes within the application. the direction of the arrow indicates which class interacts with another class with the added 2 way interaction where two classes contain instances of each other. An example of this is "MouseControls" containing an instance of "GlobalResources" as to be able to use some values that the class stores. in the case of the "MouseControls" and "GlobalResources" interaction, values like editor state checks are used, as well as some object related resources such as materials for hovering and selecting and institution of new objects created by the user.
+\addImage{./imags/classConnectivity}{interaction between classes}{classConnection}
+this style of object coupling \\ interaction by use of referencing and not allowing child classes to communicate is called mediator design pattern. the purpose of this is to stop tight class coupling. by reducing how strict the coupling is, maintenance, refactoring and scaling become easier as once the business logic is create (the connection between the classes) only computation needs to change / be optimised. If new communication needs are needed between classes, they are added to the common mediator class which the child classes will use to communicate with each other. 
+\subsubsection{control flow}
+\refImage{startFlow} shows the the basic flow initiation of the program. the main start function is found with in the "globalResources" file, making the global resources the main controller for the entire program. it will communicate a bit with level loader to get add the required resources and make sure it is possible to actually load the level. the level loading function return a success code that global resources handles. 
+once the file have been loaded and are in the correct variables, two coroutines("thread-like") get started, "formLevelObjects" and "PopuateObjectList". these are the two main functions that create the level within the scene to allow for editing to start, with the "formLevelObjects" creating the actual level within the scene and "PopulateObjectList" displaying and controlling the list of available objects to the user.
+\addImageScale{./imags/startFlow}{the basic flow of control when levels are being loaded}{startFlow}{0.5}
+
+\refImage{cachingSystem} is the basic representation of the caching system. this system was put in place to curb the long loading needed for GLB importing. while the diagram describes the system for "Obj"(objects), a similar system is also working for the caching of images as well. large images and objects can take some time to load and so by caching them, repeated use of the same object and images can happen without significant lag occurring.
+the system is as follows: the resource, object or image, is first checked for in a dictionary, if the object is found it is retuned. if not it will check for the file, if it cant be found it will return a placeholder object. if the file does exist, the file will be loaded out of sight of the player and will then be returned to be used by the calling script. 
+since just the GLB object and images are cached instead of the entire defined object within the folder, reloading is also very fast. this is due to not needing to reimport all the relevant objects in order to get the new transformations that are applied when the object are getting place within the scene.
+\addImageScale{./imags/cachingFlow}{steps used for cacheing system}{cachingSystem}{0.5}
+
+\addImageScale{./imags/useStateFlow}{the use flow of the application}{useFlow}{0.5}
+this last figure \refImage{useFlow} shows the use flow of the application. it shows how to get to each screen and what happens after the completion of certain actions. the user has the ability to get to each state and use the features found in each one. there are clear separation between each state, for example if you are still selecting a mod  all the buttons except the "load" button will be greyed out. This reduces the chance that the user breaks the flow of the program. once the user has gotten past the level selection, the load button will turn to "load new" which will completely clean the caching as to allow a new level file to be loaded in. this is the only way to get back to the beginning once the user started editing a file, the rest of the actions keep the user on the main editing state, with sub states that only happen momentarily.
+
+there is no exit state put in place. the method for users to exit the application is to save their progress if they want to keep what they have created and proceed to close the application. there are "OnApplicationQuit" methods found within the global resources file which clean the cache of any kept object and images. 
+
+%%
+%%\subsection{class uses}
+%%
 
 \subsection{YAML}
 \subsubsection{importing}
+while i utilized a library for parsing and loading information from a YAML file, i was still required to understand and layout a class that represented the YAML file for with in the application. a lot of the needed information could be described with primitives such as: int, strings and float. some, however, where a little more complex and required the creation of additional classes to properly represent these structures (listing \ref{clst:yamlClasses}). one peculiar feature found in the YAML level file was anonymous objects, which are defined in the maps cell list as opposed to the object definition files. to correct this when opening the file, the cell definitions get loaded into a list of object types. if a anonymous object is found, it will be saved to the current levels object definitions to be used within the game. this was added so that level created without the editor that used anonymous objects could still be opened using the editor.
+
+\begin{minipage}{\textwidth}
+\begin{lstlisting}[language=yaml, caption=demonstartion of anaymous object, label=ylst:anonObjDemo]
+gridObjects:
+## demoing the anonymous object int the curly brackets
+  AA:
+    - objectOne
+    - mapObject: "Custom" ##this is the custom object
+      art3d:
+        - model: "Art/test/placeHold.glb"
+          pos:
+            x: 1.5
+            y: 0
+            z: 0
+          scale:
+            x: 1
+            y: 1
+            z: 1
+          rot:
+            y: 135
+## what normal grid cell definition looks like.
+  BB:
+    - objectOne
+    - objectTwo
+\end{lstlisting}
+\end{minipage}
+
 \subsubsection{exporting}
+when each object is placed into the scene, it also gets added to a long list of objects that are currently in scene. this list is used when export/saving the level back to the file. it still uses the LevelFile layout class as before, but will manually populate the Grid as well as the grid cell definitions. the map wont start from 0,0 and so the maps dimensions must first be found and calculated. once the bounds have been found the grid is constructed before the creation of the cells definitions. the grid consists of 2 identifying letters from A-Z, this allows for 676 unique cells possible(listing \ref{clst:gridGen}). the limit can be adjusted in the future where each cell is identified by an arbitrary number of letters. once the grid has been generated the cells are then generated with the correct objects. this involves looping through each cell, and then looping through each object in scene to find the object that belongs in this cell (listing \ref{clst:cellForming}). this is a O(n*m) time complexity, where n is the number of objects and m is the number of cells. there are faster methods such as a single pass with multiple buckets for each cell so the objects are read and ordered at the same time and then never accessed again. this would be faster especially for larger levels, but does also come with the cost of more memory allocated at one time. for the current use extent, the current method in use is fine, but if needed in the future i will implement the method mentioned.
+
+\begin{minipage}{\textwidth}
+\begin{lstlisting}[language={[Sharp]C}, caption=grid generation, label=clst:gridGen]
+for (int y = 0; y < levelHeight+1; y++) {
+	for (int x = 0; x < levelWidth+1; x++) {
+		grid += ""+(char)(x + 65) + (char)(y + 65) + (x != levelWidth ? "," : "");
+	}
+	grid += "\n";
+}
+\end{lstlisting}
+\end{minipage}
+
+
+\begin{minipage}{\textwidth}
+\begin{lstlisting}[language={[Sharp]C}, caption=code used for cell forming, label=clst:cellForming]
+Dictionary<string, List<object>> gridObjects = new Dictionary<string, List<object>>();
+for (int y = 0; y < CurrentLevelMapped.GetLength(0); y++) {
+	for (int x = 0; x < CurrentLevelMapped.GetLength(1); x++) {
+		List<object> cell = new List<object>();
+		string gridId = "" + (char)(x + 65) + (char)(y + 65);
+		if (CurrentLevelMapped[y, x] != null) {
+			foreach (GameObject obj in CurrentLevelMapped[y, x]) {
+				cell.Add(obj.GetComponent<ObjectAttributes>().objectName);
+			}
+		}
+		gridObjects.Add(gridId, cell);
+	}
+}
+\end{lstlisting}
+\end{minipage}
+
+
+
+
+\subsection{camera placement}
+the placement of the camera is initially at vec3(0, 0, 0), rotated with vec3(0,-45,0). this is the initial setup as to allow for the correct values to be captured before changing the camera to true isometric view (with perspective not orthographic). the values which is saved before rotating the camera 35.264 degrees around x (point it down) is the forward direction vector. the camera doesn't move from this rotation, and so the forward vector can stay the same for the life time of the application. the other values captured is the forward vector after the x rotation, the right vector and the initial mouse position. the right vector, first forward vector, and mouse position is used for panning around the map, while the second forward vector after the x rotation is for the zooming functionality.
+
+\subsection{controls}
+%%
+\subsubsection{mouse Iteration with the scene}
+when the users are moving their mouse around the screen, custom materials get added to object which the mouse is over so that the user can see the currently hovered over object. the method for object detection is collision triggers with ray casts. the cast will only travel till $Y=0$ meaning there isn't a need for a large hardcoded distance and redundant checks past $Y=0$. the reason for the method of object detection is to have accurate screen to world space conversion as well as reduce redundant checks but also allow for required checks at any distance (listing \ref{clst:rayDist}).
+
+first the ray direction is gotten using the ViewportPointToRay(). then using $camera.y / ray.y$, the number of steps is found for the ray to get to $Y=0$. a temporary vector is created to hold the z and x, which are based on the rays position when its $Y=0$, in order to hold the the second position for distance calculation. once all the required position vectors are found the distance is calculated and used in Raycast() to specify how far the ray travels. one of the potential issues to arise from this code is division by 0 if the user moves the mouse perfectly perpendicular to the y axis as $ray.y$ will equal 0. however due to the static orientation of the camera the required mouse movement to break the raycast should never occur. in the unreachable case where the mouse is pointing up into positive y, the distance will be calculated as if the camera is pointing down Y due to the absolute function used.
+\begin{minipage}{\textwidth}
+\begin{lstlisting}[language={[Sharp]C}, caption=calculate distance for ray to travel, label=clst:rayDist]
+RaycastHit rayHit;
+//Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+Ray ray = cam.ViewportPointToRay(cam.ScreenToViewportPoint(Input.mousePosition));
+
+//find point at which ray hits y = 0
+float objToYzero = Mathf.Abs(gameObject.transform.position.y / ray.direction.y); //how many steps to get from objects position to y = 0 (camera is always looging down)
+Vector3 temp = (ray.direction * objToYzero);//could move objs position down to y= 0 with right transofrm on x and z
+float distance = Mathf.Sqrt(Mathf.Pow(temp.x, 2) + Mathf.Pow(ray.origin.y, 2) + Mathf.Pow(temp.z, 2));
+
+Vector3 HitWorldPosition = ray.origin + (ray.direction * objToYzero);
+HitWorldPosition = new Vector3((Mathf.FloorToInt(HitWorldPosition.x) / 2) * 2, 0, (Mathf.FloorToInt(HitWorldPosition.z) / 2) * 2);
+
+//cast ray to y = 0
+bool didHit = Physics.Raycast(ray, out rayHit, distance);
+\end{lstlisting}
+\end{minipage}
+%%
+\subsubsection{Middle mouse click}
+middle mouse clicking facilitates the panning and zooming movement for the camera, as well as the cloning functionality to place more object of the same type. the panning and zooming was quite simple to implement. the panning method first takes the mouse movement delta from the previous frame and the current one. the movement change is then multipied by the respective direction transform and is then divided by the movement speed, finally being applied the to the current cameras position (listing \ref{clst:camMov}). the zooming feature uses the mouse wheel when scrolling, and adds or subtract from the current zoom based on the direction of wheel scroll. when the zoom is changed, the panning speed is also change with a further away zoom being slower that a closer zoom. this makes sure the speed doesn't go negative or too fast, meaning limits are put in place so that there is a lower bound(currently 0, which is the camera load in position) and the upper bound(which is the lower bound +30 zoom steps)(listing \ref{clst:camZom}).
+\begin{lstlisting}[language={[Sharp]C}, caption=Camera movement code, label=clst:camMov]
+Vector2 currentMouse = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+ Vector3 difference = mouseScreenPos - currentMouse;
+ gameObject.transform.localPosition += right * difference.x / panningSpeed;
+ gameObject.transform.localPosition += forward * difference.y / panningSpeed;
+\end{lstlisting}
+\begin{lstlisting}[language={[Sharp]C}, caption=Camer zooming code, label=clst:camZom]
+ bool valid = false;
+                if (Input.mouseScrollDelta.y > 0 && currentScrollDist - 2 >= scrollDistMin) {
+                    currentScrollDist -= 1;
+                    valid = true;
+                }
+                if (Input.mouseScrollDelta.y < 0 && currentScrollDist + 2 <= scrollDistMax)
+                {
+                    currentScrollDist += 1;
+                    valid = true;
+                }
+
+                if (valid) {
+                    gameObject.transform.localPosition += up * Input.mouseScrollDelta.y;
+                }
+                panningSpeed = maxPanningSpeed / scrollDistMax * (scrollDistMax - currentScrollDist); //update panning speed based on zoom,
+\end{lstlisting}
+
+the cloning functionality comes in handy when the user wants to copy an object to another location. the process of decide whether the user is panning or copying through the middle mouse click, is by checking the mouse position change between button down the button up. if the change is less than or equal to a change of 0.5 then it will count as a copy(listing \ref{clst:copyClick}). this has been implemented like this so that the user wont accidental clone a object while panning around the level, even if its a small corrective pan.
+\begin{minipage}{\textwidth}
+\begin{lstlisting}[language={[Sharp]C}, caption=Copy Object, label=clst:copyClick]
+//if middle mouse button is clicked
+if (Input.GetMouseButtonDown(2)) {
+	beginDrag = newMouse;
+}
+else if (Input.GetMouseButtonUp(2)) {
+	endDrag = newMouse;
+		if (Vector3.Distance(beginDrag, endDrag) <= 0.5f) {
+			globalResources.CurrentObjectSelectID = lastHoverObj.name;
+	}
+ }
+\end{lstlisting}
+\end{minipage}
+
+\subsubsection{right mouse click}
+right and left click also have functionality attached to them. right click has a simpler feature and was recommended during an impromptu testing session i did with a class colleague. when they were selecting and placing items down, they wanted to delete items. at this point i was instructing them on the controls as there was no read me. before they asked me for the controls, they instinctually right clicked to remove the object. this sort of control is similar to the control found in the game minecraft as its a secondary control for manipulating the same thing, which is also where the middle mouse click shortcut came from. before the delete object control was right click, it was left click and hold on the object while pressing DELETE button on the key board. the process of finding and implementing this new control is beneficial as it showed me there was an easier control interface for deleting as well as showing the value of knowledge gained through testing, making even impromptu testing quite valuable. this change also moves most of the controls to the mouse. because the controls are all in one place they are easier to use, meaning the user doesn't need to remember lots of keyboard shortcuts, or look down to find the right key to click.
+
+the code that is used (listing \ref{clst:delObj}), has changed. before it was a lot more clunky. first left mouse click needed to be checked for and then a key down action on the letter E on the keyboard. now after changes, if no other action is triggered the right mouse click it checked and can easily and quickly delete the object.
+
+\begin{minipage}{\textwidth}
+\begin{lstlisting}[language={[Sharp]C}, caption=delete Object with right click, label=clst:delObj]
+//if right mouse buttons is clicked
+if (Input.GetMouseButtonDown(1)) {
+	globalResources.CurrentLevel.Remove(lastHoverObj);
+	Destroy(lastHoverObj);
+	lastHoverObj = null;
+	removeHoverText();
+}
+\end{lstlisting}
+\end{minipage}
+
+\subsubsection{left mouse click}
+left click is the last of the main controls with the rest being combination shortcuts that attach to the left click action. the left click both allows the movement of objects already found within the scene as well as the placement of objects with in the scene. both controls attached to the left click have stayed the same through out development. 
+
+hovering over an object while left clicking and holding keeps the object snapped to the cursor and the grid. this control is for moving the object around. while hovering over and moving objects, the object name will float above the object at a set point. this is to show the user the name of the object so that they know which object was place. this is needed due to multiple object potentially having the same visuals. the object will also be highlighted while the being dragged around, indicating to the user which object was picked up and if its the correct one. listing \ref{clst:objPlcHov} is the code used for both the object placing and object hovering. every loop if E is held down it will move which ever object is currently selected, which will either be null or the currently placing object, to the mouses current location. once the object is placed with left mouse click, the currently selected object variable gets set to a duplicate object leaving the previous one in place.
+
+the other control attached to the left click is the placement function. this is accessed while the keyboard key E is held down. while in this mode left clicking will place the object into the scene.
+
+\begin{minipage}{\textwidth}
+\begin{lstlisting}[language={[Sharp]C}, caption=object placement code with highlighting, label=clst:objPlcHov]
+if (Input.GetKey(KeyCode.E))
+{
+	placeing = true;
+	//if its the first time pressing e
+	if (Input.GetKeyDown(KeyCode.E))
+		{
+		removeMaterial(lastHoverObj, globalResources._hoverObj);
+		removeMaterial(lastHoverObj, globalResources._selectrObj);
+
+		setLastHoverObj(globalResources.createObject(globalResources.CurrentObjectSelectID));
+		addMaterial(lastHoverObj, globalResources._hoverObj);
+
+		removeHoverText();
+	}
+	//move object to mouse position
+	lastHoverObj.transform.position = HitWorldPosition;
+	//if clicked place objectand create a new one to move to mouse position
+	if (Input.GetMouseButtonDown(0)) {
+		removeMaterial(lastHoverObj, globalResources._hoverObj);
+		removeMaterial(lastHoverObj, globalResources._selectrObj);
+		globalResources.CurrentLevel.Add(lastHoverObj);
+
+		setLastHoverObj(globalResources.createObject(globalResources.CurrentObjectSelectID));
+		addMaterial(lastHoverObj, globalResources._hoverObj);
+	}
+ }
+\end{lstlisting}
+\end{minipage}
 
 \subsection{Reverse Engineering of Level Layout}
-one of the main issues faced in this project was the problem of object placement, both as placing them to form object based on object definitions, and placing them within the cells. this occurred as i did not have access to the game sources code since it it a piece of proprietary work created by MindFeast. while the company did offer to let me view their code, there was a required contract and with the stated requirements i chose not to sign. this let me keep the rights and associated freedom of my software. 
+during the course of the applications creation i needed to reverse engineer the placement algorithms for the objects defined in the object definitions. each object can contain 3d art objects in GLB format, 2d art in png format and/or inbuilt objects that are compiled into Co-Operations base game. while developing i did not have access to these inbuilt objects, and being illegal to rip the objects from the actual game, i chose to instead represent these missing object with a placeholder object. the placeholder is a plain white capsule which is also used for objects that have no artwork attached.
+the reverse engineering was required for accurate level representation. Under UK law, specifically Section 50B(1) and (2) of the Copyright of Designs and Patents Act 1988 (CDPA), decompiling a program is permitted if it is done to create an independent program that can work with the original program. 
+
+the method used for reverse engineering was passive observation/ visual analysis. this does not require decompiling the original application, instead only viewing of the game occurred with with period code tweaking to properly represent the level. once the algorithm for placement was created, it ended up being a single function that takes in a ObjectClass object. it first constructs the 3d art aspect and then the 2d art aspect of the defined object (code \ref{clst:objCreate}). 
+
 \subsubsection{object placement}
-object placement was slightly confuseing at first but once thought trhouhg was quite simple. the confuseing came due to how the camera was placed in scene and working out which axis's where x and z.
-\NOTE{add image of ingame and ineditor axises}
-\begin{lstlisting}[language=C, caption=Python example]
+one of the main aspect while reverse engineering was the object placement within the scene, not necessarily the art placement in relation to the object. this issue came about due to my initial placement of the camera. within Co-Operation, +z is going from top left to bottom right and +x is going from top right to bottom left. this was a small issue as the camera within the scene was already facing the positive direction of both x and z axises. this meant i needed to reverse the object positioning in the map to the positioning within the scene. \refImage{AxisDemo} shows how the axies differ between the game and level format, and with in the applications scene.
+
+code \ref{clst:correctPlacment} also shows what steps are needed when setting the position to get the correct scene placement. the correct placement was achieved through simply reversing the x and z of the transforms with the -(minus) operator.
+\addImageScale{./imags/axisInGameInEditor}{Demonstration of axis orientation}{AxisDemo}{0.25}
+\begin{lstlisting}[language={[Sharp]C}, caption=C\# code for correcting object placement from file to scene, label=clst:correctPlacment]
 Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
 \end{lstlisting}
-to correct the placement and offseting of objects in object definitions and cells, the x and z values are simply reverse using the -(minus) operator
-\NOTE{add image of code snippet for reverse}
+
+as well as the objects placment on in the scenes grid, the placement of the models and images within the objects where also slightly affect by this. this was again caused by again for the same reason as before; however due to solving the previous issue through the negation of the 2 different axises, this issue did not take as long to solve.
+
 \subsubsection{object orientation}
+object orientation was also a little peculiar when getting the right rotation on the object. the 3d object had an initial rotation of 90 degrees, while the 2d art work has the initial rotation of -90 degrees. once each of these initial rotations were found, it was then the issue of figuring out the required degrees of rotation for north, east, south, and west.  through trial and error, the correct order of directions was figured out for the implemented enumerator. the enumerator was created so that each value could just be multiplied by 90 to get the correct rotation degree. once the direction rotation is correctly applied, the final rotation transformations could be added. this was just simply rotating around the respective axis by the specified degrees.
 
-\subsection{cacheing for faster loading}
-it was found through testing that when placing new objects there was a slight lag spike. this was identified as a resource loading issue as it only occurred when placing detail heavy objects. once the issue was identified it was remedied though a cacheing system that used C\# dictionary class to store already created object.
+a behaviour that was found was that base objects defined in a object wont use their own rotation, but instead inherits from the object using them as base. this required an extra argument/function to be added to be able to handle this functionality correctly. 
 
-the method is as follows. when an object is about to be created it is first checked to see if it has already been created, using the files name as a look up reference in the dictionary. if it hasn't, it get imported into the scene through the GLFT importer library i am using. once in it is moved to an off screen location, this is so it cant be seen, and is then copied to be placed at the correct position where the mouse pointer.
+\begin{minipage}{\textwidth}
+\begin{lstlisting}[language={[Sharp]C}, caption=direction definition and conversion label=clst:correctPlacment]
+    enum _dir {
+        east = 3, north = 2, west = 1, south = 0
+    }
+    public float DirToAngle() {
+        if (dir == "north") { return (float)_dir.north * 90; }
+        else if (dir == "east") { return (float)_dir.east * 90; }
+        else if (dir == "south") { return (float)_dir.south * 90; }
+        else{ return (float)_dir.west * 90; }
+    }
+\end{lstlisting}
+\end{minipage}
 
-this method has been done for both the gltf object and the images as both could cause lag spikes each time they were getting imported into the scene. by doing this, it considerably improved the speed meaning levels formed a lot quicker and are almost instant when reloading them. 
-\NOTE{see if you can get timeings for both cached loading and uncached loading}
+\subsection{added features}
+\subsubsection{cacheing for faster loading}
+it was found through testing that when placing new objects there was a slight lag spike. this was identified as a resource loading issue as it only occurred when placing heavily detailed objects. once the issue was identified it was remedied though a cacheing system that uses C\# dictionary class to store already created object.
+
+the method is as follows. when an object is about to be created, it is first checked to see if it has already been loaded in using the files name as a look up reference in the dictionary. if it hasn't, it get imported into the scene through the GLFT importer library i am using. once in it is moved to an off screen location. this is so it cant be seen by the user, and is then copied to be placed in the cell where the mouse pointer is located.
+
+this method has been done for GLFT object as well as the images as both caused cause lag spikes each time they were getting imported into the scene. by doing this, it considerably improved the speed meaning levels formed a lot quicker and is almost instant when reloading them. 
+
+
+\subsubsection{linux compatablility}
+Cooperation Level Editor started development on windows as that was the operating system used be most of the computer i had access to. however, i at some point was limitited to just linux and could not access a windows computer. due to this i was required to make linux compatible with the editor. when the project was first ran, there where no error messages and at somepoint when running the code there was a silient error. i found out the issues was the directory seperator which was "/" on linux and "\textbackslash\textbackslash" on windows. however this was handy as windows can also use "/" and i had already been useing it through out my code. the only part that needed to be changed was the "\textbackslash\textbackslash" to "/"
+
+\begin{minipage}{\textwidth}
+\begin{lstlisting}[language={[Sharp]C}, caption=before '\textbackslash\textbackslash' changed to'/' , label=clst:beforeDIRChange]
+    public void populateLevelDropDown()
+    {
+        levelDropdown.ClearOptions();
+        LoadButton.GetComponent<Button>().interactable = false;
+        
+        string workingDir = inputFilePath.GetComponent<TMP_InputField>().text;
+        if (!Directory.Exists(workingDir)) { return; }
+
+        LoadButton.GetComponent<Button>().interactable = true;
+        List<string> filenames = new List<string>(Directory.GetFiles(workingDir + levelDir, "*.yaml"));
+        for (int i = 0; i < filenames.Count; i++) {
+            filenames[i] = filenames[i].Split('/')[^1];
+        }
+        levelDropdown.AddOptions(filenames);
+    }
+\end{lstlisting}
+\begin{lstlisting}[language={[Sharp]C}, caption=after '\textbackslash\textbackslash' changed to '/', label=clst:afterDIRChange]
+    public void populateLevelDropDown()
+    {
+        levelDropdown.ClearOptions();
+        LoadButton.GetComponent<Button>().interactable = false;
+        
+        string workingDir = inputFilePath.GetComponent<TMP_InputField>().text;
+        if (!Directory.Exists(workingDir)) { return; }
+
+        LoadButton.GetComponent<Button>().interactable = true;
+        List<string> filenames = new List<string>(Directory.GetFiles(workingDir + levelDir, "*.yaml"));
+        for (int i = 0; i < filenames.Count; i++) {
+            filenames[i] = filenames[i].Split('/')[^1];
+        }
+        levelDropdown.AddOptions(filenames);
+    }
+\end{lstlisting}
+\end{minipage}
+
+%% add this with chance
+%%\subsubsection{object highlighting}
+%%
+
+\section{Testing}
+\subsection{smoke testing}
+through out the development of the application i did manual smoke testing. these are simple tests that are done to check the basic functionality of the application. they are performed so that the implementer knows the created feature is initially working and so further unit tests can be written to test all the required edge tests.
+
+this is a list of basic features tested with smoke testing. this is only for the basic functionality and so dosnt cover edge cases for particular functions. only the expected output is tested for when using the correct controls, and so doesn't take into account potentially broken control sequences.
+
+\addImage{./imags/SMOKETESTS}{Smoke tested features}{smokeTestList}
+
+\subsection{unit tests}
+
+once the initial application was created, i created a suvery to be able to give to tester of the application.
+
+
 %%%%%%%%%%%%%%%%%%
 
 \section{Evaluation}
-•	What went well and what went badly?  
-•	Why was this the case?  
-•	To what extent was the aspect under consideration responsible (vs. other contributing factors, e.g., your own performance).
-•	Was your experience in line with what might have been expected given the body of knowledge within the literature?
-•	To what extent does the above cause you to reconsider the choices that you made in relation to the given aspect?
+
+in this project, i successfully created a functioning application that could import and export levels which could be modified and were still playable within the game Co-Operation. the application adhered to the level specifications in that features described in the modding guide could be visible in the level editor. the application required reverse engineering that was successfully undertaken in order to achieve the 1:1 level visualisation. with the implemented controls and procedures for map and object loading and manipulations, users can now use the tool to independently design and create levels with little to no understanding of YAML or the correct layout required. 
+
+within the application all the functional and mentioned non-functional requirements where added. this helped polish the product as quality of life features were added such as middle mouse clicking for copying, next placing objects name is displayed, and the object highlighting functionality for feed back to the user about the currently focused on object. with a good user experience, the application is easier to use and understand. this means the target audience stated at the beginning, being people with no knowledge of YAML, can now have an easier time creating their own levels. the secondary demographics, which are the individuals who already have mod creation experience, will also benefit from this application. this is because it allow for quick level creation as well as easy switching between the editing of levels, meaning other versions of the same level can be adjusted quickly. i did two sets of tests, one with a experience user and another with individuals who have never touched CO-Operation modding before. the experienced users were able to create levels in under 10mins and produce almost complete version of a level with all three variants with in an hour. the inexperienced was able to select, place, move and delete object from the scene, and then view it the level within the game.
+
+with all the great progress made there where some aspect of development that could have gone a lot better. agile was the assigned method to use through out the project for management and completion of tasks. i didn't strictly keep to the agile methodology, i instead dipped between waterfall and agile. however part way through the development i ended up spending some time sorting out trello with the previous sprints i had completed. by doing this i as able to clearly see what features and aspects i had added meaning i could see what features needed to be added afterwards. though without the proper use of agile i believe more features could have been added with a longer period of polishing.
+
+another issue that did rear it head was the realisation of anonymous object in the cell definitions them selves. at first i thought that i could ignore this issue as if i didn't support it would mean exported level wouldn't use it and i wouldn't need to handle it. however when looking through older levels as well as the game base levels, they were used quite a bit. this meant i needed to start supporting them as i wanted to have compatibility with level that weren't originally made with the tool. this lead to the conversion of a class list to a "object" list with the required conversion made further down the parsing chain. i ended up having the objects get stored in the levels file with the name anonymous\_<randomNumber> so that if there were multiple objects they wouldn't be saved with the same name. this way works and it does successfully parse the objects out, however i feel the names should me more descriptive. the name formation could be <direction>\_<firstObjFileName>\_<randomNumber>. the reason for this is that finding the objects would be easier within the object list as it would describe the object more instead of just a random name.
+
+ %%
+%%\subsection{further Work}
+%%
 
 \section{Conclusion}
-It is a brief summary of the project and its achievements. Therefore, you should relist your project’s objectives and critically (and ruthlessly) evaluate whether you met the objectives
-\subsection{further Work}
+the objective for this application was to create a tool that could let people, with varying knowledge and experience in YAML and Co-Operation level design, design and create levels easily and faster than what would useable be possible through manual text file manipulation. this goal was met and did allow easy creation of levels from both experience and the inexperienced users. however due to the planning  method, features and important fixes were not implemented. this consisted of the tracking and fixing of the memory leak, and image view of objects so users know what they look like before placing them. with most functional requirement being implemented with a lot of non-functional features also appearing, this was a successful project in my opinion with the production of a open-source application. 
 
+there is a potential to make the loading speeds faster. the majority of the waiting time is for the loading of GLB object into the scene. i chose to use GLTFUtility as i used it before and it had straightforward use within the code. while using it was easy there where other libraries out there that are potentially faster. one made by the khronosgroup, the royalty-free company who directs interpretability standards of 3d formats, as well as a library called glTFAST which from the name could potentially speed up the loading times. this is a future plan as complete overhaul of the object importing would need to be done, making sure that objects get imported the correct way laid out by the library.
+
+due to the open-sources nature of this project there is great potential for extensive updates and support. due to the openness of the project, both the community and i can contribute to the progression of the project afterwards. there is also a potential that MINDFEAST might contribute/take the projects code for implementation into their game.
+
+\printbibliography
+
+%TC:ignore 
+\section{appendix}
+\addImageScale{./imags/Art2D}{supported features of art2d}{art2dSupport}{0.85}
+\addImageScale{./imags/Art3D}{supported features of art3d}{art3dSupport}{0.85}
+\addImageScale{./imags/LevelObject}{support for object definitions}{objDefSupport}{0.85}
+\addImageScale{./imags/MApObjectSupport}{unsupported MapObject values}{mapObjUnsupport}{0.85}
+
+\begin{lstlisting}[language={[Sharp]C}, caption=C\# code for correct placement of object art from file to scene, label=clst:objCreate]
+public GameObject createObject(string name)
+    {
+        Vector3 newPos = new Vector3(0, 0, 0);
+
+        ObjectClass obj = allObjects[name];
+        GameObject HolderObj = new GameObject();//holds al the models for object
+        HolderObj.AddComponent<ObjectAttributes>().objectName = name;
+        HolderObj.name = name;
+        HolderObj.transform.position = new Vector3(newPos.y, 0, newPos.x);
+
+        bool visible = false;
+        //take account of base obejcts, id and mapObject wont work as both can get resolved to in game objects uavaliable for viewing
+        if (obj._base != null && obj._base.Count > 0)
+        {
+            foreach (string baseObj in obj._base)
+            {
+                bool visCheck = instintateObjAsBase(baseObj, allObjects[baseObj], newPos, HolderObj, obj.DirToAngle());
+                if (visCheck && !visible)
+                {
+                    visible = true;
+                }
+            }
+        }
+
+        //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
+        //import each object used
+        if (obj.art3d != null)
+        {
+            foreach (Art3d objsArt in obj.art3d)
+            {
+                visible = true;
+                GameObject Temp = ImportGLTF(workingDirectory + "/" + objsArt.model);
+                Temp.AddComponent<ObjectAttributes>().attributes3d = objsArt;
+                foreach (Renderer rend in Temp.GetComponentsInChildren<Renderer>())
+                {
+                    MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
+                    col.convex = true;
+                    col.isTrigger = true;
+                    SkinnedMeshRenderer skinnedRenderer = rend as SkinnedMeshRenderer;
+                    if (skinnedRenderer != null)
+                    {
+                        // Create a new mesh and bake the skinned mesh into it
+                        Mesh bakedMesh = new Mesh();
+                        skinnedRenderer.BakeMesh(bakedMesh);
+                        // Assign the baked mesh to the Mesh Collider
+                        col.sharedMesh = null; // Clear old mesh reference
+                        col.sharedMesh = bakedMesh;
+                    }
+                }
+
+                Temp.name = obj.dir;
+
+                //CenterPivotAtBottomMiddle(Temp);
+
+                Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
+
+                Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+                Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+                Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
+                Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+
+                Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+                //Debug.Log(obj.dir);
+                Temp.transform.parent = HolderObj.transform;
+            }
+        }
+        if (obj.art2d != null)
+        {
+            foreach (Art2d objsArt in obj.art2d)
+            {
+                visible = true;
+                GameObject Temp = ImportImage(workingDirectory + artDir + art2dDir + "/" + objsArt.texture);
+                Temp.AddComponent<ObjectAttributes>().attributes2d = objsArt;
+                MeshCollider collider = Temp.GetComponent<MeshCollider>();
+                collider.isTrigger = true;
+
+                Temp.name = obj.dir;
+
+                //CenterPivotAtBottomMiddle(Temp);
+
+                Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
+
+                Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+
+                Temp.transform.rotation = Quaternion.Euler(0, -90, 0);//rotate around y to get it into north east south west
+                Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
+                Temp.transform.Rotate(new Vector3(-objsArt.rot.x, objsArt.rot.y, -objsArt.rot.z));//added roation for inital direction
+
+                Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+
+                MeshRenderer quadMeshRenderer = Temp.GetComponent<MeshRenderer>();
+                quadMeshRenderer.material.SetFloat("_Metallic", objsArt.metallic); // 3 = Transparent mode in Standard shader
+                quadMeshRenderer.material.SetFloat("_Glossiness", objsArt.smoothness); // 3 = Transparent mode in Standard shader
+
+
+                //use this to support billboarding
+                //if billboard or not quad(dafault to billboard if invalid)
+                if (objsArt.displayType == "billboard" || objsArt.displayType != "quad")
+                {
+                    Temp.AddComponent<BillboardScript>();
+                }
+
+                //Debug.Log(obj.dir);
+                Temp.transform.parent = HolderObj.transform;
+            }
+        }
+        if (!visible)
+        {
+            GameObject Temp = Instantiate(placeHolder);
+            Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
+            Temp.transform.parent = HolderObj.transform;
+        }
+        return HolderObj;
+    }
+\end{lstlisting}
+
+
+\begin{lstlisting}[language={[Sharp]C}, caption=classes for yaml loading, label=clst:yamlClasses]
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+using YamlDotNet.Serialization;
+
+
+public class vec3
+{
+    public float x = 0, y = 0, z = 0;
+}
+public class vec3Scale
+{
+    public float x = 1f, y = 1f, z = 1f;
+}
+public class Art3d
+{
+    public vec3 pos = new vec3();
+    public vec3 rot = new vec3();
+    public vec3Scale scale = new vec3Scale();
+    public string model = "";
+}
+
+public class Art2d
+{
+    public vec3 pos = new vec3();
+    public vec3 rot = new vec3();
+    public vec3Scale scale = new vec3Scale();
+    public string texture = "";
+    [YamlMember(Alias = "display_type")]
+    public string displayType = "";
+    public float smoothness = 0.6f;
+    public float metallic = 0.1f;
+}
+
+public class Data {
+    public Dictionary<string, object> dataItems = new Dictionary<string, object>();
+}
+
+
+public class modWithData {
+    //the mod name
+    public string name = "";
+    public Dictionary<string, object> data = new Dictionary<string, object>();
+    //
+}
+
+
+public class ObjectClass
+{
+    enum _dir {
+        east = 3, north = 2, west = 1, south = 0
+    }
+    public float DirToAngle() {
+        if (dir == "north") { return (float)_dir.north * 90; }
+        else if (dir == "east") { return (float)_dir.east * 90; }
+        else if (dir == "south") { return (float)_dir.south * 90; }
+        else{ return (float)_dir.west * 90; }
+    }
+
+    public string mapObject = "";
+    [YamlMember(Alias = "base")]
+    public List<string> _base { get; set; } = new List<string>();
+    public string id = "";
+
+    public string dir = "south";
+
+    public List<string> tags = new List<string>();
+
+
+
+    [YamlMember(Alias = "art3d")]
+    public List<Art3d> art3d { get; set; } = new List<Art3d>();
+    [YamlMember(Alias = "art2d")]
+    public List<Art2d> art2d { get; set; } = new List<Art2d>();
+
+    //can be both a simple string or a class modWithData
+    public List<object> mods = new List<object>();
+
+    public Dictionary<string, object> data = new Dictionary<string, object>();
+}
+
+public class FileProperties
+{
+    public string creatorName = "LevelEditor";
+}
+
+public class DepthOfField
+{
+    public bool enabled = false;
+    public float focusDistance = 58;
+    public float focalLength = 0.0f;
+    public float aperture = 1.0f;
+}
+public class PostProcessing
+{
+    public DepthOfField depthOfField = new DepthOfField();
+}
+
+public class Music
+{
+    public bool usePresent = false;
+}
+
+public class Sounds
+{
+    public List<string> fileNames = new List<string>();
+}
+
+public class LevelFile
+{
+    [YamlMember(Alias = "include")]
+    public List<string> include { get; set; } = new List<string>();
+
+    [YamlMember(Alias = "file_properties")]
+    public FileProperties fileProperties { get; set; } = new FileProperties();
+
+    [YamlMember(Alias = "scene_name")]
+    public string sceneName { get; set; } = "EmptyWorld";
+
+    [YamlMember(Alias = "post_processing")]
+    public PostProcessing postProcessing { get; set; } = new PostProcessing();
+
+    [YamlMember(Alias = "grid")]
+    public string grid { get; set; } = "  AA,BA,CA\n  AB,BB,CB\n  AC,BC,CC";
+
+    [YamlMember(Alias = "grid_objects")]
+    public Dictionary<string, List<object>> gridObjects { get; set; } = new Dictionary<string, List<object>>();
+
+    [YamlMember(Alias = "object_definitions")]
+    public Dictionary<string, ObjectClass> objectDefinitions { get; set; } = new Dictionary<string, ObjectClass>();
+
+    [YamlMember(Alias = "sounds")]
+    public Dictionary<string, Sounds> sounds { get; set; } = new Dictionary<string, Sounds>();
+
+    //generic feild so i dont know whats in there
+    //not sure on this feild so change when needed
+    [YamlMember(Alias = "global_data")]
+    public Dictionary<string, object> globalData { get; set; } = new Dictionary<string, object>();
+}
+
+\end{lstlisting}
+
+
+%TC:endignore 
 \end{document}
