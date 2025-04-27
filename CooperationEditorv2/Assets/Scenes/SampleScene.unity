@@ -200,7 +200,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: file
+  m_text: relative path to Mod folder
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2948,7 +2948,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: -0.000021065325}
   m_SizeDelta: {x: 0, y: 348.5505}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &617455581
@@ -3119,7 +3119,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ADD INCLUDE ...
+  m_text: include file name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3592,8 +3592,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.1440735, y: -12.195801}
-  m_SizeDelta: {x: 1800.4595, y: 980.4568}
+  m_AnchoredPosition: {x: 0, y: -4.299988}
+  m_SizeDelta: {x: 2347.4773, y: 1309.9966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &723073878
 MonoBehaviour:
@@ -4734,7 +4734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1124058179
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5747,7 +5747,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1520116684}
-  m_CullTransparentMesh: 1
+  m_CullTransparentMesh: 0
 --- !u!1 &1527152362 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1566716301754202323, guid: d818b61d39970b74e8b5965626630b21, type: 3}
@@ -9458,7 +9458,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2046460443}
   m_HandleRect: {fileID: 2046460442}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

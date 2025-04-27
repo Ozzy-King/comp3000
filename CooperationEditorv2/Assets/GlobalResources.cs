@@ -224,7 +224,7 @@ public class GlobalResources : MonoBehaviour
         LoadButton.GetComponent<Button>().interactable = true;
         List<string> filenames = new List<string>(Directory.GetFiles(workingDir + levelDir, "*.yaml"));
         for (int i = 0; i < filenames.Count; i++) {
-            filenames[i] = filenames[i].Split('/')[^1];
+            filenames[i] = filenames[i].Split(Path.DirectorySeparatorChar)[^1];
         }
         levelDropdown.AddOptions(filenames);
     }
