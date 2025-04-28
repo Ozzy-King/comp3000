@@ -1,4 +1,3 @@
-#EDITORPROG:
 include: [ main.yaml, other.yaml, LevelsShared.yaml ]
 fileProperties:
   creatorName: <NAME>

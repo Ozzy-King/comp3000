@@ -39,18 +39,20 @@
 \contentsline {subsection}{\numberline {5.4}controls}{22}{}%
 \contentsline {subsubsection}{\numberline {5.4.1}mouse Iteration with the scene}{22}{}%
 \contentsline {subsubsection}{\numberline {5.4.2}Middle mouse click}{23}{}%
-\contentsline {subsubsection}{\numberline {5.4.3}right mouse click}{24}{}%
+\contentsline {subsubsection}{\numberline {5.4.3}right mouse click}{25}{}%
 \contentsline {subsubsection}{\numberline {5.4.4}left mouse click}{25}{}%
-\contentsline {subsection}{\numberline {5.5}Reverse Engineering of Level Layout}{26}{}%
+\contentsline {subsection}{\numberline {5.5}Reverse Engineering of Level Layout}{27}{}%
 \contentsline {subsubsection}{\numberline {5.5.1}object placement}{27}{}%
 \contentsline {subsubsection}{\numberline {5.5.2}object orientation}{28}{}%
 \contentsline {subsection}{\numberline {5.6}added features}{28}{}%
 \contentsline {subsubsection}{\numberline {5.6.1}cacheing for faster loading}{28}{}%
-\contentsline {subsubsection}{\numberline {5.6.2}linux compatablility}{29}{}%
+\contentsline {subsubsection}{\numberline {5.6.2}Linux compatibility}{29}{}%
 \contentsline {section}{\numberline {6}Testing}{30}{}%
 \contentsline {subsection}{\numberline {6.1}smoke testing}{30}{}%
-\contentsline {subsection}{\numberline {6.2}unit testing}{31}{}%
-\contentsline {subsection}{\numberline {6.3}user Testing}{32}{}%
-\contentsline {section}{\numberline {7}Evaluation}{33}{}%
-\contentsline {section}{\numberline {8}Conclusion}{34}{}%
-\contentsline {section}{\numberline {9}appendix}{35}{}%
+\contentsline {subsection}{\numberline {6.2}unit testing}{30}{}%
+\contentsline {subsection}{\numberline {6.3}user Testing}{31}{}%
+\contentsline {subsection}{\numberline {6.4}implemented additions from user testing}{32}{}%
+\contentsline {subsection}{\numberline {6.5}future additions from user testing}{34}{}%
+\contentsline {section}{\numberline {7}Evaluation}{35}{}%
+\contentsline {section}{\numberline {8}Conclusion}{38}{}%
+\contentsline {section}{\numberline {9}appendix}{39}{}%

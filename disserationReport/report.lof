@@ -9,16 +9,23 @@
 \contentsline {figure}{\numberline {9}{\ignorespaces the basic flow of control when levels are being loaded}}{17}{}%
 \contentsline {figure}{\numberline {10}{\ignorespaces steps used for cacheing system}}{18}{}%
 \contentsline {figure}{\numberline {11}{\ignorespaces the use flow of the application}}{19}{}%
-\contentsline {figure}{\numberline {12}{\ignorespaces Demonstration of axis orientation}}{27}{}%
-\contentsline {figure}{\numberline {13}{\ignorespaces Smoke tested features}}{31}{}%
-\contentsline {figure}{\numberline {14}{\ignorespaces unit tested features}}{32}{}%
-\contentsline {figure}{\numberline {15}{\ignorespaces supported features of art2d}}{36}{}%
-\contentsline {figure}{\numberline {16}{\ignorespaces supported features of art3d}}{37}{}%
-\contentsline {figure}{\numberline {17}{\ignorespaces support for object definitions}}{44}{}%
-\contentsline {figure}{\numberline {18}{\ignorespaces unsupported MapObject values}}{45}{}%
-\contentsline {figure}{\numberline {19}{\ignorespaces tasks for the users to complete}}{45}{}%
-\contentsline {figure}{\numberline {20}{\ignorespaces the question ask once task are complete}}{45}{}%
-\contentsline {figure}{\numberline {21}{\ignorespaces the question ask once task are complete}}{46}{}%
-\contentsline {figure}{\numberline {22}{\ignorespaces the question ask once task are complete}}{46}{}%
-\contentsline {figure}{\numberline {23}{\ignorespaces the question ask once task are complete}}{47}{}%
-\contentsline {figure}{\numberline {24}{\ignorespaces the question ask once task are complete}}{47}{}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Demonstration of axis orientation}}{28}{}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Smoke tested features}}{30}{}%
+\contentsline {figure}{\numberline {14}{\ignorespaces unit tested features}}{31}{}%
+\contentsline {figure}{\numberline {15}{\ignorespaces Controls panel}}{33}{}%
+\contentsline {figure}{\numberline {16}{\ignorespaces shaders shader graph}}{34}{}%
+\contentsline {figure}{\numberline {17}{\ignorespaces shader on cube}}{35}{}%
+\contentsline {figure}{\numberline {18}{\ignorespaces example of package.yaml}}{36}{}%
+\contentsline {figure}{\numberline {19}{\ignorespaces simple mock of UI}}{37}{}%
+\contentsline {figure}{\numberline {20}{\ignorespaces supported features of art2d}}{39}{}%
+\contentsline {figure}{\numberline {21}{\ignorespaces supported features of art3d}}{40}{}%
+\contentsline {figure}{\numberline {22}{\ignorespaces support for object definitions}}{47}{}%
+\contentsline {figure}{\numberline {23}{\ignorespaces unsupported MapObject values}}{48}{}%
+\contentsline {figure}{\numberline {24}{\ignorespaces tasks for the users to complete}}{48}{}%
+\contentsline {figure}{\numberline {25}{\ignorespaces the question ask once task are complete}}{48}{}%
+\contentsline {figure}{\numberline {26}{\ignorespaces the question ask once task are complete}}{49}{}%
+\contentsline {figure}{\numberline {27}{\ignorespaces the question ask once task are complete}}{49}{}%
+\contentsline {figure}{\numberline {28}{\ignorespaces the question ask once task are complete}}{50}{}%
+\contentsline {figure}{\numberline {29}{\ignorespaces the question ask once task are complete}}{50}{}%
+\contentsline {figure}{\numberline {30}{\ignorespaces Controls Image}}{51}{}%
+\contentsline {figure}{\numberline {31}{\ignorespaces HourGlassUsed}}{51}{}%

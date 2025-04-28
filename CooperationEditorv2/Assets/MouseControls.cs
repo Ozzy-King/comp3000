@@ -18,6 +18,8 @@ public class MouseControls : MonoBehaviour
     GameObject hoverTextTemplate;
     GameObject hoverTextOBJ = null;
 
+    public GameObject cellCube;
+
     void addHoverText(Vector3 pos)
     {
         if (hoverTextOBJ == null) {
@@ -169,6 +171,8 @@ public class MouseControls : MonoBehaviour
 
         Vector3 HitWorldPosition = ray.origin + (ray.direction * objToYzero);
         HitWorldPosition = new Vector3((Mathf.FloorToInt(HitWorldPosition.x) / 2) * 2, 0, (Mathf.FloorToInt(HitWorldPosition.z) / 2) * 2);
+
+        cellCube.transform.position = HitWorldPosition + new Vector3(0,1,0);
 
         //cast ray to y = 0
         bool didHit = Physics.Raycast(ray, out rayHit, distance);

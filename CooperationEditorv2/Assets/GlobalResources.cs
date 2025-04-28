@@ -24,6 +24,8 @@ public class GlobalResources : MonoBehaviour
     [SerializeField]
     ItemPopulater populater;
 
+    public Texture2D HourGlassIcon;
+
     [SerializeField]
     GameObject objectCachePerant; //<--------set in editor
     Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
@@ -275,8 +277,8 @@ public class GlobalResources : MonoBehaviour
         if (allObjects.Count != 0) { 
             CurrentObjectSelectID = allObjects.Keys.First();
         }
-        
 
+        Cursor.SetCursor(HourGlassIcon, Vector2.zero, CursorMode.ForceSoftware); //set cursor to hourglass to show loading
         //place objects in scene from level
         StartCoroutine(formLevelObjs());
 
@@ -425,7 +427,7 @@ public class GlobalResources : MonoBehaviour
 
         Camera.main.transform.position = new Vector3(camYpos, Camera.main.transform.position.y, camXpos);
 
-
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware); //reset curous to default
         yield return null;
     }
 
