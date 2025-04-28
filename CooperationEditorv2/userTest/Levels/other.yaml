@@ -1,0 +1,32 @@
+#EDITORPROG:
+include: [ ]
+fileProperties:
+  creatorName: <NAME>
+sceneName: EmptyWorld
+postProcessing:
+  depthOfField: { enabled: false, focusDistance: 58, focalLength: 0.0, aperture: 1.0 }
+grid: |
+gridObjects:
+  
+objectDefinitions:
+  brick_wall_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/BrickWall.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_s: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickWall.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_n: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/BrickWall.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 0, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_e_lc: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/BrickWallEndLc.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_e_rc: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/BrickWallEndRc.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_e_rc_middle: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickWallEndRc1.glb", pos: {x: 1, y: 0, z: 0}, rot: {x: 0, y: 90, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_window2_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/BrickWindowClosed.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_window4_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/BrickWindowOpen.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  brick_wall_s_rc: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickWallEndRc.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_s_lc: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickWallEndLc.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_window2_s: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickWindowClosed.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  brick_window4_s: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickWindowOpen.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  brick_wall_corner_se: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/BrickCorner.glb", pos: {x: -1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  brick_wall_corner_ne: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/BrickCorner.glb", pos: {x: 1, y: 0, z: -1}, rot: {x: 0, y: 180, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  
+  power_bucket: { mapObject: Custom, art3d: [ { model: "Art/3D/bucketOfPower.glb", scale: {x: 0.4, y: 0.4, z: 0.4} } ], tags: [ "powerBucket", "blocksMove", "throwable", "carryable" ], mods: [ frankHead ] }
+
+  monsterHead: { mapObject: Custom, mods: [ frankHead ], dir: east, art3d: [ { model: "Art/3D/FloorHead.glb", pos: {x: 0, y: -1.1, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {x: 0, y: 0, z: 0} } ], tags: [ "throwable", "carryable", "part", "head", "destroyIfNotCaught" ] }
+  monsterLeg: { mapObject: Custom, mods: [ frankHead ],  dir: east, art3d: [ { model: "Art/3D/FloorLeg.glb", pos: {x: 0.5, y: 0.5, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {x: 0, y: 0, z: 90} } ], tags: [ "throwable", "carryable", "part", "leg", "destroyIfNotCaught" ] }
+  monsterArm: { mapObject: Custom, mods: [ frankHead ], dir: east, art3d: [ { model: "Art/3D/FloorArm.glb", pos: {x: -1.1, y: -0.9, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {x: 0, y: 0, z: 0} } ], tags: [ "throwable", "carryable", "part", "arm", "destroyIfNotCaught"] }
+  monsterTorso: { mapObject: Custom, mods: [ frankHead ], dir: east, art3d: [ { model: "Art/3D/FloorTorso.glb", pos: {x: 0, y: -0.3, z: -0.0}, scale: {x: 1, y: 1, z: 1}, rot: {x: 0, y: 0, z: 0} } ], tags: [ "carryable", "blocksMove", "part", "torso", "destroyIfNotCaught"] }

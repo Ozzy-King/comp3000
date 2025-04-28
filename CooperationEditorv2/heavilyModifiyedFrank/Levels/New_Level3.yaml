@@ -1,0 +1,18 @@
+#EDITORPROG:
+include: []
+fileProperties:
+  creatorName: <NAME>
+  
+sceneName: EmptyWorld
+postProcessing:
+  depthOfField: { enabled: false, focusDistance: 58, focalLength: 0.0, aperture: 1.0 }
+grid: |
+  __
+gridObjects:
+
+  __: []
+  
+objectDefinitions:
+
+sounds:
+globalData:

@@ -1,0 +1,71 @@
+include: [ LevelsShared.yaml ]
+
+# Properties about the file like its creator
+fileProperties:
+  creatorName: Mind Feast Games
+
+# The Unity scene that will be loaded as background
+sceneName: World1Dev
+
+postProcessing:
+  depthOfField: { enabled: true, focusDistance: 40, focalLength: 300.0, aperture: 1.0 }
+
+grid:
+
+gridObjects:
+  lr: [ levelResults ]
+  
+  d1: [ ]
+  e1: [ wall_corner_se, lightbulb_s ]
+  f1: [ wall_s, lightbulb_s ]
+  g1: [ wall_s_rc, lightbulb_s ]
+  
+  d2: [ lightbulb_e ]
+  e2: [ f ]
+  f2: [ f ]
+  g2: [ f, wedge_s ]
+
+  d3: [ wall_e, lightbulb_e ]
+  e3: [ f ]
+  f3: [ f ]
+  g3: [ f ]
+
+  d4: [ wall_e, lightbulb_e ]
+  e4: [ f ]
+  f4: [ f ]
+  g4: [ f  ]
+
+  d5: [ wall_e, lightbulb_e ]
+  e5: [ f ]
+  f5: [ f ]
+  g5: [ f ]
+
+  d6: [ wall_e, lightbulb_e ]
+  e6: [ f ]
+  f6: [ f ]
+  g6: [ f ]
+
+  d7: [ wall_e_lc, lightbulb_e ]
+  e7: [ f, wedge_e ]
+  f7: [ f ]
+  g7: [ f_curve_se ]
+
+
+objectDefinitions:
+  levelResults: { mapObject: BlankStatic, mods: [ LevelResults ], data: { DebugLog: true } }
+  
+  arrowdeco: { mapObject: Custom, art2d: [ { texture: "resultsmovearrowdeco.png", displayType: decal, projectionDistance: 0.2, pos: {x: 0, y: -0.9, z: 0}, rot: {x: 90, y: 90, z: 0}, scale: {x: 2, y: 6, z: 0} } ], tags: [ "decal" ] }
+  arrowdeco2: { mapObject: Custom, art2d: [ { texture: "resultsmovearrowdeco.png", displayType: decal, projectionDistance: 0.2, pos: {x: 0, y: -0.9, z: 0}, rot: {x: 90, y: 0, z: 0}, scale: {x: 2, y: 6, z: 0} } ], tags: [ "decal" ] }
+  nextleveldeco: { mapObject: Custom, art2d: [ { texture: "nextleveldeco.png", displayType: decal, projectionDistance: 0.2, pos: {x: 0, y: -0.9, z: 0}, rot: {x: 90, y: 90, z: 0}, scale: {x: 2, y: 2, z: 0} } ], tags: [ "decal" ] }
+  replayleveldeco: { mapObject: Custom, art2d: [ { texture: "replayleveldeco.png", displayType: decal, projectionDistance: 0.2, pos: {x: 0, y: -0.9, z: 0}, rot: {x: 90, y: 90, z: 0}, scale: {x: 2, y: 2, z: 0} } ], tags: [ "decal" ] }
+  nextleveldeco2: { mapObject: Custom, art2d: [ { texture: "nextleveldeco.png", displayType: decal, projectionDistance: 0.2, pos: {x: 0, y: -0.9, z: 0}, rot: {x: 90, y: 180, z: 0}, scale: {x: 2, y: 2, z: 0} } ], tags: [ "decal" ] }
+  replayleveldeco2: { mapObject: Custom, art2d: [ { texture: "replayleveldeco.png", displayType: decal, projectionDistance: 0.2, pos: {x: 0, y: -0.9, z: 0}, rot: {x: 90, y: 180, z: 0}, scale: {x: 2, y: 2, z: 0} } ], tags: [ "decal" ] }
+ 
+  barrier_l: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/GlassHalfWall_Straight_Border.glb", pos: {x: 0.4, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 0.7, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  barrier_l2: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/GlassHalfWall_Straight_Border.glb", pos: {x: 0, y: 0, z: -0.4}, rot: {x: 0, y: 90, z: 0}, scale: {x: 1, y: 0.7, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  barrier_r: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/GlassHalfWall_Straight_Border.glb", pos: {x: -0.4, y: 0, z: 0}, rot: {x: 0, y: 180, z: 0}, scale: {x: 1, y: 0.7, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  
+  # No scoreboard in results levels
+  scoreboard: { mapObject: BlankStatic }
+  
+sounds:

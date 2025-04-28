@@ -33,6 +33,19 @@ public class Art2d
     public float metallic = 0.1f;
 }
 
+public class Data {
+    public Dictionary<string, object> dataItems = new Dictionary<string, object>();
+}
+
+
+public class modWithData {
+    //the mod name
+    public string name = "";
+    public Dictionary<string, object> data = new Dictionary<string, object>();
+    //
+}
+
+
 public class ObjectClass
 {
     enum _dir {
@@ -45,19 +58,26 @@ public class ObjectClass
         else{ return (float)_dir.west * 90; }
     }
 
-    public List<string> tags = new List<string>();
-    public List<string> mods = new List<string>();
-    public string dir = "south";
-
     public string mapObject = "";
     [YamlMember(Alias = "base")]
     public List<string> _base { get; set; } = new List<string>();
     public string id = "";
 
+    public string dir = "south";
+
+    public List<string> tags = new List<string>();
+
+
+
     [YamlMember(Alias = "art3d")]
     public List<Art3d> art3d { get; set; } = new List<Art3d>();
     [YamlMember(Alias = "art2d")]
     public List<Art2d> art2d { get; set; } = new List<Art2d>();
+
+    //can be both a simple string or a class modWithData
+    public List<object> mods = new List<object>();
+
+    public Dictionary<string, object> data = new Dictionary<string, object>();
 }
 
 public class FileProperties
@@ -87,11 +107,6 @@ public class Sounds
     public List<string> fileNames = new List<string>();
 }
 
-public class GlobalData {
-    public int Health { get; set; }
-    public string Need { get; set; }
-}
-
 public class LevelFile
 {
     [YamlMember(Alias = "include")]
@@ -110,7 +125,7 @@ public class LevelFile
     public string grid { get; set; } = "  AA,BA,CA\n  AB,BB,CB\n  AC,BC,CC";
 
     [YamlMember(Alias = "grid_objects")]
-    public Dictionary<string, List<string>> gridObjects { get; set; } = new Dictionary<string, List<string>>();
+    public Dictionary<string, List<object>> gridObjects { get; set; } = new Dictionary<string, List<object>>();
 
     [YamlMember(Alias = "object_definitions")]
     public Dictionary<string, ObjectClass> objectDefinitions { get; set; } = new Dictionary<string, ObjectClass>();
@@ -118,7 +133,8 @@ public class LevelFile
     [YamlMember(Alias = "sounds")]
     public Dictionary<string, Sounds> sounds { get; set; } = new Dictionary<string, Sounds>();
 
+    //generic feild so i dont know whats in there
     //not sure on this feild so change when needed
     [YamlMember(Alias = "global_data")]
-    public Dictionary<string, GlobalData> globalData { get; set; } = new Dictionary<string, GlobalData>();
+    public Dictionary<string, object> globalData { get; set; } = new Dictionary<string, object>();
 }

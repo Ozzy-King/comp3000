@@ -1,0 +1,77 @@
+include: [ main.yaml, other.yaml, LevelsShared.yaml ]
+fileProperties:
+  creatorName: <NAME>
+  
+sceneName: EmptyWorld
+postProcessing:
+  depthOfField: { enabled: false, focusDistance: 58, focalLength: 0.0, aperture: 1.0 }
+grid: |
+  AA,BA,CA,DA,EA,FA,GA
+  AB,BB,CB,DB,EB,FB,GB
+  AC,BC,CC,DC,EC,FC,GC
+  AD,BD,CD,DD,ED,FD,GD
+  AE,BE,CE,DE,EE,FE,GE
+  AF,BF,CF,DF,EF,FF,GF
+  AG,BG,CG,DG,EG,FG,GG
+
+gridObjects:
+
+  AA: []
+  BA: [brick_wall_s]
+  CA: [brick_wall_s]
+  DA: []
+  EA: []
+  FA: []
+  GA: []
+
+  AB: [brick_wall_e]
+  BB: [floorEndR, p1]
+  CB: [floorEndR]
+  DB: []
+  EB: []
+  FB: []
+  GB: []
+
+  AC: [brick_wall_e]
+  BC: [floorEndL, p2]
+  CC: [floorEndL]
+  DC: []
+  EC: []
+  FC: []
+  GC: []
+
+  AD: []
+  BD: []
+  CD: []
+  DD: [power_bucket]
+  ED: []
+  FD: []
+  GD: []
+
+  AE: []
+  BE: []
+  CE: []
+  DE: []
+  EE: []
+  FE: []
+  GE: []
+
+  AF: []
+  BF: []
+  CF: []
+  DF: []
+  EF: []
+  FF: []
+  GF: []
+
+  AG: []
+  BG: []
+  CG: []
+  DG: []
+  EG: []
+  FG: []
+  GG: [floorEndL, floorEndR]
+
+objectDefinitions:
+sounds:
+globalData:

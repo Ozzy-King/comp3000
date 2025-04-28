@@ -1,0 +1,181 @@
+include:
+- LevelsShared.yaml
+fileProperties:
+  creatorName: <NAME>
+sceneName: EmptyWorld
+postProcessing:
+  depthOfField:
+    enabled: false
+    focusDistance: 58
+    focalLength: 0
+    aperture: 1
+grid: >
+  AA,BA,CA,DA,EA,FA,GA,HA,IA
+
+  AB,BB,CB,DB,EB,FB,GB,HB,IB
+
+  AC,BC,CC,DC,EC,FC,GC,HC,IC
+
+  AD,BD,CD,DD,ED,FD,GD,HD,ID
+
+  AE,BE,CE,DE,EE,FE,GE,HE,IE
+
+  AF,BF,CF,DF,EF,FF,GF,HF,IF
+
+  AG,BG,CG,DG,EG,FG,GG,HG,IG
+
+  AH,BH,CH,DH,EH,FH,GH,HH,IH
+gridObjects:
+  AA:
+  - gm
+  BA: []
+  CA: []
+  DA: []
+  EA: []
+  FA: []
+  GA: []
+  HA: []
+  IA: []
+  AB: []
+  BB:
+  - brick_wall_s
+  CB:
+  - brick_wall_s
+  DB:
+  - brick_wall_s
+  EB:
+  - brick_wall_s
+  FB:
+  - brick_wall_s
+  GB:
+  - brick_wall_s
+  HB:
+  - brick_wall_s
+  IB: []
+  AC:
+  - brick_wall_e
+  BC:
+  - floorEndR
+  CC:
+  - floorEndR
+  DC:
+  - floorEndR
+  - leverYFloorN
+  EC:
+  - floorEndR
+  FC:
+  - floorEndR
+  - leverFloorEDown
+  GC:
+  - floorEndR
+  HC:
+  - floorEndR
+  IC:
+  - floorCornerR
+  AD:
+  - brick_wall_e
+  BD:
+  - floor
+  - VAT110
+  CD:
+  - floor
+  DD:
+  - floor
+  ED:
+  - floor
+  FD:
+  - floor
+  GD:
+  - floor
+  HD:
+  - floor
+  ID:
+  - floor
+  AE: []
+  BE:
+  - floor
+  - conveyorNorth
+  CE:
+  - floor
+  DE:
+  - floor
+  - p2
+  EE:
+  - floor
+  FE:
+  - floor
+  - frankTable_n
+  GE:
+  - floor
+  HE:
+  - floor
+  IE:
+  - floor
+  AF: []
+  BF:
+  - floor
+  - conveyorNorth
+  CF:
+  - floor
+  - legCrate
+  DF:
+  - floor
+  EF:
+  - floor
+  FF:
+  - floor
+  GF:
+  - floor
+  HF:
+  - floor
+  IF:
+  - floor
+  - torsoCrate
+  AG: []
+  BG:
+  - conveyorNorth
+  CG:
+  - floor
+  - brick_wall_interior_s
+  - armCrate
+  DG:
+  - floor
+  - brick_wall_interior_s
+  EG:
+  - floor
+  - brick_wall_interior_s
+  - headCrate
+  FG:
+  - floor
+  - brick_wall_interior_s
+  GG:
+  - floor
+  - brick_wall_interior_s
+  HG:
+  - floor
+  - metalWallSYellowDown
+  IG:
+  - floor
+  - brick_wall_interior_s
+  AH: []
+  BH:
+  - floorEndL
+  - conveyorNorth
+  CH:
+  - floorEndL
+  DH:
+  - floorEndL
+  - p1
+  EH:
+  - floorEndL
+  FH:
+  - floorEndL
+  GH:
+  - floorEndL
+  HH:
+  - floorEndL
+  IH:
+  - floorCornerL
+objectDefinitions: 
+sounds: 
+globalData: 

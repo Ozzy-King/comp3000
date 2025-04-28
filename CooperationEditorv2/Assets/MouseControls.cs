@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MouseControls : MonoBehaviour
@@ -9,6 +10,43 @@ public class MouseControls : MonoBehaviour
     //holds all information on resources avaliable
     [SerializeField]
     GlobalResources globalResources;
+
+    Vector3 beginDrag = Vector3.zero;
+    Vector3 endDrag = Vector3.zero;
+
+    [SerializeField]
+    GameObject hoverTextTemplate;
+    GameObject hoverTextOBJ = null;
+
+    public GameObject cellCube;
+
+    void addHoverText(Vector3 pos)
+    {
+        if (hoverTextOBJ == null) {
+            hoverTextOBJ = Instantiate(hoverTextTemplate);
+            hoverTextOBJ.transform.position = pos + new Vector3(0, 10, 0);
+            hoverTextOBJ.AddComponent<BillboardScript>();
+        }
+    }
+    void removeHoverText() {
+        if (hoverTextOBJ != null)
+        {
+            Destroy(hoverTextOBJ);
+            hoverTextOBJ = null;
+        }
+    }
+    void setHoverText(string text) {
+        if (hoverTextOBJ != null) {
+            hoverTextOBJ.GetComponent<TMP_Text>().text = text;
+        }
+    }
+    void setHoverTextPos(Vector3 pos) {
+        if (hoverTextOBJ != null) {
+            hoverTextOBJ.transform.position = pos + new Vector3(0, 10, 0);
+        }
+    }
+
+    
     [SerializeField]
     Camera cam;
     Vector3 oldMouse;
@@ -36,7 +74,7 @@ public class MouseControls : MonoBehaviour
             List<Material> materials = new List<Material>(ch.materials);
             if (!materials.Exists(x => x.shader == mat.shader))
             {
-                materials.Add(new Material(mat));
+                materials.Add(mat);
                 ch.materials = materials.ToArray();
             }
         }
@@ -45,7 +83,7 @@ public class MouseControls : MonoBehaviour
             List<Material> materials = new List<Material>(ch.materials);
             if (!materials.Exists(x => x.shader == mat.shader))
             {
-                materials.Add(new Material(mat));
+                materials.Add(mat);
                 ch.materials = materials.ToArray();
             }
         }
@@ -54,7 +92,7 @@ public class MouseControls : MonoBehaviour
             List<Material> materials = new List<Material>(ch.materials);
             if (!materials.Exists(x => x.shader == mat.shader))
             {
-                materials.Add(new Material(mat));
+                materials.Add(mat);
                 ch.materials = materials.ToArray();
             }
         }
@@ -66,6 +104,7 @@ public class MouseControls : MonoBehaviour
         MeshRenderer[] childrenMeshRendere = obj.GetComponentsInChildren<MeshRenderer>();
         SpriteRenderer[] childrenSpriteRendere = obj.GetComponentsInChildren<SpriteRenderer>();
         SkinnedMeshRenderer[] childrenskinnedMeshRendere = obj.GetComponentsInChildren<SkinnedMeshRenderer>();
+        Material matToDelete;
         foreach (MeshRenderer ch in childrenMeshRendere)
         {
             List<Material> newMat = new List<Material>(ch.materials);
@@ -133,13 +172,17 @@ public class MouseControls : MonoBehaviour
         Vector3 HitWorldPosition = ray.origin + (ray.direction * objToYzero);
         HitWorldPosition = new Vector3((Mathf.FloorToInt(HitWorldPosition.x) / 2) * 2, 0, (Mathf.FloorToInt(HitWorldPosition.z) / 2) * 2);
 
+        cellCube.transform.position = HitWorldPosition + new Vector3(0,1,0);
+
         //cast ray to y = 0
         bool didHit = Physics.Raycast(ray, out rayHit, distance);
 
         //need to add object create function that sets up the object and return the top perant object
+        //while holding e
         if (Input.GetKey(KeyCode.E))
         {
             placeing = true;
+            //if its the first time pressing e
             if (Input.GetKeyDown(KeyCode.E))
             {
                 removeMaterial(lastHoverObj, globalResources._hoverObj);
@@ -147,8 +190,12 @@ public class MouseControls : MonoBehaviour
 
                 setLastHoverObj(globalResources.createObject(globalResources.CurrentObjectSelectID));
                 addMaterial(lastHoverObj, globalResources._hoverObj);
+
+                removeHoverText();
             }
+            //move object to mouse position
             lastHoverObj.transform.position = HitWorldPosition;
+            //if clicked place objectand create a new one to move to mouse position
             if (Input.GetMouseButtonDown(0)) {
                 removeMaterial(lastHoverObj, globalResources._hoverObj);
                 removeMaterial(lastHoverObj, globalResources._selectrObj);
@@ -160,6 +207,7 @@ public class MouseControls : MonoBehaviour
         }
         else
         {
+            //if coming out of holding e delete object and reset placeing bool
             if (placeing == true) {
                 removeMaterial(lastHoverObj, globalResources._hoverObj);
                 removeMaterial(lastHoverObj, globalResources._selectrObj);
@@ -167,8 +215,10 @@ public class MouseControls : MonoBehaviour
                 lastHoverObj = null;
             }
             placeing=false;
+            //if mouse button is being held down
             if (Input.GetMouseButton(0))
             {
+                //if there is a object that was hit by the mouse ray
                 if (lastHoverObj != null)
                 {
                     removeMaterial(lastHoverObj, globalResources._hoverObj);
@@ -176,25 +226,50 @@ public class MouseControls : MonoBehaviour
                     addMaterial(lastHoverObj, globalResources._selectrObj);
 
                     lastHoverObj.transform.position = HitWorldPosition;
-                }
-                if (Input.GetKeyDown(KeyCode.Q)) {
-                    globalResources.CurrentLevel.Remove(lastHoverObj);
-                    Destroy(lastHoverObj);
-                    lastHoverObj=null;
+                    setHoverTextPos(lastHoverObj.transform.position);
                 }
             }
+            //if mouse button isnt held and the ray did hit, set hit obejct to last hover
             else if (didHit)
             {
+                //if right mouse is click over object delete(can be held down with no side effects)
                 removeMaterial(lastHoverObj, globalResources._hoverObj);
                 removeMaterial(lastHoverObj, globalResources._selectrObj);
                 setLastHoverObj(rayHit.transform.gameObject);
                 addMaterial(lastHoverObj, globalResources._hoverObj);
+
+                //create hovertextOBJ
+                addHoverText(lastHoverObj.transform.position);
+                setHoverTextPos(lastHoverObj.transform.position);
+                setHoverText(lastHoverObj.name);
+
+                //if right mouse buttons is clicked
+                if (Input.GetMouseButtonDown(1)) {
+                    globalResources.CurrentLevel.Remove(lastHoverObj);
+                    Destroy(lastHoverObj);
+                    lastHoverObj = null;
+                    removeHoverText();
+                }
+
+                //if moddle mouse button is clicked
+                if (Input.GetMouseButtonDown(2)) {
+                    beginDrag = newMouse;
+                }
+                else if (Input.GetMouseButtonUp(2)) {
+                    endDrag = newMouse;
+                    if (Vector3.Distance(beginDrag, endDrag) <= 0.5f) {
+                        globalResources.CurrentObjectSelectID = lastHoverObj.name;
+                    }
+                }
+
             }
+            //else remove hover mats from object and set last hover to null
             else
             {
                 removeMaterial(lastHoverObj, globalResources._hoverObj);
                 removeMaterial(lastHoverObj, globalResources._selectrObj);
                 setLastHoverObj(null);
+                removeHoverText();//remove hover text
             }
         }
         //used for when it hits

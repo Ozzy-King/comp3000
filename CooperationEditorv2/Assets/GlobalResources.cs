@@ -20,10 +20,35 @@ public class GlobalResources : MonoBehaviour
     [SerializeField]
     LevelLoader levelLoader;
     [SerializeField]
+    LevelExporter levelExporter;
+    [SerializeField]
     ItemPopulater populater;
 
+    public Texture2D HourGlassIcon;
+
+    [SerializeField]
+    GameObject objectCachePerant; //<--------set in editor
+    Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
+    Dictionary<string, GameObject> objectCache = new Dictionary<string, GameObject>();
+
     public GameObject ImportGLTF(string filepath) {
-        return Importer.LoadFromFile(filepath);
+        string filename = filepath.Split("/")[^1];
+        if (objectCache.ContainsKey(filename))
+        {
+            return Instantiate(objectCache[filename]);
+        }
+        if (!File.Exists(filepath)) { 
+            return Instantiate(placeHolder); 
+        }
+
+        GameObject newObj = Importer.LoadFromFile(filepath);
+
+        GameObject tempSave = Instantiate(newObj);
+        tempSave.transform.position = new Vector3(100, 1000, 100);
+        tempSave.transform.parent = objectCachePerant.transform;
+        objectCache.Add(filename, tempSave);
+        
+        return newObj;
     }
     public GameObject ImportImage(string filepath) {
         //create quad object
@@ -33,14 +58,20 @@ public class GlobalResources : MonoBehaviour
 
         //create texture variables and populate them with right data
         Texture2D Tex2D;
-        if (!File.Exists(filepath)) { return BillboardObject; }
-        
-        //create sprite and set mertial to 
-        byte[] FileData = File.ReadAllBytes(filepath);
-        Tex2D = new Texture2D(2, 2);
-        Tex2D.LoadImage(FileData);
-        quadMeshRenderer.material.mainTexture = Tex2D;
+        string filename = filepath.Split("/")[^1];
+        if (textureCache.ContainsKey(filename)) { 
+            Tex2D = textureCache[filename]; 
+        }
+        else {
+            if (!File.Exists(filepath)) { return BillboardObject; }
 
+            //create sprite and set mertial to 
+            byte[] FileData = File.ReadAllBytes(filepath);
+            Tex2D = new Texture2D(2, 2);
+            Tex2D.LoadImage(FileData);
+            textureCache.Add(filename, Tex2D);
+        }
+        quadMeshRenderer.material.mainTexture = Tex2D;
         // Enable transparency
         quadMeshRenderer.material.SetFloat("_Mode", 3); // 3 = Transparent mode in Standard shader
         quadMeshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
@@ -64,7 +95,7 @@ public class GlobalResources : MonoBehaviour
         return BillboardObject;
     }
 
-    public string workingDirectory = ".\\testing";
+    public string workingDirectory = "./testing";
     public const string levelDir = "/Levels";
     public const string codeDir = "/Code";
     public const string artDir = "/Art";
@@ -72,8 +103,13 @@ public class GlobalResources : MonoBehaviour
     public const string art2dDir = "/2D";
     public string LevelName = "Level_1_players_2.yaml";
 
+    public TMP_Dropdown levelDropdown;
 
 
+    public List<string> ExternalIncludes;
+
+
+    public List<string> allIncludes = new List<string>();
     public LevelFile levelFile;
     public Dictionary<string, ObjectClass> allObjects = new Dictionary<string, ObjectClass>();
     public int levelWidth;
@@ -85,14 +121,7 @@ public class GlobalResources : MonoBehaviour
 
     public bool LoadedEverything = false;
 
-    //the input for the path and file being loaded and saved to
-    public GameObject inputFilePath;
 
-
-    //lua scripts loaded by luaScriptLoader
-    [SerializeField]
-    GameObject _LuaDropDown;//object holdering dropdown
-    TMP_Dropdown LuaDropDown;//actual dropdown
 
     //outlines used for visual feed back to user
     public Material _hoverObj;
@@ -102,64 +131,197 @@ public class GlobalResources : MonoBehaviour
     //-------------------------------------used for current object manipulation
     //current object selected and if its being picked up or i sa new place
     public GameObject CurrentObjectSelect;
-    public string CurrentObjectSelectID;
+    public string CurrentObjectSelectID = "";
     public bool pickedup = false;
-
-    //gets called onchange of dropdown selection
-    public void objectChange() {
-
-    }
-
-    public void objectPlace()
-    {
-
-    }
-
-
-    public void objectSet(GameObject obj) {
-
-    }
     //------------------------------------------
+    void cleanImageCache()
+    {
+        string[] keys = textureCache.Keys.ToArray();
+        for (int i =0; i < keys.Length; i++) {
+            Destroy(textureCache[keys[i]]);
+        }
+        textureCache.Clear();
+    }
+    void cleanObjectsCache() {
+        string[] keys = objectCache.Keys.ToArray();
+        for (int i = 0; i < keys.Length; i++)
+        {
+            Destroy(objectCache[keys[i]]);
+        }
+        objectCache.Clear();
+    }
+    void OnApplicationQuit()
+    {
+        //reset all data holders.
+        pickedup = false;
+        LoadedEverything = false;
+        levelFile = null;
+        allObjects.Clear();
+        level.Clear();
+
+        cleanObjectsCache();
+
+        for (int i = CurrentLevel.Count - 1; i >= 0; i--)
+        {
+            Destroy(CurrentLevel[i]);
+        }
+        CurrentLevel.Clear();
+
+        cleanImageCache();
+
+        allIncludes.Clear();
+    }
 
     //------------------------------------attribute manipulation
     public GameObject attributeTable;
-    public 
+
+    //------------------------------------load external Object Files
+    public void loadNewIncludes() {
+        //check file exists
+        string fileName = IncludeInputFeild.GetComponent<TMP_InputField>().text;
+        string fullPath = workingDirectory + GlobalResources.levelDir + "/" + fileName;
+        if (!File.Exists(fullPath) || allIncludes.Contains(fileName)) { return; }
+
+        //import the new inlcude file
+        levelLoader.importExternalIncludes(fileName);
+
+        //add new inlcude file to levelFile
+        levelFile.include.Add(fileName);
+        allIncludes.Add(fileName);
+
+        StartCoroutine(populater.populateScrollView());
+
+    }
+
+    //------------------------------------screenButtons <--------------all set in editor
+    [SerializeField]
+    GameObject LoadButton;
+    [SerializeField]
+    GameObject LoadNewButton;
+    [SerializeField]
+    GameObject ReloadButton;
+    [SerializeField]
+    GameObject SaveButton;
+
+    [SerializeField]
+    GameObject IncludeAddButton;
+    [SerializeField]
+    GameObject IncludeInputFeild;
+
+    [SerializeField]
+    GameObject placeingObjectText;
+
+    //the input for the path and file being loaded and saved to
+    public GameObject inputFilePath;
+
+
+    public void populateLevelDropDown()
+    {
+        levelDropdown.ClearOptions();
+        LoadButton.GetComponent<Button>().interactable = false;
+        
+        string workingDir = inputFilePath.GetComponent<TMP_InputField>().text;
+        if (!Directory.Exists(workingDir)) { return; }
+
+        LoadButton.GetComponent<Button>().interactable = true;
+        List<string> filenames = new List<string>(Directory.GetFiles(workingDir + levelDir, "*.yaml"));
+        for (int i = 0; i < filenames.Count; i++) {
+            filenames[i] = filenames[i].Split(Path.DirectorySeparatorChar)[^1];
+        }
+        levelDropdown.AddOptions(filenames);
+    }
+
+
+
+    public void LoadNewLevel() {
+        OnApplicationQuit();
+
+        LoadedEverything = false;
+
+        LoadNewButton.SetActive(false);
+        LoadButton.SetActive(true);
+        inputFilePath.GetComponent<TMP_InputField>().interactable = true;
+        levelDropdown.interactable = true;
+
+        ReloadButton.GetComponent<Button>().interactable = false;
+        SaveButton.GetComponent<Button>().interactable = false;
+    }
+    public void reloadLevel() {
+        levelExporter.saveLevel();
+        start();
+    }
+
 
     // Start is called before the first frame update
     void start()
     {
+        //reset all data holders.
+        pickedup = false;
+        levelFile = null;
+        allObjects.Clear();
+        level.Clear();
+        for (int i = CurrentLevel.Count-1; i >= 0; i--) {
+            Destroy(CurrentLevel[i]);
+        }
+        CurrentLevel.Clear();
+        LoadedEverything = false;
+
         string path_FileName = inputFilePath.GetComponent<TMP_InputField>().text;
-        LevelName = path_FileName.Split("/")[^1];
-        workingDirectory = path_FileName.Replace("/"+LevelName, "") ;
+        LevelName = levelDropdown.options[levelDropdown.value].text;
+        workingDirectory = path_FileName;
 
         if (levelLoader.INIT() == 1) { return; }
         if (levelLoader.loadLevel() == 1){ return; }
         if (levelLoader.LoadObjects()==1) { return; }
         if (levelLoader.parseLevel()==1) { return; }
-        CurrentObjectSelectID = allObjects.Keys.First();
+        if (allObjects.Count != 0) { 
+            CurrentObjectSelectID = allObjects.Keys.First();
+        }
 
+        Cursor.SetCursor(HourGlassIcon, Vector2.zero, CursorMode.ForceSoftware); //set cursor to hourglass to show loading
         //place objects in scene from level
+        StartCoroutine(formLevelObjs());
 
-        for (int y = 0, c = 0; y < level.Count/ levelWidth; y++) { //loop throuhg the y
-            for (int x = 0; x < levelWidth; x++, c++) { //loop throuhg the c
+        //Debug.Log(levelFile.grid);
+        StartCoroutine(populater.populateScrollView());
+
+    }
+
+    public IEnumerator formLevelObjs() {
+
+        LoadButton.SetActive(false);
+        inputFilePath.GetComponent<TMP_InputField>().interactable = false;
+        levelDropdown.interactable = false;
+        int camYpos = (level.Count / levelWidth)*2, camXpos = levelWidth*2;
+        for (int y = 0, c = 0; y < level.Count / levelWidth; y++)
+        { //loop throuhg the y
+            for (int x = 0; x < levelWidth; x++, c++)
+            { //loop throuhg the c
                 Vector2 newPos = new Vector2((x * 2), (y * 2));
 
                 //TODO if a defintion has no object or image then replace with billboard spite of definition name
-                foreach ((string name, ObjectClass obj) in level[c]) {  //loop each object in each cell
+                foreach ((string name, ObjectClass obj) in level[c])
+                {  //loop each object in each cell
                     GameObject HolderObj = new GameObject();//holds al the models for object
                     HolderObj.AddComponent<ObjectAttributes>().objectName = name;
                     HolderObj.name = name;
                     HolderObj.transform.position = new Vector3(newPos.y, 0, newPos.x);
 
+                    bool visible = false;
                     //take account of base obejcts, id and mapObject wont work as both can get resolved to in game objects uavaliable for viewing
-                    if (obj._base.Count > 0) {
-                        foreach (string baseObj in obj._base) {
-                            instintateObj(baseObj, allObjects[baseObj], newPos, HolderObj);
+                    if (obj._base != null && obj._base.Count > 0)
+                    {
+                        foreach (string baseObj in obj._base)
+                        {
+                            bool visCheck = instintateObjAsBase(baseObj, allObjects[baseObj], newPos, HolderObj, obj.DirToAngle());
+                            if (visCheck && !visible)
+                            {
+                                visible = true;
+                            }
                         }
                     }
 
                     //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
-                    bool visible = false;
                     //import each object used
                     if (obj.art3d != null)
                     {
@@ -197,7 +359,7 @@ public class GlobalResources : MonoBehaviour
                             Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
 
                             Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
-                            Debug.Log(obj.dir);
+                            ////Debug.Log(obj.dir);
                             Temp.transform.parent = HolderObj.transform;
                         }
                     }
@@ -216,9 +378,9 @@ public class GlobalResources : MonoBehaviour
                             //CenterPivotAtBottomMiddle(Temp);
 
                             Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
-                            
+
                             Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
-                            
+
                             Temp.transform.rotation = Quaternion.Euler(0, -90, 0);//rotate around y to get it into north east south west
                             Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
                             Temp.transform.Rotate(new Vector3(-objsArt.rot.x, objsArt.rot.y, -objsArt.rot.z));//added roation for inital direction
@@ -232,40 +394,59 @@ public class GlobalResources : MonoBehaviour
 
                             //use this to support billboarding
                             //if billboard or not quad(dafault to billboard if invalid)
-                            if (objsArt.displayType == "billboard" || objsArt.displayType != "quad") {
+                            if (objsArt.displayType == "billboard" || objsArt.displayType != "quad")
+                            {
                                 Temp.AddComponent<BillboardScript>();
                             }
 
-                            Debug.Log(obj.dir);
+                            //Debug.Log(obj.dir);
                             Temp.transform.parent = HolderObj.transform;
                         }
                     }
-                    if (!visible) {
+                    if (!visible)
+                    {
                         GameObject Temp = Instantiate(placeHolder);
                         Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
                         Temp.transform.parent = HolderObj.transform;
                     }
                     CurrentLevel.Add(HolderObj);
+                    
+                    
                 }
             }
+            yield return new WaitForSeconds(0.01f);
         }
-   
-        Debug.Log(levelFile.grid);
+
         LoadedEverything = true;
-        StartCoroutine(populater.populateScrollView());
+
+
+        LoadNewButton.SetActive(true);
+
+        ReloadButton.GetComponent<Button>().interactable = true;
+        SaveButton.GetComponent<Button>().interactable = true;
+
+        Camera.main.transform.position = new Vector3(camYpos, Camera.main.transform.position.y, camXpos);
+
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware); //reset curous to default
+        yield return null;
     }
 
-    public Bounds instintateObj(string name, ObjectClass obj, Vector3 newPos, GameObject HolderObj) {
+
+    //when and object is used as a base it will take on the perant dir instead of the objects dir
+    //used as generic and ashelp centre camer to object when taking picktures
+    //returns if visible
+    //false for invisible -- true for visisble
+    public bool instintateObjAsBase(string name, ObjectClass obj, Vector3 newPos, GameObject HolderObj, float rotateDir = 0)
+    {
 
         //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
         bool visible = false;
-        Bounds bounds = new Bounds();
         //take account of base obejcts, id and mapObject wont work as both can get resolved to in game objects uavaliable for viewing
         if (obj._base.Count > 0)
         {
             foreach (string baseObj in obj._base)
             {
-                bounds.Encapsulate(instintateObj(baseObj, allObjects[baseObj], newPos, HolderObj));
+                instintateObjAsBase(baseObj, allObjects[baseObj], newPos, HolderObj, rotateDir);
             }
         }
 
@@ -286,7 +467,109 @@ public class GlobalResources : MonoBehaviour
                     // Create a new mesh and bake the skinned mesh into it
                     Mesh bakedMesh = new Mesh();
                     skinnedRenderer.BakeMesh(bakedMesh);
-                    Debug.LogError(bakedMesh.vertexCount);
+                    //Debug.LogError(bakedMesh.vertexCount);
+                    // Assign the baked mesh to the Mesh Collider
+                    col.sharedMesh = null; // Clear old mesh reference
+                    col.sharedMesh = bakedMesh;
+                }
+            }
+
+            Temp.name = obj.dir;
+
+            //CenterPivotAtBottomMiddle(Temp);
+
+            Temp.transform.position = new Vector3(newPos.y, newPos.z, newPos.x);
+
+            Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+            Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(0, rotateDir, 0));//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+
+            Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+            //Debug.Log(obj.dir);
+            Temp.transform.parent = HolderObj.transform;
+        }
+        foreach (Art2d objsArt in obj.art2d)
+        {
+            visible = true;
+            GameObject Temp = ImportImage(workingDirectory + artDir + art2dDir + "/" + objsArt.texture);
+            Temp.AddComponent<ObjectAttributes>().attributes2d = objsArt;
+            MeshCollider collider = Temp.GetComponent<MeshCollider>();
+            collider.isTrigger = true;
+
+            Temp.name = obj.dir;
+
+            //CenterPivotAtBottomMiddle(Temp);
+
+            Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
+
+            Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+
+            Temp.transform.rotation = Quaternion.Euler(0, -90, 0);//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(-objsArt.rot.x, objsArt.rot.y, -objsArt.rot.z));//added roation for inital direction
+
+            Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+
+            MeshRenderer quadMeshRenderer = Temp.GetComponent<MeshRenderer>();
+            quadMeshRenderer.material.SetFloat("_Metallic", objsArt.metallic); // 3 = Transparent mode in Standard shader
+            quadMeshRenderer.material.SetFloat("_Glossiness", objsArt.smoothness); // 3 = Transparent mode in Standard shader
+
+
+            //use this to support billboarding
+            //if billboard or not quad(dafault to billboard if invalid)
+            if (objsArt.displayType == "billboard" || objsArt.displayType != "quad")
+            {
+                Temp.AddComponent<BillboardScript>();
+            }
+            //Debug.Log(obj.dir);
+            Temp.transform.parent = HolderObj.transform;
+        }
+        if (!visible)
+        {
+            GameObject Temp = Instantiate(placeHolder);
+            Temp.transform.position = new Vector3(newPos.y, newPos.z, newPos.x);
+            Temp.transform.parent = HolderObj.transform;
+        }
+        return visible; //false for invisible -- true for visisble
+    }
+
+
+
+
+    //used as generic and ashelp centre camer to object when taking picktures
+    public Bounds instintateObj(string name, ObjectClass obj, Vector3 newPos, GameObject HolderObj, float rotateDir = 0) {
+
+        //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
+        bool visible = false;
+        Bounds bounds = new Bounds();
+        //take account of base obejcts, id and mapObject wont work as both can get resolved to in game objects uavaliable for viewing
+        if (obj._base.Count > 0)
+        {
+            foreach (string baseObj in obj._base)
+            {
+                bounds.Encapsulate(instintateObj(baseObj, allObjects[baseObj], newPos, HolderObj, rotateDir));
+            }
+        }
+
+        //import each object used
+        foreach (Art3d objsArt in obj.art3d)
+        {
+            visible = true;
+            GameObject Temp = ImportGLTF(workingDirectory + "/" + objsArt.model);
+            Temp.AddComponent<ObjectAttributes>().attributes3d = objsArt;
+            foreach (Renderer rend in Temp.GetComponentsInChildren<Renderer>())
+            {
+                MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
+                col.convex = true;
+                col.isTrigger = true;
+                SkinnedMeshRenderer skinnedRenderer = rend as SkinnedMeshRenderer;
+                if (skinnedRenderer != null)
+                {
+                    // Create a new mesh and bake the skinned mesh into it
+                    Mesh bakedMesh = new Mesh();
+                    skinnedRenderer.BakeMesh(bakedMesh);
+                    //Debug.LogError(bakedMesh.vertexCount);
                     // Assign the baked mesh to the Mesh Collider
                     col.sharedMesh = null; // Clear old mesh reference
                     col.sharedMesh = bakedMesh;
@@ -302,11 +585,12 @@ public class GlobalResources : MonoBehaviour
 
             Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
             Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+            Temp.transform.Rotate(new Vector3(0, rotateDir, 0));//rotate around y to get it into north east south west
             Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
             Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
 
             Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
-            Debug.Log(obj.dir);
+            //Debug.Log(obj.dir);
             Temp.transform.parent = HolderObj.transform;
         }
         foreach (Art2d objsArt in obj.art2d)
@@ -314,25 +598,37 @@ public class GlobalResources : MonoBehaviour
             visible = true;
             GameObject Temp = ImportImage(workingDirectory + artDir + art2dDir + "/" + objsArt.texture);
             Temp.AddComponent<ObjectAttributes>().attributes2d = objsArt;
-            
-            BoxCollider collider = Temp.AddComponent<BoxCollider>();
-            bounds.Encapsulate(collider.bounds);
-
+            MeshCollider collider = Temp.GetComponent<MeshCollider>();
             collider.isTrigger = true;
+            bounds.Encapsulate(collider.bounds);
 
             Temp.name = obj.dir;
 
             //CenterPivotAtBottomMiddle(Temp);
 
-            Temp.transform.position = new Vector3(newPos.y, newPos.z, newPos.x);
+            Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
 
             Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
-            Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+
+            Temp.transform.rotation = Quaternion.Euler(0, -90, 0);//rotate around y to get it into north east south west
             Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
-            Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+            Temp.transform.Rotate(new Vector3(-objsArt.rot.x, objsArt.rot.y, -objsArt.rot.z));//added roation for inital direction
 
             Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
-            Debug.Log(obj.dir);
+
+            MeshRenderer quadMeshRenderer = Temp.GetComponent<MeshRenderer>();
+            quadMeshRenderer.material.SetFloat("_Metallic", objsArt.metallic); // 3 = Transparent mode in Standard shader
+            quadMeshRenderer.material.SetFloat("_Glossiness", objsArt.smoothness); // 3 = Transparent mode in Standard shader
+
+
+            //use this to support billboarding
+            //if billboard or not quad(dafault to billboard if invalid)
+            if (objsArt.displayType == "billboard" || objsArt.displayType != "quad")
+            {
+                Temp.AddComponent<BillboardScript>();
+            }
+
+            //Debug.Log(obj.dir);
             Temp.transform.parent = HolderObj.transform;
         }
         if (!visible)
@@ -342,97 +638,124 @@ public class GlobalResources : MonoBehaviour
             Temp.transform.parent = HolderObj.transform;
             bounds.Encapsulate(Temp.GetComponent<Collider>().bounds);
         }
+
         return bounds;
     }
 
 
 
-    public GameObject createObject(string name) {
+
+    //used by mouse to create new visual when placeing
+    public GameObject createObject(string name)
+    {
+        Vector3 newPos = new Vector3(0, 0, 0);
 
         ObjectClass obj = allObjects[name];
-
         GameObject HolderObj = new GameObject();//holds al the models for object
         HolderObj.AddComponent<ObjectAttributes>().objectName = name;
         HolderObj.name = name;
-        HolderObj.transform.position = new Vector3(0, 0, 0);
+        HolderObj.transform.position = new Vector3(newPos.y, 0, newPos.x);
 
-        //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
         bool visible = false;
-
         //take account of base obejcts, id and mapObject wont work as both can get resolved to in game objects uavaliable for viewing
-        if (obj._base.Count > 0)
+        if (obj._base != null && obj._base.Count > 0)
         {
             foreach (string baseObj in obj._base)
             {
-                instintateObj(baseObj, allObjects[baseObj], new Vector2(0, 0), HolderObj);
-            }
-        }
-
-        //import each object used
-        foreach (Art3d objsArt in obj.art3d)
-        {
-            visible = true;
-            GameObject Temp = ImportGLTF(workingDirectory + "/" + objsArt.model);
-            Temp.AddComponent<ObjectAttributes>().attributes3d = objsArt;
-            foreach (Renderer rend in Temp.GetComponentsInChildren<Renderer>())
-            {
-                MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
-                col.convex = true;
-                col.isTrigger = true;   
-                SkinnedMeshRenderer skinnedRenderer = rend as SkinnedMeshRenderer;
-                if (skinnedRenderer != null) {
-                    // Create a new mesh and bake the skinned mesh into it
-                    Mesh bakedMesh = new Mesh();
-                    skinnedRenderer.BakeMesh(bakedMesh);
-                    Debug.LogError(bakedMesh.vertexCount);
-                    // Assign the baked mesh to the Mesh Collider
-                    col.sharedMesh = null; // Clear old mesh reference
-                    col.sharedMesh = bakedMesh;
+                bool visCheck = instintateObjAsBase(baseObj, allObjects[baseObj], newPos, HolderObj, obj.DirToAngle());
+                if (visCheck && !visible)
+                {
+                    visible = true;
                 }
             }
-
-            Temp.name = obj.dir;
-
-            //CenterPivotAtBottomMiddle(Temp);
-
-            Temp.transform.position = new Vector3(0, 0, 0);
-
-            Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
-            Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
-            Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
-            Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
-
-            Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
-            Debug.Log(obj.dir);
-            Temp.transform.parent = HolderObj.transform;
         }
-        foreach (Art2d objsArt in obj.art2d)
+
+        //display obejcst and images, if nothing renders then palceholder(capsule) to show the object
+        //import each object used
+        if (obj.art3d != null)
         {
-            visible = true;
-            GameObject Temp = ImportImage(workingDirectory + artDir + art2dDir + "/" + objsArt.texture);
-            Temp.AddComponent<ObjectAttributes>().attributes2d = objsArt;
-            BoxCollider collider = Temp.AddComponent<BoxCollider>();
-            collider.isTrigger = true;
+            foreach (Art3d objsArt in obj.art3d)
+            {
+                visible = true;
+                GameObject Temp = ImportGLTF(workingDirectory + "/" + objsArt.model);
+                Temp.AddComponent<ObjectAttributes>().attributes3d = objsArt;
+                foreach (Renderer rend in Temp.GetComponentsInChildren<Renderer>())
+                {
+                    MeshCollider col = rend.transform.gameObject.AddComponent<MeshCollider>();
+                    col.convex = true;
+                    col.isTrigger = true;
+                    SkinnedMeshRenderer skinnedRenderer = rend as SkinnedMeshRenderer;
+                    if (skinnedRenderer != null)
+                    {
+                        // Create a new mesh and bake the skinned mesh into it
+                        Mesh bakedMesh = new Mesh();
+                        skinnedRenderer.BakeMesh(bakedMesh);
+                        // Assign the baked mesh to the Mesh Collider
+                        col.sharedMesh = null; // Clear old mesh reference
+                        col.sharedMesh = bakedMesh;
+                    }
+                }
 
-            Temp.name = obj.dir;
+                Temp.name = obj.dir;
 
-            //CenterPivotAtBottomMiddle(Temp);
+                //CenterPivotAtBottomMiddle(Temp);
 
-            Temp.transform.position = new Vector3(0, 0, 0);
+                Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
 
-            Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
-            Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
-            Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
-            Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
+                Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+                Temp.transform.rotation = Quaternion.Euler(0, 90, 0);//rotate around y to get it into north east south west
+                Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
+                Temp.transform.Rotate(new Vector3(objsArt.rot.x, objsArt.rot.y, objsArt.rot.z));//added roation for inital direction
 
-            Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
-            Debug.Log(obj.dir);
-            Temp.transform.parent = HolderObj.transform;
+                Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+                //Debug.Log(obj.dir);
+                Temp.transform.parent = HolderObj.transform;
+            }
+        }
+        if (obj.art2d != null)
+        {
+            foreach (Art2d objsArt in obj.art2d)
+            {
+                visible = true;
+                GameObject Temp = ImportImage(workingDirectory + artDir + art2dDir + "/" + objsArt.texture);
+                Temp.AddComponent<ObjectAttributes>().attributes2d = objsArt;
+                MeshCollider collider = Temp.GetComponent<MeshCollider>();
+                collider.isTrigger = true;
+
+                Temp.name = obj.dir;
+
+                //CenterPivotAtBottomMiddle(Temp);
+
+                Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
+
+                Temp.transform.position += new Vector3(-objsArt.pos.x, objsArt.pos.y, -objsArt.pos.z);//position offset
+
+                Temp.transform.rotation = Quaternion.Euler(0, -90, 0);//rotate around y to get it into north east south west
+                Temp.transform.Rotate(new Vector3(0, obj.DirToAngle(), 0));//rotate around y to get it into north east south west
+                Temp.transform.Rotate(new Vector3(-objsArt.rot.x, objsArt.rot.y, -objsArt.rot.z));//added roation for inital direction
+
+                Temp.transform.localScale = new Vector3(objsArt.scale.x, objsArt.scale.y, objsArt.scale.z);
+
+                MeshRenderer quadMeshRenderer = Temp.GetComponent<MeshRenderer>();
+                quadMeshRenderer.material.SetFloat("_Metallic", objsArt.metallic); // 3 = Transparent mode in Standard shader
+                quadMeshRenderer.material.SetFloat("_Glossiness", objsArt.smoothness); // 3 = Transparent mode in Standard shader
+
+
+                //use this to support billboarding
+                //if billboard or not quad(dafault to billboard if invalid)
+                if (objsArt.displayType == "billboard" || objsArt.displayType != "quad")
+                {
+                    Temp.AddComponent<BillboardScript>();
+                }
+
+                //Debug.Log(obj.dir);
+                Temp.transform.parent = HolderObj.transform;
+            }
         }
         if (!visible)
         {
             GameObject Temp = Instantiate(placeHolder);
-            Temp.transform.position = new Vector3(0, 0, 0);
+            Temp.transform.position = new Vector3(newPos.y, 0, newPos.x);
             Temp.transform.parent = HolderObj.transform;
         }
         return HolderObj;
@@ -486,12 +809,16 @@ public class GlobalResources : MonoBehaviour
             child.position += offset;
         }
 
-        Debug.Log($"Pivot of '{target.name}' has been recentered to the bottom middle.");
+        //Debug.Log($"Pivot of '{target.name}' has been recentered to the bottom middle.");
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        placeingObjectText.GetComponent<TextMeshProUGUI>().text = "Placing: "+CurrentObjectSelectID;
+
+
+
     }
 }

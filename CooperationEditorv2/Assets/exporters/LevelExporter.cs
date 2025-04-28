@@ -47,13 +47,13 @@ public class LevelExporter : MonoBehaviour
     }
     public void createOutputYaml() {
         file = globres.levelFile;
-        Dictionary<string, List<string>> gridObjects = new Dictionary<string, List<string>>();
+        Dictionary<string, List<object>> gridObjects = new Dictionary<string, List<object>>();
         for (int y = 0; y < CurrentLevelMapped.GetLength(0); y++)
         {
             
             for (int x = 0; x < CurrentLevelMapped.GetLength(1); x++)
             {
-                List<string> cell = new List<string>();
+                List<object> cell = new List<object>();
                 string gridId = "" + (char)(x + 65) + (char)(y + 65);
                 if (CurrentLevelMapped[y, x] != null)
                 {

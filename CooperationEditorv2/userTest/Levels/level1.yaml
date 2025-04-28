@@ -1,0 +1,20 @@
+#EDITORPROG:
+include: [ main.yaml,LevelsShared.yaml ]
+fileProperties:
+  creatorName: <NAME>
+  
+sceneName: EmptyWorld
+postProcessing:
+  depthOfField: { enabled: false, focusDistance: 58, focalLength: 0.0, aperture: 1.0 }
+grid: |
+  AA, BB
+  CC, DD
+gridObjects:
+  AA: [floor, p1, p2]
+  BB: []
+  CC: []
+  DD: []
+  
+objectDefinitions:
+sounds:
+globalData:

@@ -1,0 +1,132 @@
+include: [ CoOpAnimationDefinitions.yaml ]
+
+fileProperties:
+  creatorName: Mind Feast Games
+
+sceneName: World1Dev
+
+grid:
+
+gridObjects:
+  gm: [ gm, delay, ConvayorManager, AdamManager ]
+  __: []
+  --: []
+  
+objectDefinitions:
+
+  gm: { mapObject: BlankStatic, mods: [ GameManager ] }
+  delay: { mapObject: BlankStatic, mods: [ ] }
+
+  scoreboard: { mapObject: Scoreboard, mods: [ Scoreboard ], tags: [ "scoreboard" ] }
+
+  playerCharacterBase:
+    mapObject: Custom
+    dir: east
+    mods: [ GridMoveMod-DirectCallingBased, CoOpActMod-DirectCallingBased, GridThrowMod-DirectCallingBased, PlayerSquashAndRespawn ]
+    data: { CameraTargetRadius: 0.5 }
+    tags: [ "player", "animated", "carrier", "thrower", "catcher", "blocksThrow", "blocksMove", "cameraTarget" ]
+    animationMappings:
+      - topic: 'state.player'
+        data: 'Idle'
+        animations: [ !Animation { animationDefinitionName: 'player_shared_idle' } ]
+      - topic: 'state.player'
+        data: 'IdleCarry'
+        animations: [ !Animation { animationDefinitionName: 'player_shared_idleCarry' } ]
+      - topic: 'state.player'
+        data: 'Run'
+        animations: [ !Animation { animationDefinitionName: 'player_shared_run' } ]
+      - topic: 'state.player'
+        data: 'RunCarry'
+        animations: [ !Animation { animationDefinitionName: 'player_shared_runCarry' } ]
+      - topic: 'state.player'
+        data: 'Bump'
+        animations: [ !Animation { animationDefinitionName: 'player_shared_bump' } ]
+      - topic: 'state.player'
+        data: 'BumpCarry'
+        animations: [ !Animation { animationDefinitionName: 'player_shared_bumpCarry' } ]
+      - topic: 'carrier.carryStart'
+        animations: [ !Animation { animationDefinitionName: 'player_shared_idleCarry' } ]
+      - topic: 'carrier.carryStop'
+        animations: [ !Animation { animationDefinitionName: 'player_shared_idle' } ]
+      - topic: 'thrower.throw'
+        animations: [ !Animation { animationDefinitionName: 'player_shared_throw' } ]
+
+  # Player Character 1 (Athlete)
+  p1:
+    base: [ "playerCharacterBase" ]
+    art2d:
+      - displayType: "spineAnimation"
+        textures: [ "Athlete.png" ]
+        normalMapTextures: [ "Athlete_NormalMap.png" ]
+        spineAtlas: "Athlete.atlas.txt"
+        spineSkeletonJSON: "Athlete.json"
+        scale: { x: 0.33, y: 0.33 }
+    animationMappings:
+      - topic: 'state.player'
+        data: 'WaitSpecial'
+        animations: [ !Animation { animationDefinitionName: 'player_athlete_wait' } ]
+
+
+  # Player Character 2 (Footballer)
+  p2:
+    base: [ "playerCharacterBase" ]
+    art2d:
+      - displayType: "spineAnimation"
+        textures: [ "Footballer.png" ]
+        normalMapTextures: [ "Footballer_NormalMap.png" ]
+        spineAtlas: "Footballer.atlas.txt"
+        spineSkeletonJSON: "Footballer.json"
+        scale: { x: 0.33, y: 0.33 }
+    animationMappings:
+      - topic: 'state.player'
+        data: 'WaitSpecial'
+        animations: [ !Animation { animationDefinitionName: 'player_footballer_wait' } ]
+
+  # Player Character 3 (Clown)
+  p3:
+    base: [ "playerCharacterBase" ]
+    art2d:
+      - displayType: "spineAnimation"
+        textures: [ "Clown.png" ]
+        normalMapTextures: [ "Clown_NormalMap.png" ]
+        spineAtlas: "Clown.atlas.txt"
+        spineSkeletonJSON: "Clown.json"
+        scale: { x: 0.39, y: 0.39 }
+    animationMappings:
+      - topic: 'state.player'
+        data: 'WaitSpecial'
+        animations: [ !Animation { animationDefinitionName: 'player_clown_wait' } ]
+
+  # Player Character 4 (Chef)
+  p4: { mapObject: Player 4, mods: [ GridMoveMod-DirectCallingBased, CoOpActMod-DirectCallingBased, GridThrowMod-DirectCallingBased, PlayerSquashAndRespawn ], data: { CameraTargetRadius: 0.5 }, tags: [ "player" ] }
+
+  
+  lightbulb_e:   { mapObject: LightBulb, dir: east, tags: [ "static" ] }
+  lightbulb_s:   { mapObject: LightBulb, dir: south, tags: [ "static" ] }
+
+  # Springy bush (launches patients into the air)
+  spring:
+    mapObject: Bush_3B
+    dir: north
+    tags: ['spring', 'animated']
+    mods: [ Spring ]
+    animationMappings:
+      - topic: 'springing'
+        animations: [!Animation { animationDefinitionName: 'wobble_bush' }]
+
+ 
+  # Blank object tagged as 'floor'
+  blankFloor: { mapObject: BlankStatic, tags: ['floor'] }
+
+music:
+  CoOperationLevelMusic: { usePreset: true }
+  MenuMusic: { usePreset: true }
+
+sounds:
+  CatchPatient: { fileNames: [ CatchPatient.wav ] }
+  PickUpPatient: { fileNames: [ PickUpPatient.wav ] }
+  PutPatientInBed: { fileNames: [ PutPatientInBed.wav ] }
+  ThrowPatient: { fileNames: [ ThrowPatient.wav ] }
+  WrongMedicine: { fileNames: [ PlayerCollide.wav ] }
+  InvalidAction: { fileNames: [ PlayerCollide.wav ] }
+  Walk: { fileNames: [ Walk1_1.ogg, Walk1_2.ogg, Walk1_3.ogg, Walk1_4.ogg ] }

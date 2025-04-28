@@ -1,0 +1,47 @@
+# Properties about the file like its creator
+fileProperties:
+  creatorName: Group 23
+
+# Package Info
+# Name and description will be displayed in the user interface
+packageName: Frankenstein
+packageDescription: Build Frankenstein in this zany package of levels!
+packageVersion: "0.1.0"
+
+# Levels
+# All of the levels contained within this package
+# Each level has the following properties:
+#   - levelId: Unique id for the level
+#   - levelName: The name that will displayed in the user interface
+#   - unlockedByDefault: If true, the level will be playable from the start
+#                          If false, the previous level will have to be completed first
+#   - minCuresToProgress: The minimum number of patients that must be cured to
+#                           complete the level and progress to the next one
+#   - levelCutscene: Name (if any) of the cutscene to be played
+#   - levelFiles: List of yaml files that define this level
+#       -- playerCount: If this many people are playing, the level file will be used
+#       -- fileName: Name of the yaml file to be loaded
+
+levels:
+
+  - levelId: ozzys_tutorial
+    levelName: Level 2 - Conveyor Belt Tutorial
+    unlockedByDefault: true
+    minCuresToProgress: 0
+    levelCutscene: ""
+    levelFiles:
+      - { playerCount: 2, fileName: "ConvTutorial_players_2" }
+      - { playerCount: 3, fileName: "ConvTutorial_players_3" }
+      - { playerCount: 4, fileName: "ConvTutorial_players_4" }
+
+  - levelId: ozzys_1
+    levelName: Level 8 - WHAT IS GOING ON??
+    unlockedByDefault: false
+    minCuresToProgress: 0
+    levelCutscene: ""
+    levelFiles:
+      - { playerCount: 2, fileName: "ozzy_1_players_2" }
+      - { playerCount: 3, fileName: "ozzy_1_players_3" }
+      - { playerCount: 4, fileName: "ozzy_1_players_4" }
+
+
